@@ -22,39 +22,60 @@ public class Destiny extends Hero{
 	}
 
 	public void startOfTurn() {
-		System.out.println("hi");
 		rewriteBuff(new BuffStack("Tranquility",this,-1,false,1),buffs);
 		super.startOfTurn();
 	}
 
 	public void showAb1() {
-		if(queue1.size()==0||hasBuff("Tranquility")) {
+		if(queue1.size()==0) {
+			if(hasBuff("Tranquility"))
+				queue1.add(((BuffStack)getBuff("Tranquility")).stacks);
+			else
+				queue1.add(0);
+		}
+		if(queue1.size()==1||hasBuff("Tranquility")) {
 			for(Hex h:grid.hexes) {
 				if(h.hasAlly(this)) {
 					h.color = Color.red;
 				}
 			}
-			for(Object o: queue1) {
+			for(int i =1;i<queue1.size();i++) {
+				Object o = queue1.get(i);
 				((Hex)o).color=null;
 			}
 		}
 		position.color=Color.GREEN;
 
 	}
-	
+
 	public void clearAb1() {
+		try {
+			if(((int)queue1.get(0))!=0) {
+				if(hasBuff("Tranquility")) {
+					((BuffStack)getBuff("Tranquility")).stacks=(int) queue1.get(0);
+				}else {
+					rewriteBuff(new BuffStack("Tranquility",this,-1,false,(int) queue1.get(0)),buffs);
+				}
+			}
+		}catch(Exception e) {}
 		queue1.clear();
 		grid.game.setButtons();
 	}
 
 	public void ability1(Hex h) {
 		if(h==position) {
-			System.out.println(queue1.size());
+			for(int i =1;i<queue1.size();i++) {
+				Object o = queue1.get(i);
+				((Hex)o).occupied.heal(40);
+				addBuff(((Hex)o).occupied,new Buff("Spiritual Unity",this,3,false));
+			}
+			queue1.clear();
 			abcdDelay[0]=true;
 			grid.game.endOfTurn();
-		}else if(queue1.size()>0){
+		}else if(queue1.size()>1){
 			queue1.add(h);
-			if(hasBuff("Tranquility")) {
+			if(hasBuff("Enlightenment")) {}
+			else if(hasBuff("Tranquility")) {
 				((BuffStack)getBuff("Tranquility")).stacks--;
 				if(((BuffStack)getBuff("Tranquility")).stacks<=0) {
 					removeSameBuff("Tranquility");
@@ -69,7 +90,7 @@ public class Destiny extends Hero{
 			grid.game.pass.setEnabled(false);
 			grid.game.visual.clear();
 			showAb1();
-		}else if(queue1.size()==0) {
+		}else if(queue1.size()==1) {
 			queue1.add(h);
 			grid.game.move.setEnabled(false);
 			grid.game.basic.setEnabled(false);
@@ -83,40 +104,182 @@ public class Destiny extends Hero{
 		}
 	}
 
-	@Override
+	public boolean ableAb2() {
+		if((hasBuff("Tranquility")&&((BuffStack)getBuff("Tranquility")).stacks>=2)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public void showAb2() {
-		// TODO Auto-generated method stub
-
+		if(queue2.size()==0) {
+			queue2.add(((BuffStack)getBuff("Tranquility")).stacks);
+		}if(queue2.size()==1) {
+			for(Hex h:grid.hexes) {
+				if(h.hasEnemy(this)) {
+					h.color=Color.red;
+				}
+			}
+		}else if(queue2.size()>=2){
+			((Hex)queue2.get(1)).color = Color.red;
+		}
+		position.color=Color.green;
 	}
 
-	@Override
+	public void clearAb2() {
+		try {
+			if(hasBuff("Tranquility")) {
+				((BuffStack)getBuff("Tranquility")).stacks=(int) queue2.get(0);
+			}else {
+				rewriteBuff(new BuffStack("Tranquility",this,-1,false,(int) queue2.get(0)),buffs);
+			}
+		}catch(Exception e) {}
+		queue2.clear();
+		grid.game.setButtons();
+	}
+
 	public void ability2(Hex h) {
-		// TODO Auto-generated method stub
-
+		if(h==position) {
+			addDebuff(((Hex)queue2.get(1)).occupied,new Debuff("Stunned",this,queue2.size()-1,false));
+			queue2.clear();
+			abcdDelay[1]=true;
+			grid.game.endOfTurn();
+		}else if(queue2.size()>=2) {
+			queue2.add(1);
+			if(hasBuff("Enlightenment")) {}
+			else if(hasBuff("Tranquility")) {
+				((BuffStack)getBuff("Tranquility")).stacks-=2;
+				if(((BuffStack)getBuff("Tranquility")).stacks<=0) {
+					removeSameBuff("Tranquility");
+				}
+			}
+			grid.game.setButtons();
+			grid.game.move.setEnabled(false);
+			grid.game.basic.setEnabled(false);
+			grid.game.ab1.setEnabled(false);
+			grid.game.ab3.setEnabled(false);
+			grid.game.ult.setEnabled(false);
+			grid.game.pass.setEnabled(false);
+			grid.game.visual.clear();
+			position.color=Color.green;
+		}else if(queue2.size()==1){
+			queue2.add(h);
+			if(hasBuff("Enlightenment")) {}
+			else {
+				((BuffStack)getBuff("Tranquility")).stacks-=2;
+				if(((BuffStack)getBuff("Tranquility")).stacks<=0) {
+					removeSameBuff("Tranquility");
+				}
+			}
+			grid.game.setButtons();
+			grid.game.move.setEnabled(false);
+			grid.game.basic.setEnabled(false);
+			grid.game.ab1.setEnabled(false);
+			grid.game.ab3.setEnabled(false);
+			grid.game.ult.setEnabled(false);
+			grid.game.pass.setEnabled(false);
+			grid.game.visual.clear();
+			position.color=Color.green;
+		}
 	}
 
-	@Override
+	public boolean ableAb3() {
+		if((hasBuff("Tranquility")&&((BuffStack)getBuff("Tranquility")).stacks>=2)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public void showAb3() {
-		// TODO Auto-generated method stub
-
+		if(queue3.size()==0) {
+			queue3.add(((BuffStack)getBuff("Tranquility")).stacks);
+		}if(queue3.size()%2!=0) {//remove those already selected
+			for(Hex h:grid.hexes) {
+				if(position.distance(h)==1&&h.occupied==null) {
+					h.color=Color.red;
+				}
+			}
+		}else if(queue3.size()>1&&queue3.size()%2==0){//remove those already selected
+			for(Hex h:grid.hexes) {
+				if(h.hasAlly(this)) {
+					h.color=Color.red;
+				}
+			}
+		}
+		for(int i = 1;i<queue3.size();i++) {
+			((Hex)queue3.get(i)).color=null;
+		}
+		position.color=Color.green;
 	}
 
-	@Override
+	public void clearAb3() {
+		try {
+			if(hasBuff("Tranquility")) {
+				((BuffStack)getBuff("Tranquility")).stacks=(int) queue3.get(0);
+			}else {
+				rewriteBuff(new BuffStack("Tranquility",this,-1,false,(int) queue3.get(0)),buffs);
+			}
+		}catch(Exception e) {}
+		queue3.clear();
+		grid.game.setButtons();
+	}
+
 	public void ability3(Hex h) {
-		// TODO Auto-generated method stub
-
+		if(h==position) {
+			try {
+				for(int i =1;i<queue3.size();i+=2) {
+					((Hex)queue3.get(i+1)).occupied.setPosition(((Hex)queue3.get(i)));
+				}
+			}catch(Exception e) {}
+			queue3.clear();
+			abcdDelay[2]=true;
+			grid.game.endOfTurn();
+		}else if(queue3.size()%2!=0) {//adj tile
+			queue3.add(h);
+			grid.game.move.setEnabled(false);
+			grid.game.basic.setEnabled(false);
+			grid.game.ab1.setEnabled(false);
+			grid.game.ab2.setEnabled(false);
+			grid.game.ab3.setEnabled(false);
+			grid.game.ult.setEnabled(false);
+			grid.game.pass.setEnabled(false);
+			grid.game.visual.clear();
+			showAb3();
+		}else if(queue3.size()>1&&queue3.size()%2==0) {//select ally
+			queue3.add(h);
+			if(hasBuff("Enlightenment")) {}
+			else {
+				((BuffStack)getBuff("Tranquility")).stacks-=2;
+				if(((BuffStack)getBuff("Tranquility")).stacks<=0) {
+					removeSameBuff("Tranquility");
+				}
+			}
+			grid.game.setButtons();
+			grid.game.move.setEnabled(false);
+			grid.game.basic.setEnabled(false);
+			grid.game.ab1.setEnabled(false);
+			grid.game.ab2.setEnabled(false);
+			grid.game.ult.setEnabled(false);
+			grid.game.pass.setEnabled(false);
+			grid.game.visual.clear();
+			position.color=Color.green;
+		}
 	}
 
-	@Override
 	public void showUlt() {
-		// TODO Auto-generated method stub
-
+		ultimate(null);
 	}
 
-	@Override
 	public void ultimate(Hex h) {
-		// TODO Auto-generated method stub
-
+		addBuff(this,new BuffStack("Tranquility",this,-1,false,9));
+		addBuff(this,new Buff("Enlightenment",this,1,true));
+		setStamina();
+		abcdDelay[3]=true;
+		grid.game.endOfTurn();
 	}
 
 }

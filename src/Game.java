@@ -251,7 +251,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasAb1()) {
 			ab1.setText("Ability 1 ("+currentUnit.ab1cd+")");
-			if(currentUnit.ab1cd!=0) {
+			if(currentUnit.ab1cd!=0||!currentUnit.ableAb1()) {
 				ab1.setEnabled(false);
 			}else {
 				ab1.setEnabled(true);
@@ -263,7 +263,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasAb2()) {
 			ab2.setText("Ability 2 ("+currentUnit.ab2cd+")");
-			if(currentUnit.ab2cd!=0) {
+			if(currentUnit.ab2cd!=0||!currentUnit.ableAb2()) {
 				ab2.setEnabled(false);
 			}else {
 				ab2.setEnabled(true);
@@ -275,7 +275,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasAb3()) {
 			ab3.setText("Ability 3 ("+currentUnit.ab3cd+")");
-			if(currentUnit.ab3cd!=0) {
+			if(currentUnit.ab3cd!=0||!currentUnit.ableAb3()) {
 				ab3.setEnabled(false);
 			}else {
 				ab3.setEnabled(true);
@@ -287,7 +287,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasUlt()) {
 			ult.setText("Ultimate ("+currentUnit.ultcd+")");
-			if(currentUnit.ultcd!=0) {
+			if(currentUnit.ultcd!=0||!currentUnit.ableUlt()) {
 				ult.setEnabled(false);
 			}else {
 				ult.setEnabled(true);

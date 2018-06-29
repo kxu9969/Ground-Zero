@@ -147,6 +147,9 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
+		if(hasBuff("Spiritual Unity")) {
+			damage+=10;
+		}
 		damage = h.occupied.takeBasic(damage, this, armor, shield);
 		basicAttackedThisTurn = true;
 		if(hasLeech()) {//buffs for lifesteal
@@ -569,4 +572,9 @@ public abstract class Unit {//broadest branch, all space takers
 	public abstract void showUlt();
 	public void clearUlt() {};
 	public abstract void ultimate(Hex h);
+	public boolean ableAb1() {return true;}
+	public boolean ableAb2() {return true;}
+	public boolean ableAb3() {return true;}
+	public boolean ableUlt() {return true;}
+
 }
