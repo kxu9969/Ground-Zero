@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class SpiritGuide extends Summon{
+public class FeralGuide extends Summon{
 
-	SpiritGuide(Grid grid, String name, String team, Hex h) {
+	FeralGuide(Grid grid, String name, String team, Hex h) {
 		super(grid, name, team, h);
 	}
 
@@ -15,6 +15,8 @@ public class SpiritGuide extends Summon{
 		armor = 0;
 		armorPiercing = 0;
 		basicRange = 1;	
+		qU="A spirit summoned by Kaj, it is able to buff adjacent allies but can be killed.";
+		qP="Nature’s Mending:  At the end of your turn, heal adjacent allies for 40. Nature’s Wrath: Adjacent allies have +10 damage on their basic attacks.";
 	}
 	
 	public ArrayList<Unit> inAura(){

@@ -21,7 +21,13 @@ public class Kaj extends Hero{
 		ab1cdMax = 3;
 		ab2cdMax = 2;
 		ab3cdMax = 4;
-		ultcdMax = 8;		
+		ultcdMax = 8;	
+		qU="A wandering seer that fills allies with the power of the earth, Kaj can summon the bounty of nature to heal allies and deter foes, and even summon a powerful effigy to join the fight. His spells are powerful but are unable to discriminate between allies and enemies.";
+		qP="Wild Fortitude: Other ally heroes and summons have +10% max health while Kaj is alive.";
+		q1="Nature’s Bounty (3): Creates a spring on a tile, healing occupants for 30 at the end of their turn. Non-discriminatory.";
+		q2="Verdant Thicket (2): Summons a wall of trees with 50 health to block a tile for 2 turns. Non-discriminatory. If summoned on an occupied tile, instead roots occupants for 2 turns.";
+		q3="Feral Guide (4): Summons a spirit that heals adjacent allies for 40 at the end of its turn and increases their damage by 10.";
+		q4="Spirit Effigy (8): Create an exact copy of a target hero with half their current and max health and current stamina of 0. No timed life. They cannot use ultimates.";
 	}
 
 	public void showAb1() {
@@ -81,7 +87,7 @@ public class Kaj extends Hero{
 		else {
 			str="Team 2";
 		}
-		SpiritGuide b = new SpiritGuide(grid,"Spirit Guide",str,h);
+		FeralGuide b = new FeralGuide(grid,"Feral Guide",str,h);
 		grid.game.addUnit(b);
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

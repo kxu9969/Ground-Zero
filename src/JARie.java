@@ -19,6 +19,12 @@ public class JARie extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 3;
 		ultcdMax = 8;
+		qU="A potato-powered robot of destruction, JAR.ie reconfigures himself for optimal combat roles and is able to overwhelm even the strongest of foes with a flurry of attacks.";
+		qP="Fear the Potato: Basic attacks against targets with more health than you deal an additional 40 damage. You cannot move the turn after you use an ability.";
+		q1="Configuration: Hyper-Potato (3): You can now attack twice a turn. Remove previous configuration. Root yourself for one turn.";
+		q2="Configuration: FMJ Plasma (3): Your basic attacks now ignore armor. Remove previous configuration. Root yourself for one turn.";
+		q3="Configuration: Leeching Potato (3): Your basic attacks now have lifesteal. Remove previous configuration. Root yourself for one turn.";
+		q4="Über Potato (8): Activate all configurations for 3 turns. Root yourself for one turn.";
 	}
 	
 	public void basicAttack(Hex h) {

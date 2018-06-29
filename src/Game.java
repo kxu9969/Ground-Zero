@@ -433,12 +433,12 @@ public class Game implements MouseListener, MouseMotionListener{
 				description.setVisible(true);
 			}else if(e.getSource()==qC) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.qC));}});
+				description.add(new JPanel() {{add(new JLabel(currentUnit.qP));}});
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==qP) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.qP));}});
+				description.add(new JPanel() {{add(new JLabel(currentUnit.qU));}});
 				description.pack();
 				description.setVisible(true);
 			}

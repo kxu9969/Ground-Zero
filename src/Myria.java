@@ -19,6 +19,12 @@ public class Myria extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 3;
 		ultcdMax = 8;
+		qU="A powerful initiator, Myria is able to start fights on her terms, stunning enemies when she flys in from a distance and pulling back those who try to escape the bloodbath.";
+		qP="Fires of Hell: All enemies take 10 damage at the start of your turn, ignoring armor and shields.";
+		q1="Fireburst (2): Dash to the target within 3 tiles, attack them, and stun them for 1 turn.";
+		q2="Flame Whip (4): Pull an enemy within 5 tiles to an adjacent tile and root them for 1 turn. Basic attack them.";
+		q3="Wings of Sin (5): Fly to a target tile within 6 tiles, stunning adjacent enemies for 1 turn.";
+		q4="Succubus’ Rage (8): Basic attacks stun targets for 1 turn and have lifesteal. Lasts 5 turns.";
 	}
 	
 	public void startOfTurn() {

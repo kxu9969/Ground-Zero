@@ -21,6 +21,12 @@ public class Malor extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 3;
 		ultcdMax = 8;
+		qU="A powerful damage dealer, Malor is able to quickly counterattack and steal life from his enemies. His attacks are able to deal heavy area damage but his low health means he requires careful positioning.";
+		qP="Vampiric Chains: Counterattacks if possible, attacks have lifesteal.";
+		q1="Whiplash (2): Attacks an adjacent enemy twice, ignoring armor.";
+		q2="Impale (3): Deal 40 damage to all adjacent tiles, healing 20 for each target hit.";
+		q3="Whirling Scythes (3): Can move and basic attack for 2 turns. Refill stamina immediately.";
+		q4="The Culling (8): Deal damage in a line, ignoring armor and shields, healing 40 for each target hit.";
 	}
 	
 	public int takeBasic(int damage, Unit attacker, boolean armor, boolean shield) {//process armor

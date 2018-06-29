@@ -19,7 +19,13 @@ public class LARie extends Hero{
 		ab1cdMax = 1;
 		ab2cdMax = 3;
 		ab3cdMax = 2;
-		ultcdMax = 8;		
+		ultcdMax = 8;	
+		qU="A little robot with a big heart, LAR.ie grows in power to fell titans in a single blow. He’s a powerful tank that can disrupt enemies but deal surprising damage when called for.";
+		qP="Rev’n Up: At the end of each turn, if you did not basic attack, gain 1 stack of Rev’n Up, boosting the damage of your next attack by 15. This caps at 9 stacks.";
+		q1="Right Hook (1): Deal 20 damage to an adjacent enemy, ignoring armor and pushing them back a tile.";
+		q2="Block (3): Heal for 40 health and ignore the next damage taken.";
+		q3="Ground Pound (2): Deal 30 damage to adjacent enemies, dealing an additional 10 damage for each enemy hit.";
+		q4="REVVED UP (8): Gain max stacks of Rev’n Up and gain a shield for 200.";
 	}
 	
 	public void basicAttack(Hex h) {

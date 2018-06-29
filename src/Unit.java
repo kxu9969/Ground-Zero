@@ -12,15 +12,15 @@ public abstract class Unit {//broadest branch, all space takers
 	boolean hasAb1,hasAb2,hasAb3,hasUlt=true;
 	Hex position;
 	Grid grid;
-	String name,qM,qB,q1,q2,q3,q4,qC,qP;{
+	String name,qM,qB,q1,q2,q3,q4,qP,qU;{
 		qM = "Target an unoccupied tile within a range of 3 to move onto";
 		qB = "Target an enemy within range to execute a basic attack";
 		q1 = "Ability 1 text";
 		q2 = "Ability 2 text";
 		q3 = "Ability 3 text";
 		q4 = "Ult text";
-		qC = "Cancel your current action";
-		qP = "Pass the turn";}
+		qP = "Passive description text";
+		qU = "Unit description text";}
 	ArrayList<Unit> team;
 	ArrayList<Unit> enemyTeam;
 	ArrayList<Unit> inAura = new ArrayList<Unit>();

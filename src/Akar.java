@@ -21,14 +21,20 @@ public class Akar extends Hero{
 		ab1cdMax = 3;
 		ab2cdMax = 4;
 		ab3cdMax = 3;
-		ultcdMax = 8;			
+		ultcdMax = 8;
+		qU = "A powerful support character, Ak’ar is able to increase the vitality of his allies, protecting them with summoned creatures, healing them, and denying enemies favorable positioning.";
+		qP = "Fireblood: At the end of your turn, heal for 40 current health.";
+		q1 = "Thornscales (3): Mark an ally, healing them for 30 and making them return damage taken for 2 turns.";
+		q2 = "Swamp Spirit (4): Summon a Bog Beast on an unoccupied adjacent tile. Lasts for 3 of its turns.";
+		q3 = "Mark up to three enemies to take additional 20 damage when attacked ignoring armor and shield for 2 turns.";
+		q4 = "Infect a tile, causing it to deal 20 damage to occupants ignoring armor and shield at the start of their turn. The infection spreads to all adjacent tile every turn and lasts 2 turns.";
 	}
 
 	public void endOfTurn() {
 		heal(40);
 		super.endOfTurn();
 	}
-	
+
 	public void showAb1() {
 		for(Hex h: grid.hexes) {
 			if(h.hasAlly(this)) {
@@ -103,7 +109,7 @@ public class Akar extends Hero{
 			grid.game.visual.clear();
 			showAb3();
 		}
-		
+
 	}
 
 	public void showUlt() {

@@ -26,7 +26,13 @@ public class Charity extends Hero{
 		ab1cdMax = 2;
 		ab2cdMax = 1;
 		ab3cdMax = 2;
-		ultcdMax = 8;			
+		ultcdMax = 8;
+		qU="A powerful healer, Charity is a support character who can is best at healing allies. Her skill even lets her revive a fallen ally to rejoin the battle, and her ample healing makes her team extremely resilient.";
+		qP="Blessing of Strength: Adjacent allies heal 20 health at the start of your turn.";
+		q1="Vigor (2): Heal an ally within 3 tiles for 100 health and remove all debuffs.";
+		q2="Weight of Sin (1): Root an enemy for 1 turn.";
+		q3="Divine Radiance (2): Heal up to 3 other allies that are adjacent to each other for 20 health at the start of each turn for 3 turns.";
+		q4="Spiritual Tether (8): Revive a dead ally with 10% of their maximum health.";
 	}
 
 	public void startOfTurn() {

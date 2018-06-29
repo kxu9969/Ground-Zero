@@ -14,6 +14,8 @@ public class BogBeast extends Summon{
 		armor = 50;
 		armorPiercing = 70;
 		basicRange = 1;	
+		qU="A monstrosity summoned by Ak’ar, it can root enemies with basic attacks and is hard to kill.";
+		qP="Tendrils: Basic attacks root the target for 1 turn. Timed Life:  This unit automatically dies after 3 of its turns.\r\n";
 	}
 	
 	public void basicAttack(Hex h) {
