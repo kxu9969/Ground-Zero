@@ -29,10 +29,10 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
 	Unit currentUnit = new Akar(grid,"Akar","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new Charity(grid,"Charity","Team 2",new Hex(4,2,-6));
-//	Hero one = new Serenity(grid,"Serenity","Team 2",new Hex(6,2,-8));
+	Hero tempHero = new Destiny(grid,"Destiny","Team 2",new Hex(4,2,-6));
+	Hero one = new Serenity(grid,"Serenity","Team 2",new Hex(6,2,-8));
 	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
-//	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
+	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 
 	final static int Visual_Width = 1000;
 	final static int Visual_Height = 700;
@@ -57,12 +57,12 @@ public class Game implements MouseListener, MouseMotionListener{
 		units.add(currentUnit);
 		this.team2.add(tempHero);
 		units.add(tempHero);
-//		this.team2.add(one);
+		this.team2.add(one);
 		this.team2.add(two);
-//		this.team2.add(three);
-//		units.add(one);
+		this.team2.add(three);
+		units.add(one);
 		units.add(two);
-//		units.add(three);
+		units.add(three);
 
 		for(Unit h:units) {
 			grid.getHex(h.position).occupied=h;

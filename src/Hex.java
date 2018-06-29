@@ -40,8 +40,10 @@ class Hex
 	}
 	
 	public void removeEffect(Effect d) {
-		d.onRemoval();
-		effects.remove(d);
+		if(!d.enchant||d.duration==0) {
+			d.onRemoval();
+			effects.remove(d);
+		}
 	}
 	
 	public boolean hasEffect(String str) {

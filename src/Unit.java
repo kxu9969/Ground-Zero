@@ -386,8 +386,10 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 	
 	public void removeBuff(Buff b) {
-		b.onRemoval();
-		buffs.remove(b);
+		if(!b.enchant||b.duration==0) {
+			b.onRemoval();
+			buffs.remove(b);
+		}
 	}
 
 	public void removeSameDebuff(String str) {
@@ -403,8 +405,10 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 	
 	public void removeDebuff(Debuff d) {
-		d.onRemoval();
-		debuffs.remove(d);
+		if(!d.enchant||d.duration==0) {
+			d.onRemoval();
+			debuffs.remove(d);
+		}
 	}
 
 	public boolean hasBuff(String str) {
