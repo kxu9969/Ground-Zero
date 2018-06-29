@@ -1,0 +1,567 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+public class Game implements MouseListener, MouseMotionListener{
+	JFrame frame;
+	JPanel mainPanel;
+	JPanel buttons;
+	Visual visual;
+	JFrame description;
+	JFrame information;
+	boolButton move,basic,ab1,ab2,ab3,ult,cancel,pass;
+	JButton qM,qB,q1,q2,q3,q4,qC,qP;
+	ArrayList<boolButton> buttonList;
+	ArrayList<Unit> units = new ArrayList<Unit>();
+	ArrayList<Unit> team1 = new ArrayList<Unit>();
+	ArrayList<Unit> team2 = new ArrayList<Unit>();
+	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
+	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
+	Grid grid = new Grid(this);;
+	Unit currentUnit = new Akar(grid,"Akar","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new Charity(grid,"Charity","Team 2",new Hex(4,2,-6));
+//	Hero one = new Serenity(grid,"Serenity","Team 2",new Hex(6,2,-8));
+	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
+//	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
+
+	final static int Visual_Width = 1000;
+	final static int Visual_Height = 700;
+	int nextUnitCounter = 0;
+	boolean ending = false;
+
+	Game(ArrayList<String> team1,ArrayList<String>team2){		
+
+		for(String str:team1) {
+			this.team1.add(makeHero(str, "Team 1"));
+		}
+		for(String str:team2) {
+			this.team2.add(makeHero(str,"Team 2"));
+		}
+		for(Unit h:this.team1) {
+			this.units.add(h);
+		}
+		for(Unit h:this.team2) {
+			this.units.add(h);
+		}
+		this.team1.add(currentUnit);
+		units.add(currentUnit);
+		this.team2.add(tempHero);
+		units.add(tempHero);
+//		this.team2.add(one);
+		this.team2.add(two);
+//		this.team2.add(three);
+//		units.add(one);
+		units.add(two);
+//		units.add(three);
+
+		for(Unit h:units) {
+			grid.getHex(h.position).occupied=h;
+		}
+
+		loadGame();
+		nextTurn();
+	}
+
+	public void loadGame() {
+		frame = new JFrame("Ground Zero");
+		visual = new Visual(grid);
+		buttons = new JPanel();
+		mainPanel = new JPanel();
+		move = new boolButton("Move");
+		basic = new boolButton("Basic Attack");
+		ab1 = new boolButton("Ability 1 (0)");
+		ab2 = new boolButton("Ability 2 (0)");
+		ab3 = new boolButton("Ability 3 (0)");
+		ult = new boolButton("Ultimate (8)");
+		cancel = new boolButton("Cancel");
+		pass = new boolButton("Pass Turn");
+		qM = new JButton("?");
+		qB = new JButton("?");
+		q1 = new JButton("?");
+		q2 = new JButton("?");
+		q3 = new JButton("?");
+		q4 = new JButton("?");
+		qC = new JButton("?");
+		qP = new JButton("?");
+		buttonList = new ArrayList<boolButton>() {{add(move);add(basic);add(ab1);add(ab2);add(ab3);add(ult);add(cancel);add(pass);}};
+		for(boolButton b:buttonList) {
+			b.addActionListener(new buttonListener());
+		}
+		qM.addActionListener(new buttonListener());
+		qB.addActionListener(new buttonListener());
+		q1.addActionListener(new buttonListener());
+		q2.addActionListener(new buttonListener());
+		q3.addActionListener(new buttonListener());
+		q4.addActionListener(new buttonListener());
+		qC.addActionListener(new buttonListener());
+		qP.addActionListener(new buttonListener());
+		visual.addMouseListener(this);
+		visual.addMouseMotionListener(this);
+
+		visual.setPreferredSize(new Dimension(Visual_Width,Visual_Height));
+		buttons.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill=GridBagConstraints.HORIZONTAL;
+		c.ipady = 10; //increases button height
+		c.insets = new Insets(10,0,0,5); //buffer space: above,left,below,right
+		c.gridy=0;
+		buttons.add(move,c);
+		c.gridy=1;
+		buttons.add(basic,c);
+		c.gridy=2;
+		buttons.add(ab1,c);
+		c.gridy=3;
+		buttons.add(ab2,c);
+		c.gridy=4;
+		buttons.add(ab3,c);
+		c.gridy=5;
+		buttons.add(ult,c);
+		c.gridy=6;
+		buttons.add(cancel,c);
+		c.gridy=7;
+		buttons.add(pass,c);
+		c.gridx=1;
+		c.gridy=0;
+		buttons.add(qM,c);
+		c.gridy=1;
+		buttons.add(qB,c);
+		c.gridy=2;
+		buttons.add(q1,c);
+		c.gridy=3;
+		buttons.add(q2,c);
+		c.gridy=4;
+		buttons.add(q3,c);
+		c.gridy=5;
+		buttons.add(q4,c);
+		c.gridy=6;
+		buttons.add(qC,c);
+		c.gridy=7;
+		buttons.add(qP,c);
+		mainPanel.add(visual);
+		mainPanel.add(buttons);
+		frame.add(mainPanel);
+		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+
+		description = new JFrame("Description");
+		description.setLocation(1200, 200);
+		information = new JFrame("Information");
+		information.setLocation(1200, 400);
+	}
+
+	public void startOfTurn() {
+		for(Unit u:units) {
+			u.updateAura();
+		}
+		currentUnit.startOfTurn();
+		clear();
+		setButtons();//check for silence after setButtons
+		if(currentUnit.hasDebuff("Stunned")) {
+			System.out.println(currentUnit.name+" Stunned");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+			endOfTurn();
+		}
+	}
+
+	public void endOfTurn() {
+		ending = true;
+		currentUnit.endOfTurn();
+		currentUnit.tickAbilities();
+		currentUnit.tickBuffs();
+		currentUnit.tickDebuffs();
+		currentUnit.addSelfBuffs();
+		currentUnit.addSelfDebuffs();
+		for(Hex h:grid.hexes) {
+			h.tickEffects();
+		}
+		for(int i = 0;i<occupants.size();i++) {
+			Occupant o = occupants.get(i);
+			o.endOfTurn();
+			o.tickAbilities();
+			o.tickBuffs();
+			o.tickDebuffs();
+			o.addSelfBuffs();
+			o.addSelfDebuffs();
+		}
+		for(boolButton b:buttonList) {
+			b.lock = false;
+		}
+		ending = false;
+		clear();
+		nextTurn();
+	}
+
+	public void nextTurn() {
+		if(currentUnit.currentStamina>=currentUnit.maxStamina) {//grants another turn if just refilled
+			startOfTurn();
+		}else {
+			outerloop:
+				while(true) {
+					for(;nextUnitCounter<units.size();nextUnitCounter++) {//keeps track of current place in list
+						if(units.get(nextUnitCounter).currentStamina>=units.get(
+								nextUnitCounter).maxStamina&&!units.get(nextUnitCounter).dead) {
+							currentUnit = units.get(nextUnitCounter);
+							nextUnitCounter++;
+							break outerloop;
+						}else if(!units.get(nextUnitCounter).dead){
+							units.get(nextUnitCounter).currentStamina+=5;
+						}
+					}
+					
+					for(Unit u:toBeRemoved) {
+						units.remove(u);
+						u.team.remove(u);
+					}
+					toBeRemoved.clear();
+					nextUnitCounter = 0;
+
+				}
+		startOfTurn();
+		}
+	}
+	
+	public void addUnit(Unit u) {
+		u.team.add(u);
+		units.add(u);
+	}
+	
+	public void removeUnit(Unit u) {
+		toBeRemoved.add(u);
+	}
+
+	public void setButtons() {
+		if(currentUnit.hasDebuff("Rooted")) {
+			move.setEnabled(false);
+		}else {
+			move.setEnabled(true);
+		}
+		if(currentUnit.hasAb1()) {
+			ab1.setText("Ability 1 ("+currentUnit.ab1cd+")");
+			if(currentUnit.ab1cd!=0) {
+				ab1.setEnabled(false);
+			}else {
+				ab1.setEnabled(true);
+			}
+		}
+		else {
+			ab1.setText("");
+			ab1.setEnabled(false);
+		}
+		if(currentUnit.hasAb2()) {
+			ab2.setText("Ability 2 ("+currentUnit.ab2cd+")");
+			if(currentUnit.ab2cd!=0) {
+				ab2.setEnabled(false);
+			}else {
+				ab2.setEnabled(true);
+			}
+		}
+		else {
+			ab2.setText("");
+			ab2.setEnabled(false);
+		}
+		if(currentUnit.hasAb3()) {
+			ab3.setText("Ability 3 ("+currentUnit.ab3cd+")");
+			if(currentUnit.ab3cd!=0) {
+				ab3.setEnabled(false);
+			}else {
+				ab3.setEnabled(true);
+			}
+		}
+		else {
+			ab3.setText("");
+			ab3.setEnabled(false);
+		}
+		if(currentUnit.hasUlt()) {
+			ult.setText("Ultimate ("+currentUnit.ultcd+")");
+			if(currentUnit.ultcd!=0) {
+				ult.setEnabled(false);
+			}else {
+				ult.setEnabled(true);
+			}
+		}
+		else {
+			ult.setText("");
+			ult.setEnabled(false);
+		}
+		for(boolButton b:buttonList) {
+			if(b.lock) {
+				b.setEnabled(false);
+			}
+		}
+		//also check for roots and stuff
+	}
+
+	public void checkGameOver() {
+		boolean team1Dead = true,team2Dead = true;
+		for(Unit u : team1) {
+			if(!u.dead) {
+				team1Dead = false;
+			}
+		}
+		for(Unit u : team2) {
+			if(!u.dead) {
+				team2Dead = false;
+			}
+		}
+		if(team1Dead||team2Dead) {
+			if(!team1Dead) {
+				gameOver("Team 1 Wins!");
+			}else if(!team2Dead) {
+				gameOver("Team 2 Wins!");
+			}else {
+				gameOver("Tie!");
+			}
+		}
+	}
+
+	public void gameOver(String str) {
+		frame.setVisible(false);
+		JFrame endFrame = new JFrame("End Screen");
+		endFrame.add(new JPanel().add(new JLabel(str)));
+		endFrame.pack();
+		endFrame.setVisible(true);
+	}
+
+	class boolButton extends JButton{
+		boolean toggle = false;
+		boolean lock = false;
+
+		boolButton(String str){
+			super(str);
+		}
+	}
+
+	class buttonListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource()==move) {
+				for(boolButton b:buttonList) {
+					if(b!=e.getSource()&&b!=cancel) {
+						b.setEnabled(false);
+					}
+				}
+				((boolButton)e.getSource()).toggle=true;
+				currentUnit.showMove();
+			}else if(e.getSource()==basic) {
+				for(boolButton b:buttonList) {
+					if(b!=e.getSource()&&b!=cancel) {
+						b.setEnabled(false);
+					}
+				}				
+				((boolButton)e.getSource()).toggle=true;
+				currentUnit.showBasic();
+			}else if(e.getSource()==ab1) {
+				for(boolButton b:buttonList) {
+					if(b!=e.getSource()&&b!=cancel) {
+						b.setEnabled(false);
+					}
+				}
+				((boolButton)e.getSource()).toggle=true;
+				currentUnit.showAb1();
+			}else if(e.getSource()==ab2) {
+				for(boolButton b:buttonList) {
+					if(b!=e.getSource()&&b!=cancel) {
+						b.setEnabled(false);
+					}
+				}
+				((boolButton)e.getSource()).toggle=true;
+				currentUnit.showAb2();
+			}else if(e.getSource()==ab3) {
+				for(boolButton b:buttonList) {
+					if(b!=e.getSource()&&b!=cancel) {
+						b.setEnabled(false);
+					}
+				}
+				((boolButton)e.getSource()).toggle=true;
+				currentUnit.showAb3();
+			}else if(e.getSource()==ult) {
+				for(boolButton b:buttonList) {
+					if(b!=e.getSource()&&b!=cancel) {
+						b.setEnabled(false);
+					}
+				}
+				((boolButton)e.getSource()).toggle=true;
+				currentUnit.showUlt();
+			}else if(e.getSource()==cancel) {
+				clear();
+				setButtons();
+			}else if(e.getSource()==pass) {
+				endOfTurn();
+			}else if(e.getSource()==qM) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.qM));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==qB) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.qB));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==q1) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.q1));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==q2) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.q2));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==q3) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.q3));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==q4) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.q4));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==qC) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.qC));}});
+				description.pack();
+				description.setVisible(true);
+			}else if(e.getSource()==qP) {
+				description.getContentPane().removeAll();
+				description.add(new JPanel() {{add(new JLabel(currentUnit.qP));}});
+				description.pack();
+				description.setVisible(true);
+			}
+		}
+	}
+
+	public Unit makeHero(String str,String team) {
+		Unit h = null;
+		if(str.equals("JAR.ie")) {
+			Unit JARie = new JARie(grid,"JAR.ie",team,null);
+			return JARie;
+		}else if(str.equals("Myria")) {
+			Unit Myria = new Myria(grid,"Myria",team,null);
+		}else if(str.equals("Malor")) {
+			Unit Malor = new Malor(grid,"Malor",team,null);
+		}
+		return h;
+	}
+
+	public boolean onMap(Hex h) {
+		for(Hex h1:grid.hexes) {
+			if(h.equals(h1)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		try {
+			if(visual.image.getRGB(e.getX(), e.getY())!=Color.BLACK.getRGB()) {
+				Hex h = visual.grid.getHex(visual.mainLayout.pixelToHex(
+						new Point(e.getX(),e.getY())).hexRound());
+				if(e.getButton()==MouseEvent.BUTTON1) {
+					if(onMap(h)&&(visual.checkBorder(h, visual.mainLayout.hexToPixel(h), Color.red.getRGB())
+							||visual.checkBorder(h, visual.mainLayout.hexToPixel(h), Color.green.getRGB()))) {
+						if(move.toggle) {
+							currentUnit.move(h);
+						}else if(basic.toggle) {
+							currentUnit.basicAttack(h);
+						}else if(ab1.toggle) {
+							currentUnit.ability1(h);
+						}else if(ab2.toggle) {
+							currentUnit.ability2(h);
+						}else if(ab3.toggle) {
+							currentUnit.ability3(h);
+						}else if(ult.toggle) {
+							currentUnit.ultimate(h);
+						}
+					}
+				}else if(e.getButton()==MouseEvent.BUTTON3) {
+					JPanel temp = new JPanel();
+					temp.setLayout(new BoxLayout(temp,BoxLayout.PAGE_AXIS));
+					temp.add(new JLabel("Info:"));
+					if(h.occupied!=null) {
+						temp.add(new JLabel(h.occupied.name));
+						if(h.occupied.currentShield>0) {
+							temp.add(new JLabel("Health: ("+h.occupied.currentShield+")"+h.occupied.currentHealth+"/"+
+									h.occupied.maxHealth));
+						}else {
+							temp.add(new JLabel("Health: "+h.occupied.currentHealth+"/"+
+									h.occupied.maxHealth));
+						}
+						temp.add(new JLabel("Stamina: "+h.occupied.currentStamina+"/"
+								+h.occupied.maxStamina));
+						String str = "Buffs: ";
+						temp.add(new JLabel(str));
+						for(Buff b:h.occupied.buffs) {
+							temp.add(new JLabel(""+b));
+						}
+						str = "Debuffs: ";
+						temp.add(new JLabel(str));
+						for(Debuff d:h.occupied.debuffs) {
+							temp.add(new JLabel(""+d));
+						}
+					}
+					if(h.effects.size()>0) {
+						temp.add(new JLabel("Tile Effects:"));
+						for(Effect e1:h.effects) {
+							temp.add(new JLabel(e1.effectName));
+						}
+					}
+					information.add(temp);
+					information.pack();
+					information.setVisible(true);	
+				}
+			}
+		}
+		catch(NullPointerException e1) {
+
+		}
+	}
+
+	public void mouseDragged(MouseEvent e) {
+		mouseClicked(e);
+	}
+
+	public void clear() {
+		for(boolButton b:buttonList) {
+			b.toggle = false;
+			b.setEnabled(true);
+		}
+		currentUnit.clearAb1();
+		currentUnit.clearAb2();
+		currentUnit.clearAb3();
+		currentUnit.clearUlt();
+		visual.clear();
+	}
+
+	public void mousePressed(MouseEvent e) {		
+	}
+
+	public void mouseReleased(MouseEvent e) {		
+	}
+
+	public void mouseEntered(MouseEvent e) {		
+	}
+
+	public void mouseExited(MouseEvent e) {
+	}
+
+	public void mouseMoved(MouseEvent e) {
+	}
+
+
+}
