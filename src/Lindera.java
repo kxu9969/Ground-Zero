@@ -22,9 +22,9 @@ public class Lindera extends Hero{
 		ultcdMax = 8;	
 		qU="Lindera is a specialist who excels at disrupting enemies on the battlefield through forced repositioning by her basic attack and her abilities. Her ultimate can deal damage but is best at distracting her enemies and is best used when the most enemies are trapped by its spell.";
 		qP="Null Shot: Basic attacks teleport targets to a designated adjacent tile.";
-		q1="Silence an enemy within 2 tiles for 1 turn and teleport them to a tile within 3 tiles of their current position.";
-		q2="Twilight Bomb (3):  Mark an ally with less than 50% health. If they die within 3 turns, deal 70 damage to adjacent enemies ignoring armor and shield.";
-		q3="Mark of the Abyss (0): Mark a target. If you cast this ability on them again within 2 turns, set their health at 50%.";
+		q1="Vacant Soul (2): Silence an enemy within 2 tiles for 1 turn and teleport them to a tile within 3 tiles of their current position.";
+		q2="Twilight Bomb (3):  Buff an ally with less than 50% health for 3 turns. If they die with the buff, deal 70 damage to adjacent enemies ignoring armor and shield.";
+		q3="Mark of the Abyss (0): Mark a target for 2 turns (debuff). If you cast this ability on a Marked target, set their health at 50%.";
 		q4="Void Spike (8): Marks a tile with a singularity that enemies must basic attack if possible. After 300 damage or 2 of Lindera’s turns, it detonates to deal all damage taken to adjacent enemies.";
 	}
 	
