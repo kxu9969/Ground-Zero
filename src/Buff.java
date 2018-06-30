@@ -8,7 +8,14 @@ public class Buff extends Effect{
 		super(effectName, owner, duration, enchant);
 	}
 
-	public void onRemoval() {		
+	public void onRemoval() {	
+		if(effectName.equals("Singularity")) {
+			if(owner.queue4.size()>0) {
+				try {
+					((Singularity)owner.queue4.get(0)).die();
+				}catch(Exception e) {}
+			}
+		}
 	}
 
 }

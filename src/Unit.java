@@ -113,10 +113,21 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void showBasic() {
+		boolean singularity = false;
 		for(Hex h:grid.hexes) {
 			if(position.distance(h)<=basicRange&&position.distance(h)>0&&h.occupied!=null
 					&&!h.occupied.team.equals(team)) {//also needs to check for team
 				h.color=Color.RED;
+				if(h.occupied instanceof Singularity) {
+					singularity = true;
+				}
+			}
+		}
+		if(singularity) {
+			for(Hex h:grid.hexes) {
+				if(h.color==Color.red&&!(h.occupied instanceof Singularity)) {
+					h.color= null;
+				}
 			}
 		}
 	}
@@ -145,6 +156,8 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return false;
 	}
+	
+	public void clearBasic() {};
 
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
 		if(hasBuff("Spiritual Unity")) {
@@ -281,6 +294,13 @@ public abstract class Unit {//broadest branch, all space takers
 	public void die() {
 		for(Unit u:inAura) {
 			removeAura(u);
+		}
+		if(hasBuff("Twilight Bomb")) {
+			for(Hex h:grid.hexes) {
+				if(position.distance(h)==1&&h.hasEnemy(this)) {
+					h.occupied.takeAbility(70, this, false, false);
+				}
+			}
 		}
 		dead = true;
 		position.clearHex();
@@ -422,6 +442,15 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return false;
 	}
+	
+	public boolean hasBuff(String str,Hero h) {
+		for(Buff b:buffs) {
+			if(b.effectName.equals(str)&&b.owner==h) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean hasDebuff(String str) {
 		for(Debuff d: debuffs) {
@@ -432,9 +461,27 @@ public abstract class Unit {//broadest branch, all space takers
 		return false;
 	}
 
+	public boolean hasDebuff(String str,Hero h) {
+		for(Debuff d: debuffs) {
+			if(d.effectName.equals(str)&&d.owner==h) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Buff getBuff(String str) {
 		for(Buff b:buffs) {
 			if(b.effectName.equals(str)) {
+				return b;
+			}
+		}
+		return null;
+	}
+	
+	public Buff getBuff(String str,Hero h) {
+		for(Buff b:buffs) {
+			if(b.effectName.equals(str)&&b.owner==h) {
 				return b;
 			}
 		}
@@ -444,6 +491,15 @@ public abstract class Unit {//broadest branch, all space takers
 	public Debuff getDebuff(String str) {
 		for(Debuff d: debuffs) {
 			if(d.effectName.equals(str)) {
+				return d;
+			}
+		}
+		return null;
+	}
+	
+	public Debuff getDebuff(String str,Hero h) {
+		for(Debuff d: debuffs) {
+			if(d.effectName.equals(str)&&d.owner==h) {
 				return d;
 			}
 		}
@@ -555,6 +611,7 @@ public abstract class Unit {//broadest branch, all space takers
 	public ArrayList<Unit> inAura(){return null;}
 	public void addAura(Unit u) {}
 	public void removeAura(Unit u) {}
+	public void runAura() {}
 	
 	public boolean hasAb1() {return hasAb1;}
 	public abstract void showAb1();

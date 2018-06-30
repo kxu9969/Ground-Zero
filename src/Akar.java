@@ -17,7 +17,7 @@ public class Akar extends Hero{
 		basicDamage = 30;
 		armor = 40;
 		armorPiercing = 40;
-		basicRange = 3;
+		basicRange = 5;
 		ab1cdMax = 3;
 		ab2cdMax = 4;
 		ab3cdMax = 3;

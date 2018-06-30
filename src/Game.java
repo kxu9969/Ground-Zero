@@ -28,7 +28,7 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit = new Akar(grid,"Akar","Team 1",new Hex(5,2, -7));
+	Unit currentUnit = new Lindera(grid,"Lindera","Team 1",new Hex(5,2, -7));
 	Hero tempHero = new Destiny(grid,"Destiny","Team 2",new Hex(4,2,-6));
 	Hero one = new Serenity(grid,"Serenity","Team 2",new Hex(6,2,-8));
 	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
@@ -161,12 +161,16 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	public void startOfTurn() {
+		clear();
+		setButtons();
 		for(Unit u:units) {
 			u.updateAura();
 		}
+		for(Occupant o:occupants) {
+			o.updateAura();
+			o.runAura();
+		}
 		currentUnit.startOfTurn();
-		clear();
-		setButtons();//check for silence after setButtons
 		if(currentUnit.hasDebuff("Stunned")) {
 			System.out.println(currentUnit.name+" Stunned");
 			try {
@@ -251,7 +255,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasAb1()) {
 			ab1.setText("Ability 1 ("+currentUnit.ab1cd+")");
-			if(currentUnit.ab1cd!=0||!currentUnit.ableAb1()) {
+			if(currentUnit.ab1cd!=0||!currentUnit.ableAb1()||currentUnit.hasDebuff("Silenced")) {
 				ab1.setEnabled(false);
 			}else {
 				ab1.setEnabled(true);
@@ -263,7 +267,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasAb2()) {
 			ab2.setText("Ability 2 ("+currentUnit.ab2cd+")");
-			if(currentUnit.ab2cd!=0||!currentUnit.ableAb2()) {
+			if(currentUnit.ab2cd!=0||!currentUnit.ableAb2()||currentUnit.hasDebuff("Silenced")) {
 				ab2.setEnabled(false);
 			}else {
 				ab2.setEnabled(true);
@@ -275,7 +279,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasAb3()) {
 			ab3.setText("Ability 3 ("+currentUnit.ab3cd+")");
-			if(currentUnit.ab3cd!=0||!currentUnit.ableAb3()) {
+			if(currentUnit.ab3cd!=0||!currentUnit.ableAb3()||currentUnit.hasDebuff("Silenced")) {
 				ab3.setEnabled(false);
 			}else {
 				ab3.setEnabled(true);
@@ -287,7 +291,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 		if(currentUnit.hasUlt()) {
 			ult.setText("Ultimate ("+currentUnit.ultcd+")");
-			if(currentUnit.ultcd!=0||!currentUnit.ableUlt()) {
+			if(currentUnit.ultcd!=0||!currentUnit.ableUlt()||currentUnit.hasDebuff("Silenced")) {
 				ult.setEnabled(false);
 			}else {
 				ult.setEnabled(true);
@@ -302,7 +306,6 @@ public class Game implements MouseListener, MouseMotionListener{
 				b.setEnabled(false);
 			}
 		}
-		//also check for roots and stuff
 	}
 
 	public void checkGameOver() {
@@ -337,8 +340,8 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	class boolButton extends JButton{
-		boolean toggle = false;
-		boolean lock = false;
+		boolean toggle = false;//use to determine what action is currently occuring
+		boolean lock = false;//use to prevent 
 
 		boolButton(String str){
 			super(str);
@@ -541,6 +544,7 @@ public class Game implements MouseListener, MouseMotionListener{
 			b.toggle = false;
 			b.setEnabled(true);
 		}
+		currentUnit.clearBasic();
 		currentUnit.clearAb1();
 		currentUnit.clearAb2();
 		currentUnit.clearAb3();
