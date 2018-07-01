@@ -26,6 +26,7 @@ public abstract class Unit {//broadest branch, all space takers
 	ArrayList<Unit> inAura = new ArrayList<Unit>();
 	ArrayList<Buff> buffs = new ArrayList<Buff>();
 	ArrayList<Debuff> debuffs = new ArrayList<Debuff>();
+	ArrayList<Mark> marks = new ArrayList<Mark>();
 	ArrayList<Buff> addedBuffs = new ArrayList<Buff>();//use when giving self an effect on own turn
 	ArrayList<Debuff> addedDebuffs = new ArrayList<Debuff>();
 	ArrayList<Object> queue1 = new ArrayList<Object>();//stores relevant info for multistep functions, is cleared
@@ -387,6 +388,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}else {//when adding to others, adds it immediately
 			rewriteDebuff(b,recipient.debuffs);
 		}
+		if(b instanceof Mark) {
+			this.marks.add((Mark) b);
+		}
 	}
 
 	public void addSelfDebuffs() {
@@ -431,6 +435,17 @@ public abstract class Unit {//broadest branch, all space takers
 		if(!d.enchant||d.duration==0) {
 			d.onRemoval();
 			debuffs.remove(d);
+		}
+		if(d instanceof Mark) {
+			d.owner.marks.remove(d);
+		}
+	}
+	
+	public void removeMark(Mark d) {
+		if(!d.enchant||d.duration==0) {
+			d.onRemoval();
+			debuffs.remove(d);
+			d.owner.marks.remove(d);
 		}
 	}
 
@@ -523,14 +538,31 @@ public abstract class Unit {//broadest branch, all space takers
 	public void tickDebuffs() {
 		ArrayList<Debuff> toBeRemoved = new ArrayList<Debuff>();
 		for(Debuff b:debuffs) {
-			if(b.duration>0) {
-				b.duration--;
-			}if(b.duration==0) {
-				toBeRemoved.add(b);
+			if(!(b instanceof Mark)) {
+				if(b.duration>0) {
+					b.duration--;
+				}if(b.duration==0) {
+					toBeRemoved.add(b);
+				}
 			}
 		}
 		for(Debuff b:toBeRemoved) {
 			removeDebuff(b);
+		}
+	}
+	
+	public void tickMarks() {
+		ArrayList<Mark> toBeRemoved = new ArrayList<Mark>();
+		for(Mark m:marks) {
+			if(m.duration>0) {
+				m.duration--;
+			}if(m.duration==0) {
+				toBeRemoved.add(m);
+			}
+		}
+		for(Mark m:toBeRemoved) {
+			marks.remove(m);
+			m.recipient.removeDebuff(m);
 		}
 	}
 

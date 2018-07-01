@@ -131,7 +131,7 @@ public class Lindera extends Hero{
 		if(h.occupied.hasDebuff("Marked", this)) {
 			h.occupied.currentHealth=h.occupied.maxHealth/2;
 		}else {
-			addDebuff(h.occupied, new Debuff("Marked",this,2,false));
+			addDebuff(h.occupied, new Mark("Marked",this,3,false,h.occupied));
 		}
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
