@@ -15,7 +15,8 @@ public class Kaj extends Hero{
 		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 30;
-		armor = 40;
+		defaultArmor = 40;
+		currentArmor = defaultArmor;
 		armorPiercing = 40;
 		basicRange = 5;
 		ab1cdMax = 3;
@@ -53,7 +54,7 @@ public class Kaj extends Hero{
 
 	public void ability2(Hex h) {
 		if(h.hasEnemy(this)) {
-			addDebuff(h.occupied, new Debuff("Rooted",this,2,false));
+			addDebuff(h.occupied, new Debuff("Rooted",h.occupied,2,false));
 		}
 		else if(h.occupied==null) {
 			String str;

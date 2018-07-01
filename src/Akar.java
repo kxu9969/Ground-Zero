@@ -15,7 +15,8 @@ public class Akar extends Hero{
 		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 30;
-		armor = 40;
+		defaultArmor = 40;
+		currentArmor = defaultArmor;
 		armorPiercing = 40;
 		basicRange = 5;
 		ab1cdMax = 3;
@@ -45,7 +46,7 @@ public class Akar extends Hero{
 
 	public void ability1(Hex h) {
 		h.occupied.heal(40);
-		this.addBuff(h.occupied, new Buff("Thornscales",this,2,false));
+		this.addBuff(h.occupied, new Buff("Thornscales",h.occupied,2,false));
 		abcdDelay[0]=true;
 		grid.game.endOfTurn();
 	}
@@ -93,7 +94,7 @@ public class Akar extends Hero{
 	public void ability3(Hex h) {
 		if(h==position) {
 			for(Object h1:queue3) {
-				addDebuff(((Hex)h1).occupied,new Debuff("Stormcall",this,2,false));
+				addDebuff(((Hex)h1).occupied,new Debuff("Stormcall",((Hex)h1).occupied,2,false));
 			}
 			abcdDelay[2]=true;
 			grid.game.endOfTurn();

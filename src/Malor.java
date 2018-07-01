@@ -14,7 +14,8 @@ public class Malor extends Hero{
 		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 70;
-		armor = 10;
+		defaultArmor = 10;
+		currentArmor = defaultArmor;
 		armorPiercing = 30;
 		basicRange = 1;
 		ab1cdMax = 2;

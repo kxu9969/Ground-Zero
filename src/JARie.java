@@ -12,7 +12,8 @@ public class JARie extends Hero{
 		maxStamina = 50;
 		currentStamina = 0;
 		basicDamage = 40;
-		armor = 30;
+		defaultArmor = 30;
+		currentArmor = defaultArmor;
 		armorPiercing = 40;
 		basicRange = 5;
 		ab1cdMax = 3;
@@ -27,11 +28,11 @@ public class JARie extends Hero{
 		q4="Über Potato (8): Activate all configurations for 3 turns. Root yourself for one turn.";
 	}
 	
-	public void basicAttack(Hex h) {
-		int damage = this.basicDamage;
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
+		damage = this.basicDamage;
 		if(h.occupied.currentHealth>currentHealth)
 			damage+=40;
-		super.basicAttack(h,damage);
+		super.basicAttack(h,damage,armor,shield,end);
 	}
 
 	public void showAb1() {

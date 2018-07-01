@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public abstract class Unit {//broadest branch, all space takers
-	int maxHealth,currentHealth,maxStamina,currentStamina,basicDamage,armor,armorPiercing,basicRange,ab1cdMax,ab2cdMax,ab3cdMax,ultcdMax;
+	int maxHealth,currentHealth,maxStamina,currentStamina,basicDamage,defaultArmor,currentArmor,armorPiercing,basicRange,ab1cdMax,ab2cdMax,ab3cdMax,ultcdMax;
 	int currentShield = 0;
 	int moveRange = 3;
 	int ab1cd,ab2cd,ab3cd = 0;
@@ -245,8 +245,8 @@ public abstract class Unit {//broadest branch, all space takers
 			damage+=20;
 		}
 		if(armor) {
-			if(h.armorPiercing<=this.armor) {
-				damage-=this.armor-h.armorPiercing;
+			if(h.armorPiercing<=this.currentArmor) {
+				damage-=this.currentArmor-h.armorPiercing;
 				if(damage<0)
 					damage=0;
 			}
@@ -458,10 +458,12 @@ public abstract class Unit {//broadest branch, all space takers
 		return false;
 	}
 	
-	public boolean hasBuff(String str,Hero h) {
-		for(Buff b:buffs) {
-			if(b.effectName.equals(str)&&b.owner==h) {
-				return true;
+	public boolean hasMark(String str,Hero h) {
+		for(Debuff d: debuffs) {
+			if(d instanceof Mark) {
+				if(d.effectName.equals(str)&&((Mark)d).caster==h) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -476,14 +478,7 @@ public abstract class Unit {//broadest branch, all space takers
 		return false;
 	}
 
-	public boolean hasDebuff(String str,Hero h) {
-		for(Debuff d: debuffs) {
-			if(d.effectName.equals(str)&&d.owner==h) {
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	
 	public Buff getBuff(String str) {
 		for(Buff b:buffs) {
@@ -494,14 +489,7 @@ public abstract class Unit {//broadest branch, all space takers
 		return null;
 	}
 	
-	public Buff getBuff(String str,Hero h) {
-		for(Buff b:buffs) {
-			if(b.effectName.equals(str)&&b.owner==h) {
-				return b;
-			}
-		}
-		return null;
-	}
+	
 
 	public Debuff getDebuff(String str) {
 		for(Debuff d: debuffs) {
@@ -512,10 +500,12 @@ public abstract class Unit {//broadest branch, all space takers
 		return null;
 	}
 	
-	public Debuff getDebuff(String str,Hero h) {
+	public Debuff getMark(String str,Hero h) {
 		for(Debuff d: debuffs) {
-			if(d.effectName.equals(str)&&d.owner==h) {
-				return d;
+			if(d instanceof Mark) {
+				if(d.effectName.equals(str)&&((Mark)d).caster==h) {
+					return d;
+				}
 			}
 		}
 		return null;
@@ -562,7 +552,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		for(Mark m:toBeRemoved) {
 			marks.remove(m);
-			m.recipient.removeDebuff(m);
+			m.caster.removeDebuff(m);
 		}
 	}
 

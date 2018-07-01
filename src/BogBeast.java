@@ -11,16 +11,17 @@ public class BogBeast extends Summon{
 		maxStamina = 45;
 		currentStamina = 0;
 		basicDamage = 40;
-		armor = 50;
+		defaultArmor = 50;
+		currentArmor = defaultArmor;
 		armorPiercing = 70;
 		basicRange = 1;	
 		qU="A monstrosity summoned by Ak’ar, it can root enemies with basic attacks and is hard to kill.";
 		qP="Tendrils: Basic attacks root the target for 1 turn. Timed Life:  This unit automatically dies after 3 of its turns.\r\n";
 	}
 	
-	public void basicAttack(Hex h) {
-		addDebuff(h.occupied, new Debuff("Rooted",this,1,false));
-		super.basicAttack(h);
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
+		addDebuff(h.occupied, new Debuff("Rooted",h.occupied,1,false));
+		super.basicAttack(h,damage,armor,shield,end);
 	}
 
 	@Override

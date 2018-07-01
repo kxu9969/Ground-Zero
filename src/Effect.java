@@ -19,6 +19,8 @@ public abstract class Effect {
         this.enchant = enchant;
     }
 	
+	public abstract void onAddition();
+	
 	public abstract void onRemoval() ;
 	
 	public String toString() {

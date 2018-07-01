@@ -12,7 +12,8 @@ public class Destiny extends Hero{
 		maxStamina = 50;
 		currentStamina = 0;
 		basicDamage = 30;
-		armor = 60;
+		defaultArmor = 60;
+		currentArmor = defaultArmor;
 		armorPiercing = 40;
 		basicRange = 2;
 		ab1cdMax = 2;
@@ -73,7 +74,7 @@ public class Destiny extends Hero{
 			for(int i =1;i<queue1.size();i++) {
 				Object o = queue1.get(i);
 				((Hex)o).occupied.heal(40);
-				addBuff(((Hex)o).occupied,new Buff("Spiritual Unity",this,3,false));
+				addBuff(((Hex)o).occupied,new Buff("Spiritual Unity",((Hex)o).occupied,3,false));
 			}
 			queue1.clear();
 			abcdDelay[0]=true;
@@ -148,7 +149,7 @@ public class Destiny extends Hero{
 
 	public void ability2(Hex h) {
 		if(h==position) {
-			addDebuff(((Hex)queue2.get(1)).occupied,new Debuff("Stunned",this,queue2.size()-1,false));
+			addDebuff(((Hex)queue2.get(1)).occupied,new Debuff("Stunned",((Hex)queue2.get(1)).occupied,queue2.size()-1,false));
 			queue2.clear();
 			abcdDelay[1]=true;
 			grid.game.endOfTurn();

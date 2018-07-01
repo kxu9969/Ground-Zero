@@ -10,6 +10,8 @@ public class TileEffect extends Effect{
 		location = h;
 	}
 	
+	public void onAddition() {}
+	
 	public void onRemoval() {
 		if(effectName.equals("Poisonseeds")) {
 			for(Hex h:owner.grid.hexes) {

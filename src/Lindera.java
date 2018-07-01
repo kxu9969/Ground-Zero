@@ -13,7 +13,8 @@ public class Lindera extends Hero{
 		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 40;
-		armor = 40;
+		defaultArmor = 40;
+		currentArmor = defaultArmor;
 		armorPiercing = 30;
 		basicRange = 5;
 		ab1cdMax = 2;
@@ -47,7 +48,7 @@ public class Lindera extends Hero{
 		grid.game.setButtons();
 	}
 	
-	public void basicAttack(Hex h) {
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
 		if(queueB.size()==0) {
 			queueB.clear();
 			queueB.add(h);
@@ -62,7 +63,7 @@ public class Lindera extends Hero{
 			showBasic();
 		}else {
 			((Hex)queueB.get(0)).occupied.setPosition(h);
-			super.basicAttack(h);
+			super.basicAttack(h,damage,armor,shield,end);
 		}
 	}
 
@@ -130,10 +131,10 @@ public class Lindera extends Hero{
 	}
 
 	public void ability3(Hex h) {
-		if(h.occupied.hasDebuff("Marked", this)) {
+		if(h.occupied.hasMark("Marked", this)) {
 			h.occupied.currentHealth=h.occupied.maxHealth/2;
 		}else {
-			addDebuff(h.occupied, new Mark("Marked",this,3,false,h.occupied));
+			addDebuff(h.occupied, new Mark("Marked",h.occupied,3,false,this));
 		}
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

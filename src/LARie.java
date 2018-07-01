@@ -13,7 +13,8 @@ public class LARie extends Hero{
 		maxStamina = 50;
 		currentStamina = 0;
 		basicDamage = 20;
-		armor = 60;
+		defaultArmor = 60;
+		currentArmor = defaultArmor;
 		armorPiercing = 20;
 		basicRange = 1;
 		ab1cdMax = 1;
@@ -28,13 +29,13 @@ public class LARie extends Hero{
 		q4="REVVED UP (8): Gain max stacks of Rev’n Up and gain a shield for 200.";
 	}
 	
-	public void basicAttack(Hex h) {
-		int damage=basicDamage;
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
+		damage=basicDamage;
 		if(hasBuff("Rev'n Up")) {
 			damage+=((BuffStack)getBuff("Rev'n Up")).stacks*15;
 			removeSameBuff("Rev'n Up");
 		}
-		super.basicAttack(h,damage);
+		super.basicAttack(h,damage,armor,shield,end);
 	}
 	
 	public void endOfTurn() {

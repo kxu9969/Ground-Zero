@@ -12,7 +12,8 @@ public class Serenity extends Hero{
 		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 20;
-		armor = 60;
+		defaultArmor = 60;
+		currentArmor = defaultArmor;
 		armorPiercing = 40;
 		basicRange = 1;
 		ab1cdMax = 2;
@@ -27,8 +28,8 @@ public class Serenity extends Hero{
 		q4="Light of Faith (8): Give all allies including yourself 200 shield, regain stamina immediately.";
 	}
 	
-	public void basicAttack(Hex h) {
-		int damage = basicDamage;
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
+		damage = basicDamage;
 		if(currentShield>200) {
 			damage+=70;
 		}else if(currentShield>100) {
@@ -36,7 +37,7 @@ public class Serenity extends Hero{
 		}else if(currentShield>50) {
 			damage+=30;
 		}
-		super.basicAttack(h,damage);
+		super.basicAttack(h,damage,armor,shield,end);
 	}
 
 	public void showAb1() {
@@ -65,7 +66,7 @@ public class Serenity extends Hero{
 	public void ability2(Hex h) {
 		int damage= 40+currentShield;
 		h.occupied.takeAbility(damage, this, true, true);
-		addDebuff(h.occupied,new Debuff("Stunned",this,1,false));
+		addDebuff(h.occupied,new Debuff("Stunned",h.occupied,1,false));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}

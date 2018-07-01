@@ -12,7 +12,8 @@ public class Myria extends Hero{
 		maxStamina = 55;
 		currentStamina = 0;
 		basicDamage = 40;
-		armor = 40;
+		defaultArmor = 40;
+		currentArmor = defaultArmor;
 		armorPiercing = 60;
 		basicRange = 1;
 		ab1cdMax = 2;
@@ -36,14 +37,14 @@ public class Myria extends Hero{
 	public void showAb1() {	
 		if(queue1.size()==0) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)<=3&&h.adjacentEnemy(grid, this)) {
+				if(position.distance(h)<=3&&h.occupied==null&&h.adjacentEnemy(grid, this)) {
 					h.color=Color.RED;
 				}
 			}
 		}else if(queue1.size()==1) {
 			Hex firstClick = (Hex) queue1.get(0);
 			for(Hex h:grid.hexes)	{
-				if(h.distance(firstClick)==1&&h.occupied!=null&&h.occupied.team==enemyTeam) {
+				if(h.distance(firstClick)==1&&h.hasEnemy(this)) {
 					h.color=Color.RED;
 				}
 			}
@@ -70,8 +71,8 @@ public class Myria extends Hero{
 		}
 		else if(queue1.size()==1) {
 			setPosition((Hex)queue1.get(0));
-			h.occupied.takeBasic(basicDamage, this, true, true);
-			this.addDebuff(h.occupied,new Debuff("Stunned",this,1,false));
+			basicAttack(h);
+			this.addDebuff(h.occupied,new Debuff("Stunned",h.occupied,1,false));
 			abcdDelay[0]=true;
 			grid.game.endOfTurn();
 		}
@@ -113,7 +114,7 @@ public class Myria extends Hero{
 		}else if(queue2.size()==1) {
 			((Hex)queue2.get(0)).occupied.setPosition(h);
 			h.occupied.takeBasic(basicDamage, this, true, true);
-			this.addDebuff(h.occupied, new Debuff("Rooted",this,1,false));
+			this.addDebuff(h.occupied, new Debuff("Rooted",h.occupied,1,false));
 			abcdDelay[1]=true;
 			grid.game.endOfTurn();
 		}
@@ -130,7 +131,7 @@ public class Myria extends Hero{
 		setPosition(h);
 		for(Hex h1:grid.hexes) {
 			if(position.distance(h1)==1&&h1.hasEnemy(this)) {
-				this.addDebuff(h1.occupied,new Debuff("Stunned",this,1,false));
+				this.addDebuff(h1.occupied,new Debuff("Stunned",h1.occupied,1,false));
 			}
 		}
 		abcdDelay[2]=true;

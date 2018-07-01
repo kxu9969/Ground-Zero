@@ -13,7 +13,8 @@ public class Olaf extends Hero{
 		maxStamina = 65;
 		currentStamina = 0;
 		basicDamage = 40;
-		armor = 20;
+		defaultArmor = 20;
+		currentArmor = defaultArmor;
 		armorPiercing = 30;
 		basicRange = 1;
 		ab1cdMax = 5;
@@ -101,7 +102,7 @@ public class Olaf extends Hero{
 		}
 		for(Hex h1:hexes) {
 			if(h1.hasEnemy(this)) {
-				addDebuff(h1.occupied,new Debuff("Rooted",this,2,false));
+				addDebuff(h1.occupied,new Debuff("Rooted",h1.occupied,2,false));
 			}else if(h1.hasAlly(this)) {
 				h1.occupied.gainShield(h1.occupied.heal(100));
 			}

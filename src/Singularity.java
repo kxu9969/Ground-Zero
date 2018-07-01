@@ -9,7 +9,7 @@ public class Singularity extends Occupant{
 	public void assembleStats() {
 		maxHealth = 300;
 		currentHealth = maxHealth;
-		armor = 0;		
+		currentArmor = 0;		
 	}
 
 	public void die() {

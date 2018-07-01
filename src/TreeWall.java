@@ -9,7 +9,7 @@ public class TreeWall extends Occupant{
 	public void assembleStats() {
 		maxHealth = 50;
 		currentHealth = maxHealth;
-		armor = 0;
+		currentArmor = 0;
 	}
 
 	@Override

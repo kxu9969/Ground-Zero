@@ -20,7 +20,8 @@ public class Charity extends Hero{
 		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 40;
-		armor = 60;
+		defaultArmor = 60;
+		currentArmor = defaultArmor;
 		armorPiercing = 30;
 		basicRange = 1;
 		ab1cdMax = 2;
@@ -70,7 +71,7 @@ public class Charity extends Hero{
 	}
 
 	public void ability2(Hex h) {
-		addDebuff(h.occupied,new Debuff("Rooted",this,1,false));
+		addDebuff(h.occupied,new Debuff("Rooted",h.occupied,1,false));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}
@@ -106,7 +107,7 @@ public class Charity extends Hero{
 	public void ability3(Hex h) {
 		if(h==position) {
 			for(Object h1:queue3) {
-				addBuff(((Hex)h1).occupied,new Buff("Divine Radiance",this,3,false));
+				addBuff(((Hex)h1).occupied,new Buff("Divine Radiance",((Hex)h1).occupied,3,false));
 			}
 			abcdDelay[2]=true;
 			grid.game.endOfTurn();

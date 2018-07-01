@@ -12,7 +12,8 @@ public class FeralGuide extends Summon{
 		maxStamina = 50;
 		currentStamina = 0;
 		basicDamage = 0;
-		armor = 0;
+		defaultArmor = 0;
+		currentArmor = defaultArmor;
 		armorPiercing = 0;
 		basicRange = 1;	
 		qU="A spirit summoned by Kaj, it is able to buff adjacent allies but can be killed.";
