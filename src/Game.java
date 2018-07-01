@@ -29,8 +29,8 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
 	Unit currentUnit = new Lindera(grid,"Lindera","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new Olaf(grid,"Olaf","Team 2",new Hex(4,2,-6));
-	Hero one = new Serenity(grid,"Serenity","Team 2",new Hex(6,2,-8));
+	Hero tempHero = new Mortimer(grid,"Mortimer","Team 2",new Hex(4,2,-6));
+	Hero one = new Akar(grid,"Ak'ar","Team 2",new Hex(6,2,-8));
 	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
 	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 

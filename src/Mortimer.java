@@ -146,6 +146,8 @@ public class Mortimer extends Hero{
 			}
 		}
 		setStamina();
+		abcdDelay[3]=true;
+		grid.game.endOfTurn();
 	}
 
 }

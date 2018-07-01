@@ -272,6 +272,7 @@ public abstract class Unit {//broadest branch, all space takers
 				return 0;
 			}else {
 				damage-=currentShield;
+				currentShield = 0;
 			}
 			currentHealth-=damage;
 			if(currentHealth<=0) {
@@ -335,6 +336,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(addBuff) {
 			buffs.add(b);
+			b.onAddition();
 		}
 	}
 	
@@ -363,6 +365,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(addDebuff) {
 			debuffs.add(d);
+			d.onAddition();
 		}
 	}
 
