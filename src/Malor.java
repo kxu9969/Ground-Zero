@@ -42,8 +42,10 @@ public class Malor extends Hero{
 	
 	public int takeAbility(int damage, Unit attacker,boolean armor,boolean shield) {
 		damage = super.takeAbility(damage, attacker, armor, shield);
-		if(attacker.team!=team&&attacker.position.distance(position)==1) {
+		if(attacker.team!=team&&attacker.position.distance(position)==1&&!preventLoop) {
+			preventLoop = true;
 			basicAttack(attacker.position,basicDamage,true,true,true);
+			preventLoop = false;
 		}
 		return damage;
 	}

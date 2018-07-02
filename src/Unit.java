@@ -639,6 +639,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Divine Radiance")) {
 			heal(20);
 		}
+		if(hasDebuff("Molten Blast")) {
+			takeAbility(20,getDebuff("Molten Blast").caster,false,false);
+		}
 				
 	};
 	public void endOfTurn() {
