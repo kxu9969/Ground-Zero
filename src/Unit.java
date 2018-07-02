@@ -152,6 +152,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Configuration: Hyper-Potato")&&!getBuff(
 				"Configuration: Hyper-Potato").toggle) {
 			return true;
+		}else if(hasBuff("Third Ring, Second Sign")&&!getBuff(
+				"Third Ring, Second Sign").toggle) {
+			return true;
 		}else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
 			return true;
 		}
@@ -188,7 +191,21 @@ public abstract class Unit {//broadest branch, all space takers
 				grid.game.clear();
 				grid.game.setButtons();
 				getBuff("Configuration: Hyper-Potato").toggle=true;
-			}else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
+			}else if(hasBuff("Third Ring, Second Sign")&&!getBuff(
+					"Third Ring, Second Sign").toggle) {
+				grid.game.move.lock=true;
+				grid.game.basic.lock=false;
+				grid.game.ab1.lock=true;
+				grid.game.ab2.lock=true;
+				grid.game.ab3.lock=true;
+				grid.game.ult.lock=true;
+				grid.game.cancel.lock=false;
+				grid.game.pass.lock=false;
+				grid.game.clear();
+				grid.game.setButtons();
+				getBuff("Third Ring, Second Sign").toggle=true;
+			}
+			else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
 				grid.game.move.lock=false;
 				grid.game.basic.lock=true;
 				grid.game.ab1.lock=true;
@@ -241,6 +258,15 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	private int takeDamage(int damage, Unit h, boolean armor, boolean shield) {//process armor
+		if(hasBuff("Second Ring, Fourth Sign")&&
+				(!getBuff("Second Ring, Fourth Sign").caster.hasBuff("Second Ring, Fourth Sign")||
+				(getBuff("Second Ring, Fourth Sign").caster.hasBuff("Second Ring, Fourth Sign")&&
+				!getBuff("Second Ring, Fourth Sign").caster.getBuff("Second Ring, Fourth Sign").toggle))) {
+			getBuff("Second Ring, Fourth Sign").toggle= true;
+			getBuff("Second Ring, Fourth Sign").caster.takeDamage(damage,h,armor,shield);
+			getBuff("Second Ring, Fourth Sign").toggle= false;
+		}
+		
 		if(hasDebuff("Stormcall")) {
 			damage+=20;
 		}
@@ -256,8 +282,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}else {
 			damage= this.takeTrueDamage(damage);
 		}
-		if(hasBuff("Thornscales")) {
-			h.takeAbility(damage, h, true, true);
+		System.out.println(this.name+" just took "+damage+" damage from "+h.name);
+		if(hasBuff("Thornscales")&&h!=this) {
+			h.takeAbility(damage, this, true, true);
 		}
 		return damage;
 	}
@@ -344,7 +371,7 @@ public abstract class Unit {//broadest branch, all space takers
 		boolean addDebuff = true;
 		ArrayList<Debuff> toBeRemoved = new ArrayList<Debuff>();
 		for(Debuff d1: debuffs) {
-			if(d1.effectName.equals(d.effectName)) {
+			if(!(d1 instanceof Mark )&& d1.effectName.equals(d.effectName)) {
 				if(d instanceof DebuffStack) {
 					((DebuffStack)d1).stacks+=((DebuffStack)d).stacks;
 					if(((DebuffStack)d1).stacks>=((DebuffStack)d1).stackCap) {
@@ -492,6 +519,15 @@ public abstract class Unit {//broadest branch, all space takers
 		return null;
 	}
 	
+	public ArrayList<Buff> getBuffs(String str) {
+		ArrayList<Buff> a = new ArrayList<Buff>();
+		for(Buff d: buffs) {
+			if(d.effectName.equals(str)) {
+				a.add(d);
+			}
+		}
+		return a;
+	}
 	
 
 	public Debuff getDebuff(String str) {
@@ -501,6 +537,16 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Debuff> getDebuffs(String str) {
+		ArrayList<Debuff> a = new ArrayList<Debuff>();
+		for(Debuff d: debuffs) {
+			if(d.effectName.equals(str)) {
+				a.add(d);
+			}
+		}
+		return a;
 	}
 	
 	public Debuff getMark(String str,Hero h) {
@@ -601,6 +647,9 @@ public abstract class Unit {//broadest branch, all space takers
 			setStamina = 0;
 			if(hasBuff("Configuration: Hyper-Potato")) {
 				getBuff("Configuration: Hyper-Potato").toggle = false;
+			}
+			if(hasBuff("Third Ring, Second Sign")) {
+				getBuff("Third Ring, Second Sign").toggle = false;
 			}
 			if(hasBuff("Whirling Scythes")) {
 				getBuff("Whirling Scythes").toggle = false;

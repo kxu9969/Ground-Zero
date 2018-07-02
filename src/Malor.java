@@ -32,7 +32,7 @@ public class Malor extends Hero{
 	
 	public int takeBasic(int damage, Unit attacker, boolean armor, boolean shield) {//process armor
 		damage = super.takeBasic(damage,attacker,armor,shield);
-		if(attacker.position.distance(position)==1&&!preventLoop) {
+		if(attacker.team!=team&&attacker.position.distance(position)==1&&!preventLoop) {
 			preventLoop = true;
 			basicAttack(attacker.position,basicDamage,true,true,true);
 			preventLoop = false;
@@ -42,7 +42,7 @@ public class Malor extends Hero{
 	
 	public int takeAbility(int damage, Unit attacker,boolean armor,boolean shield) {
 		damage = super.takeAbility(damage, attacker, armor, shield);
-		if(attacker.position.distance(position)==1) {
+		if(attacker.team!=team&&attacker.position.distance(position)==1) {
 			basicAttack(attacker.position,basicDamage,true,true,true);
 		}
 		return damage;

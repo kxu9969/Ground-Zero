@@ -8,10 +8,17 @@ public class Buff extends Effect{
 		super(effectName, owner, duration, caster, enchant);
 	}
 
-	public void onAddition() {}
+	public void onAddition() {
+		if(effectName.equals("Second Ring, Fourth Sign")) {
+			owner.basicDamage+=30;
+		}
+	}
 	
 	public void onRemoval() {	
-		if(effectName.equals("Singularity")) {
+		if(effectName.equals("Second Ring, Fourth Sign")) {
+			owner.basicDamage-=30;
+		}
+		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {
 				try {
 					((Singularity)owner.queue4.get(0)).die();
