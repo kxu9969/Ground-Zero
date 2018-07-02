@@ -72,7 +72,7 @@ public class Myria extends Hero{
 		else if(queue1.size()==1) {
 			setPosition((Hex)queue1.get(0));
 			basicAttack(h);
-			this.addDebuff(h.occupied,new Debuff("Stunned",h.occupied,1,false));
+			this.addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
 			abcdDelay[0]=true;
 			grid.game.endOfTurn();
 		}
@@ -114,7 +114,7 @@ public class Myria extends Hero{
 		}else if(queue2.size()==1) {
 			((Hex)queue2.get(0)).occupied.setPosition(h);
 			h.occupied.takeBasic(basicDamage, this, true, true);
-			this.addDebuff(h.occupied, new Debuff("Rooted",h.occupied,1,false));
+			this.addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
 			abcdDelay[1]=true;
 			grid.game.endOfTurn();
 		}
@@ -131,7 +131,7 @@ public class Myria extends Hero{
 		setPosition(h);
 		for(Hex h1:grid.hexes) {
 			if(position.distance(h1)==1&&h1.hasEnemy(this)) {
-				this.addDebuff(h1.occupied,new Debuff("Stunned",h1.occupied,1,false));
+				this.addDebuff(new Debuff("Stunned",h1.occupied,1,this,false));
 			}
 		}
 		abcdDelay[2]=true;
@@ -143,7 +143,7 @@ public class Myria extends Hero{
 	}
 
 	public void ultimate(Hex h) {	
-		this.addBuff(this, new Buff("Succubus' Rage",this,5,true));
+		this.addBuff(new Buff("Succubus' Rage",this,5,this,true));
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();
 	}

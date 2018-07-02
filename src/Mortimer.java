@@ -142,7 +142,7 @@ public class Mortimer extends Hero{
 					damage+=70;
 				}
 				h.occupied.takeAbility(damage, this, false, true);
-				addDebuff(h.occupied,new Debuff("Consuming Flame",h.occupied,2,true));
+				addDebuff(new Debuff("Consuming Flame",h.occupied,2,this,true));
 			}
 		}
 		setStamina();

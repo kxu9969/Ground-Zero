@@ -1,22 +1,25 @@
 
 public abstract class Effect {
-	boolean enchant;
+	boolean enchant = false;
 	int duration;
 	String effectName;
 	Unit owner;
+	Unit caster;
 	boolean toggle = false;
 	
-	Effect(String effectName, Unit owner, int duration){
+	Effect(String effectName, Unit owner, int duration,Unit caster){
         this.effectName = effectName;
         this.owner = owner;
         this.duration = duration;
+        this.caster=caster;
     }
 	
-	Effect(String effectName, Unit owner, int duration,boolean enchant){
+	Effect(String effectName, Unit owner, int duration,Unit caster,boolean enchant){
         this.effectName = effectName;
         this.owner = owner;
         this.duration = duration;
         this.enchant = enchant;
+        this.caster = caster;
     }
 	
 	public abstract void onAddition();

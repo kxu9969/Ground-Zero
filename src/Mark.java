@@ -1,9 +1,7 @@
 
 public class Mark extends Debuff{
-	Unit caster;
-	Mark(String effectName, Unit owner, int duration, boolean enchant, Unit caster) {
-		super(effectName, owner, duration, enchant);
-		this.caster = caster;
+	Mark(String effectName, Unit owner, int duration, Unit caster, boolean enchant) {
+		super(effectName, owner, duration, caster, enchant);
 	}
 
 }

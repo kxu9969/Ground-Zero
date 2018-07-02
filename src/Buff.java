@@ -1,11 +1,11 @@
 
 public class Buff extends Effect{
-	Buff(String effectName, Unit owner, int duration) {
-		super(effectName, owner, duration);
+	Buff(String effectName, Unit owner, int duration, Unit caster) {
+		super(effectName, owner, duration,caster);
 	}
 	
-	Buff(String effectName, Unit owner, int duration, boolean enchant) {
-		super(effectName, owner, duration, enchant);
+	Buff(String effectName, Unit owner, int duration, Unit caster, boolean enchant) {
+		super(effectName, owner, duration, caster, enchant);
 	}
 
 	public void onAddition() {}

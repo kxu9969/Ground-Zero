@@ -170,7 +170,7 @@ public abstract class Unit {//broadest branch, all space takers
 			heal(damage);
 		}
 		if(hasBuff("Succubus' Rage")) {
-			this.addDebuff(h.occupied, new Debuff("Stunned",this,1,false));
+			addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
 		}
 		if(!end) {
 			grid.game.endOfTurn();
@@ -369,11 +369,11 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 	}
 
-	public void addBuff(Unit recipient, Buff b) {
-		if(recipient==this) {//when adding a buff to yourself, waits until end of turn to add
+	public void addBuff(Buff b) {
+		if(b.owner==b.caster) {//when adding a buff to yourself, waits until end of turn to add
 			rewriteBuff(b,addedBuffs);
 		}else {//when adding to others, adds it immediately
-			rewriteBuff(b,recipient.buffs);
+			rewriteBuff(b,b.owner.buffs);
 		}
 	}
 
@@ -385,11 +385,11 @@ public abstract class Unit {//broadest branch, all space takers
 		addedBuffs.clear();
 	}
 
-	public void addDebuff(Unit recipient, Debuff b) {
-		if(recipient==this) {//when adding a buff to yourself, waits until end of turn to add
+	public void addDebuff(Debuff b) {
+		if(b.owner==b.caster) {//when adding a buff to yourself, waits until end of turn to add
 			rewriteDebuff(b,addedDebuffs);
 		}else {//when adding to others, adds it immediately
-			rewriteDebuff(b,recipient.debuffs);
+			rewriteDebuff(b,b.owner.debuffs);
 		}
 		if(b instanceof Mark) {
 			this.marks.add((Mark) b);
@@ -464,7 +464,7 @@ public abstract class Unit {//broadest branch, all space takers
 	public boolean hasMark(String str,Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
-				if(d.effectName.equals(str)&&((Mark)d).caster==h) {
+				if(d.effectName.equals(str)&&d.caster==h) {
 					return true;
 				}
 			}
@@ -506,7 +506,7 @@ public abstract class Unit {//broadest branch, all space takers
 	public Debuff getMark(String str,Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
-				if(d.effectName.equals(str)&&((Mark)d).caster==h) {
+				if(d.effectName.equals(str)&&d.caster==h) {
 					return d;
 				}
 			}

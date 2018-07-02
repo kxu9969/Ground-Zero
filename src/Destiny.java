@@ -29,7 +29,7 @@ public class Destiny extends Hero{
 	}
 
 	public void startOfTurn() {
-		rewriteBuff(new BuffStack("Tranquility",this,-1,false,1),buffs);
+		rewriteBuff(new BuffStack("Tranquility",this,-1,this,false,1),buffs);
 		super.startOfTurn();
 	}
 
@@ -61,7 +61,7 @@ public class Destiny extends Hero{
 				if(hasBuff("Tranquility")) {
 					((BuffStack)getBuff("Tranquility")).stacks=(int) queue1.get(0);
 				}else {
-					rewriteBuff(new BuffStack("Tranquility",this,-1,false,(int) queue1.get(0)),buffs);
+					rewriteBuff(new BuffStack("Tranquility",this,-1,this,false,(int) queue1.get(0)),buffs);
 				}
 			}
 		}catch(Exception e) {}
@@ -74,7 +74,7 @@ public class Destiny extends Hero{
 			for(int i =1;i<queue1.size();i++) {
 				Object o = queue1.get(i);
 				((Hex)o).occupied.heal(40);
-				addBuff(((Hex)o).occupied,new Buff("Spiritual Unity",((Hex)o).occupied,3,false));
+				addBuff(new Buff("Spiritual Unity",((Hex)o).occupied,3,this,false));
 			}
 			queue1.clear();
 			abcdDelay[0]=true;
@@ -140,7 +140,7 @@ public class Destiny extends Hero{
 			if(hasBuff("Tranquility")) {
 				((BuffStack)getBuff("Tranquility")).stacks=(int) queue2.get(0);
 			}else {
-				rewriteBuff(new BuffStack("Tranquility",this,-1,false,(int) queue2.get(0)),buffs);
+				rewriteBuff(new BuffStack("Tranquility",this,-1,this,false,(int) queue2.get(0)),buffs);
 			}
 		}catch(Exception e) {}
 		queue2.clear();
@@ -149,7 +149,7 @@ public class Destiny extends Hero{
 
 	public void ability2(Hex h) {
 		if(h==position) {
-			addDebuff(((Hex)queue2.get(1)).occupied,new Debuff("Stunned",((Hex)queue2.get(1)).occupied,queue2.size()-1,false));
+			addDebuff(new Debuff("Stunned",((Hex)queue2.get(1)).occupied,queue2.size()-1,this,false));
 			queue2.clear();
 			abcdDelay[1]=true;
 			grid.game.endOfTurn();
@@ -228,7 +228,7 @@ public class Destiny extends Hero{
 			if(hasBuff("Tranquility")) {
 				((BuffStack)getBuff("Tranquility")).stacks=(int) queue3.get(0);
 			}else {
-				rewriteBuff(new BuffStack("Tranquility",this,-1,false,(int) queue3.get(0)),buffs);
+				rewriteBuff(new BuffStack("Tranquility",this,-1,this,false,(int) queue3.get(0)),buffs);
 			}
 		}catch(Exception e) {}
 		queue3.clear();
@@ -282,8 +282,8 @@ public class Destiny extends Hero{
 	}
 
 	public void ultimate(Hex h) {
-		addBuff(this,new BuffStack("Tranquility",this,-1,false,9));
-		addBuff(this,new Buff("Enlightenment",this,1,true));
+		addBuff(new BuffStack("Tranquility",this,-1,this,false,9));
+		addBuff(new Buff("Enlightenment",this,1,this,true));
 		setStamina();
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();

@@ -46,7 +46,7 @@ public class Akar extends Hero{
 
 	public void ability1(Hex h) {
 		h.occupied.heal(40);
-		this.addBuff(h.occupied, new Buff("Thornscales",h.occupied,2,false));
+		addBuff(new Buff("Thornscales",h.occupied,2,this,false));
 		abcdDelay[0]=true;
 		grid.game.endOfTurn();
 	}
@@ -69,7 +69,7 @@ public class Akar extends Hero{
 		}
 		BogBeast b = new BogBeast(grid,"Bog Beast",str,h);
 		grid.game.addUnit(b);
-		addDebuff(b,new Debuff("Timed Life",b,3,true));
+		addDebuff(new Debuff("Timed Life",b,3,this,true));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}
@@ -94,7 +94,7 @@ public class Akar extends Hero{
 	public void ability3(Hex h) {
 		if(h==position) {
 			for(Object h1:queue3) {
-				addDebuff(((Hex)h1).occupied,new Debuff("Stormcall",((Hex)h1).occupied,2,false));
+				addDebuff(new Debuff("Stormcall",((Hex)h1).occupied,2,this,false));
 			}
 			abcdDelay[2]=true;
 			grid.game.endOfTurn();
@@ -120,7 +120,7 @@ public class Akar extends Hero{
 	}
 
 	public void ultimate(Hex h) {
-		h.effects.add(new TileEffect("Poisonseeds",this,2,false,h));
+		h.effects.add(new TileEffect("Poisonseeds",this,2,this,false,h));
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();
 	}

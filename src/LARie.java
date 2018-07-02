@@ -40,7 +40,7 @@ public class LARie extends Hero{
 	
 	public void endOfTurn() {
 		if(!basicAttackedThisTurn) {
-			this.addBuff(this,new BuffStack("Rev'n Up",this,-1,false,1));
+			this.addBuff(new BuffStack("Rev'n Up",this,-1,this,false,1));
 		}
 		super.endOfTurn();
 	}
@@ -66,7 +66,7 @@ public class LARie extends Hero{
 
 	public void ability2(Hex h) {
 		heal(40);
-		this.addBuff(this, new Buff("Block",this,-1,false));
+		this.addBuff(new Buff("Block",this,-1,this,false));
 		abcdDelay[1] = true;
 		grid.game.endOfTurn();
 	}
@@ -95,7 +95,7 @@ public class LARie extends Hero{
 	}
 
 	public void ultimate(Hex h) {
-		this.addBuff(this, new BuffStack("Rev'n Up", this,-1,false,9));
+		this.addBuff(new BuffStack("Rev'n Up", this,-1,this,false,9));
 		gainShield(200);
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();

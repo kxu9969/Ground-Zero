@@ -44,8 +44,8 @@ public class JARie extends Hero{
 		removeSameBuff("Configuration: Hyper-Potato");
 		removeSameBuff("Configuration: FMJ Plasma");
 		removeSameBuff("Configuration: Leeching Potato");
-		addBuff(this,new Buff("Configuration: Hyper-Potato",this,-1,true));
-		addDebuff(this,new Debuff("Rooted",this,1,false));
+		addBuff(new Buff("Configuration: Hyper-Potato",this,-1,this,true));
+		addDebuff(new Debuff("Rooted",this,1,this,false));
 		abcdDelay[0]=true;
 		grid.game.endOfTurn();
 	}
@@ -59,8 +59,8 @@ public class JARie extends Hero{
 		removeSameBuff("Configuration: Hyper-Potato");
 		removeSameBuff("Configuration: FMJ Plasma");
 		removeSameBuff("Configuration: Leeching Potato");
-		addBuff(this,new Buff("Configuration: FMJ Plasma",this,-1,true));
-		addDebuff(this,new Debuff("Rooted",this,1,false));
+		addBuff(new Buff("Configuration: FMJ Plasma",this,-1,this,true));
+		addDebuff(new Debuff("Rooted",this,1,this,false));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}
@@ -74,8 +74,8 @@ public class JARie extends Hero{
 		removeSameBuff("Configuration: Hyper-Potato");
 		removeSameBuff("Configuration: FMJ Plasma");
 		removeSameBuff("Configuration: Leeching Potato");
-		addBuff(this,new Buff("Configuration: Leeching Potato",this,-1,true));
-		addDebuff(this,new Debuff("Rooted",this,1,false));
+		addBuff(new Buff("Configuration: Leeching Potato",this,-1,this,true));
+		addDebuff(new Debuff("Rooted",this,1,this,false));
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
 	}
@@ -91,10 +91,10 @@ public class JARie extends Hero{
 		removeSameBuff("Configuration: Leeching Potato");
 		
 		
-		addBuff(this,new Buff("Configuration: Hyper-Potato",this,3,true));
-		addBuff(this,new Buff("Configuration: FMJ Plasma",this,3,true));
-		addBuff(this,new Buff("Configuration: Leeching Potato",this,3,true));
-		addDebuff(this,new Debuff("Rooted",this,1,false));
+		addBuff(new Buff("Configuration: Hyper-Potato",this,3,this,true));
+		addBuff(new Buff("Configuration: FMJ Plasma",this,3,this,true));
+		addBuff(new Buff("Configuration: Leeching Potato",this,3,this,true));
+		addDebuff(new Debuff("Rooted",this,1,this,false));
 
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();

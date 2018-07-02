@@ -20,7 +20,7 @@ public class BogBeast extends Summon{
 	}
 	
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
-		addDebuff(h.occupied, new Debuff("Rooted",h.occupied,1,false));
+		addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
 		super.basicAttack(h,damage,armor,shield,end);
 	}
 

@@ -1,11 +1,11 @@
 
 public class Debuff extends Effect{
-	Debuff(String effectName, Unit owner, int duration) {
-		super(effectName, owner, duration);
+	Debuff(String effectName, Unit owner, int duration, Unit caster) {
+		super(effectName, owner, duration,caster);
 	}
 	
-	Debuff(String effectName, Unit owner, int duration, boolean enchant) {
-		super(effectName, owner, duration, enchant);
+	Debuff(String effectName, Unit owner, int duration,Unit caster, boolean enchant) {
+		super(effectName, owner, duration,caster, enchant);
 	}
 
 	public void onAddition() {

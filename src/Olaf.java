@@ -102,7 +102,7 @@ public class Olaf extends Hero{
 		}
 		for(Hex h1:hexes) {
 			if(h1.hasEnemy(this)) {
-				addDebuff(h1.occupied,new Debuff("Rooted",h1.occupied,2,false));
+				addDebuff(new Debuff("Rooted",h1.occupied,2,this,false));
 			}else if(h1.hasAlly(this)) {
 				h1.occupied.gainShield(h1.occupied.heal(100));
 			}

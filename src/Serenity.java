@@ -66,7 +66,7 @@ public class Serenity extends Hero{
 	public void ability2(Hex h) {
 		int damage= 40+currentShield;
 		h.occupied.takeAbility(damage, this, true, true);
-		addDebuff(h.occupied,new Debuff("Stunned",h.occupied,1,false));
+		addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}

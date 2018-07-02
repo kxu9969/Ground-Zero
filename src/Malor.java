@@ -83,7 +83,7 @@ public class Malor extends Hero{
 	}
 
 	public void ability3(Hex h) {
-		this.addBuff(this,new Buff("Whirling Scythes",this,2,false));
+		this.addBuff(new Buff("Whirling Scythes",this,2,this,false));
 		setStamina();
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

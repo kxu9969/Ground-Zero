@@ -71,7 +71,7 @@ public class Charity extends Hero{
 	}
 
 	public void ability2(Hex h) {
-		addDebuff(h.occupied,new Debuff("Rooted",h.occupied,1,false));
+		addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}
@@ -107,7 +107,7 @@ public class Charity extends Hero{
 	public void ability3(Hex h) {
 		if(h==position) {
 			for(Object h1:queue3) {
-				addBuff(((Hex)h1).occupied,new Buff("Divine Radiance",((Hex)h1).occupied,3,false));
+				addBuff(new Buff("Divine Radiance",((Hex)h1).occupied,3,this,false));
 			}
 			abcdDelay[2]=true;
 			grid.game.endOfTurn();

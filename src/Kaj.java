@@ -39,7 +39,7 @@ public class Kaj extends Hero{
 	}
 
 	public void ability1(Hex h) {
-		h.effects.add(new TileEffect("Nature's Bounty",this,-1,false,h));
+		h.effects.add(new TileEffect("Nature's Bounty",this,-1,this,false,h));
 		abcdDelay[0]=true;
 		grid.game.endOfTurn();
 	}
@@ -54,7 +54,7 @@ public class Kaj extends Hero{
 
 	public void ability2(Hex h) {
 		if(h.hasEnemy(this)) {
-			addDebuff(h.occupied, new Debuff("Rooted",h.occupied,2,false));
+			addDebuff(new Debuff("Rooted",h.occupied,2,this,false));
 		}
 		else if(h.occupied==null) {
 			String str;
@@ -65,7 +65,7 @@ public class Kaj extends Hero{
 				str="Team 2";
 			}
 			TreeWall b = new TreeWall(grid,"Wall of Trees",str,h);
-			addDebuff(b,new Debuff("Timed Life",b,3,true));
+			addDebuff(new Debuff("Timed Life",b,3,this,true));
 			grid.game.occupants.add(b);
 		}
 		abcdDelay[1]=true;

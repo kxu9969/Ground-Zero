@@ -102,7 +102,7 @@ public class Lindera extends Hero{
 			showAb1();
 		}else if(queue1.size()==1) {
 			((Hex)queue1.get(0)).occupied.setPosition(h);
-			addDebuff(h.occupied,new Debuff("Silenced",this,1,false));
+			addDebuff(new Debuff("Silenced",h.occupied,1,this,false));
 			abcdDelay[0]=true;
 			grid.game.endOfTurn();
 		}
@@ -117,7 +117,7 @@ public class Lindera extends Hero{
 	}
 
 	public void ability2(Hex h) {
-		addBuff(h.occupied, new Buff("Twilight Bomb",this,3,false));
+		addBuff(new Buff("Twilight Bomb",h.occupied,3,this,false));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}
@@ -134,7 +134,7 @@ public class Lindera extends Hero{
 		if(h.occupied.hasMark("Marked", this)) {
 			h.occupied.currentHealth=h.occupied.maxHealth/2;
 		}else {
-			addDebuff(h.occupied, new Mark("Marked",h.occupied,3,false,this));
+			addDebuff(new Mark("Marked",h.occupied,3,this,false));
 		}
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
@@ -158,7 +158,7 @@ public class Lindera extends Hero{
 		}
 		Singularity b = new Singularity(grid,"Singularity",str,h);
 		grid.game.occupants.add(b);
-		addBuff(this,new Buff("Singularity",this,2,true));
+		addBuff(new Buff("Singularity",this,2,this,true));
 		queue4.add(b);
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();
