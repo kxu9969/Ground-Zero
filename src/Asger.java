@@ -16,7 +16,7 @@ public class Asger extends Hero{
 		defaultArmor = 30;
 		currentArmor = defaultArmor;
 		armorPiercing = 30;
-		basicRange = 5;
+		basicRange = 1;
 		ab1cdMax = 4;
 		ab2cdMax = 2;
 		ab3cdMax = 3;
