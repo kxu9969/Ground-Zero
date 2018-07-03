@@ -13,5 +13,16 @@ public class BuffStack extends Buff{
 		this.stackCap = stackCap;
 	}
 	
+	public void onAddition() {
+		if(effectName.equals("Gathering Darkness")) {
+			owner.currentArmor+=stacks*5;
+		}
+	}
+	
+	public void onRemoval() {
+		if(effectName.equals("Gathering Darkness")) {
+			owner.currentArmor-=stacks*5;
+		}
+	}
 	
 }

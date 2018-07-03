@@ -167,6 +167,10 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Spiritual Unity")) {
 			damage+=10;
 		}
+		if(hasBuff("Lethality")) {
+			damage+=((BuffStack)getBuff("Lethality")).stacks*10;
+			removeSameBuff("Lethality");
+		}
 		damage = h.occupied.takeBasic(damage, this, armor, shield);
 		basicAttackedThisTurn = true;
 		if(hasLeech()) {//buffs for lifesteal
@@ -331,6 +335,17 @@ public abstract class Unit {//broadest branch, all space takers
 				}
 			}
 		}
+		if(!(this instanceof Hero)) {
+			if(grid.game.units.contains(this)) {
+				grid.game.units.remove(this);
+			}
+			if(grid.game.team1.contains(this)) {
+				grid.game.team1.remove(this);
+			}
+			if(grid.game.team2.contains(this)) {
+				grid.game.team2.remove(this);
+			}
+		}
 		dead = true;
 		position.clearHex();
 		grid.game.checkGameOver();
@@ -342,11 +357,15 @@ public abstract class Unit {//broadest branch, all space takers
 		boolean addBuff = true;
 		ArrayList<Buff> toBeRemoved = new ArrayList<Buff>();
 		for(Buff b1:buffs) {
-			if(b1.effectName.equals(b.effectName)) {
+			if(!(b1 instanceof Channel)&&b1.effectName.equals(b.effectName)) {
 				if(b instanceof BuffStack) {
+					b1.onRemoval();
 					((BuffStack)b1).stacks+=((BuffStack) b).stacks;
 					if(((BuffStack)b1).stacks>=((BuffStack)b1).stackCap) {
 						((BuffStack)b1).stacks=((BuffStack)b1).stackCap;
+					}
+					if(buffs==b1.owner.buffs) {
+						b1.onAddition();
 					}
 					addBuff = false;
 				}
@@ -363,7 +382,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(addBuff) {
 			buffs.add(b);
-			b.onAddition();
+			if(buffs==b.owner.buffs) {
+				b.onAddition();
+			}
 		}
 	}
 	
@@ -373,9 +394,13 @@ public abstract class Unit {//broadest branch, all space takers
 		for(Debuff d1: debuffs) {
 			if(!(d1 instanceof Mark )&& d1.effectName.equals(d.effectName)) {
 				if(d instanceof DebuffStack) {
+					d1.onRemoval();
 					((DebuffStack)d1).stacks+=((DebuffStack)d).stacks;
 					if(((DebuffStack)d1).stacks>=((DebuffStack)d1).stackCap) {
 						((DebuffStack)d1).stacks=((DebuffStack)d1).stackCap;
+					}
+					if(debuffs==d1.owner.debuffs) {
+						d1.onAddition();
 					}
 					addDebuff = false;
 				}
@@ -392,7 +417,16 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(addDebuff) {
 			debuffs.add(d);
-			d.onAddition();
+			if(debuffs==d.owner.debuffs) {
+				d.onAddition();
+			}
+		}
+		if(d.effectName.equals("Silenced")) {
+			for(int i = d.owner.buffs.size()-1;i>=0;i--) {
+				if(d.owner.buffs.get(i) instanceof Channel) {
+					removeBuff(d.owner.buffs.get(i));
+				}
+			}
 		}
 	}
 
@@ -419,7 +453,7 @@ public abstract class Unit {//broadest branch, all space takers
 			rewriteDebuff(b,b.owner.debuffs);
 		}
 		if(b instanceof Mark) {
-			this.marks.add((Mark) b);
+			b.caster.marks.add((Mark) b);
 		}
 	}
 
@@ -445,7 +479,7 @@ public abstract class Unit {//broadest branch, all space takers
 	public void removeBuff(Buff b) {
 		if(!b.enchant||b.duration==0) {
 			b.onRemoval();
-			buffs.remove(b);
+			b.owner.buffs.remove(b);
 		}
 	}
 
@@ -464,10 +498,10 @@ public abstract class Unit {//broadest branch, all space takers
 	public void removeDebuff(Debuff d) {
 		if(!d.enchant||d.duration==0) {
 			d.onRemoval();
-			debuffs.remove(d);
+			d.owner.debuffs.remove(d);
 		}
 		if(d instanceof Mark) {
-			d.owner.marks.remove(d);
+			d.caster.marks.remove(d);
 		}
 	}
 	
@@ -563,10 +597,12 @@ public abstract class Unit {//broadest branch, all space takers
 	public void tickBuffs() {
 		ArrayList<Buff> toBeRemoved = new ArrayList<Buff>();
 		for(Buff b:buffs) {
-			if(b.duration>0) {
-				b.duration--;
-			}if(b.duration==0) {
-				toBeRemoved.add(b);
+			if(!(b instanceof Channel)) {
+				if(b.duration>0) {
+					b.duration--;
+				}if(b.duration==0) {
+					toBeRemoved.add(b);
+				}
 			}
 		}
 		for(Buff b:toBeRemoved) {
@@ -602,6 +638,22 @@ public abstract class Unit {//broadest branch, all space takers
 		for(Mark m:toBeRemoved) {
 			marks.remove(m);
 			m.caster.removeDebuff(m);
+		}
+	}
+	
+	public void tickChannels() {
+		ArrayList<Channel> toBeRemoved = new ArrayList<Channel>();
+		for(Buff c:buffs) {
+			if(c instanceof Channel) {
+				if(c.duration>0) {
+					c.duration--;
+				}if(c.duration==0) {
+					toBeRemoved.add((Channel) c);
+				}
+			}
+		}
+		for(Channel c:toBeRemoved) {
+			removeBuff(c);
 		}
 	}
 

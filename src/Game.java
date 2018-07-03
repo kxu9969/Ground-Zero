@@ -28,9 +28,9 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit = new Lindera(grid,"Lindera","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new Magmus(grid,"Magmus","Team 2",new Hex(4,2,-6));
-	Hero one = new Akar(grid,"Ak'ar","Team 2",new Hex(6,2,-8));
+	Unit currentUnit = new JARie(grid,"JARie","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new Kaito(grid,"Kaito","Team 2",new Hex(4,2,-6));
+	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
 	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
 	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 
@@ -171,6 +171,7 @@ public class Game implements MouseListener, MouseMotionListener{
 			o.runAura();
 		}
 		currentUnit.startOfTurn();
+		currentUnit.tickChannels();
 		if(currentUnit.hasDebuff("Stunned")) {
 			System.out.println(currentUnit.name+" Stunned");
 			try {
@@ -265,6 +266,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		else {
 			ab1.setText("");
 			ab1.setEnabled(false);
+			q1.setEnabled(false);
 		}
 		if(currentUnit.hasAb2()) {
 			ab2.setText("Ability 2 ("+currentUnit.ab2cd+")");
@@ -277,6 +279,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		else {
 			ab2.setText("");
 			ab2.setEnabled(false);
+			q2.setEnabled(false);
 		}
 		if(currentUnit.hasAb3()) {
 			ab3.setText("Ability 3 ("+currentUnit.ab3cd+")");
@@ -289,6 +292,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		else {
 			ab3.setText("");
 			ab3.setEnabled(false);
+			q3.setEnabled(false);
 		}
 		if(currentUnit.hasUlt()) {
 			ult.setText("Ultimate ("+currentUnit.ultcd+")");
@@ -301,6 +305,7 @@ public class Game implements MouseListener, MouseMotionListener{
 		else {
 			ult.setText("");
 			ult.setEnabled(false);
+			q4.setEnabled(false);
 		}
 		for(boolButton b:buttonList) {
 			if(b.lock) {

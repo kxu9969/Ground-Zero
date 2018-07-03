@@ -57,11 +57,18 @@ public class Visual extends JPanel{
 				g2.setColor(Color.black);
 			}
 			if(h.color!=null) {
-				g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
+				if(!(h.occupied instanceof ShadowStep)) {
+					g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
+				}
 			}
 			if(h.occupied!=null) {
+				if(h.occupied.team==grid.game.team1)
+					g2.setColor(Color.red);
+				else
+					g2.setColor(Color.blue);
 				g2.drawString(h.occupied.name, (float)mainLayout.hexToPixel(h).x-25, 
 						(float)mainLayout.hexToPixel(h).y);
+				g2.setColor(Color.black);
 			}
 		}	
 		canvas.setIcon(new ImageIcon(image));
