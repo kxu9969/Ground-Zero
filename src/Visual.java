@@ -15,8 +15,8 @@ public class Visual extends JPanel{
 	final int Line_Thickness=3;
 	BufferedImage image;
 	JLabel canvas;
-	Layout mainLayout = new Layout(Layout.flat,new Point(40,40),new Point(0,0));
-	Layout borderLayout = new Layout(Layout.flat,new Point(37,37),new Point(0,0));
+	Layout mainLayout = new Layout(Layout.flat,new Point(30,28),new Point(0,0));
+	Layout borderLayout = new Layout(Layout.flat,new Point(27,25),new Point(0,0));
 
 	Visual(Grid grid){
 		this.grid = grid;

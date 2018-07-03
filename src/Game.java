@@ -28,24 +28,24 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit = new JARie(grid,"JARie","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new Kaito(grid,"Kaito","Team 2",new Hex(4,2,-6));
-	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
-	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
-	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
+	Unit currentUnit;//= new JARie(grid,"JARie","Team 1",new Hex(5,2, -7));
+//	Hero tempHero = new Kaito(grid,"Kaito","Team 2",new Hex(4,2,-6));
+//	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
+//	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
+//	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 
-	final static int Visual_Width = 1000;
-	final static int Visual_Height = 700;
+	final static int Visual_Width = 1200;
+	final static int Visual_Height = 970;
 	int nextUnitCounter = 0;
 	boolean ending = false;
 
-	Game(ArrayList<String> team1,ArrayList<String>team2){		
+	Game(ArrayList<String> team1,ArrayList<String>team2, ArrayList<Hex> hex1, ArrayList<Hex> hex2){		
 
-		for(String str:team1) {
-			this.team1.add(makeHero(str, "Team 1"));
+		for(int i = 0;i<team1.size();i++) {
+			this.team1.add(makeHero(team1.get(i), "Team 1",hex1.get(i)));
 		}
-		for(String str:team2) {
-			this.team2.add(makeHero(str,"Team 2"));
+		for(int i = 0;i<team2.size();i++) {
+			this.team2.add(makeHero(team2.get(i),"Team 2",hex2.get(i)));
 		}
 		for(Unit h:this.team1) {
 			this.units.add(h);
@@ -53,16 +53,17 @@ public class Game implements MouseListener, MouseMotionListener{
 		for(Unit h:this.team2) {
 			this.units.add(h);
 		}
-		this.team1.add(currentUnit);
-		units.add(currentUnit);
-		this.team2.add(tempHero);
-		units.add(tempHero);
-		this.team2.add(one);
-		this.team2.add(two);
-		this.team2.add(three);
-		units.add(one);
-		units.add(two);
-		units.add(three);
+		currentUnit = units.get(0);
+//		this.team1.add(currentUnit);
+//		units.add(currentUnit);
+//		this.team2.add(tempHero);
+//		units.add(tempHero);
+//		this.team2.add(one);
+//		this.team2.add(two);
+//		this.team2.add(three);
+//		units.add(one);
+//		units.add(two);
+//		units.add(three);
 
 		for(Unit h:units) {
 			grid.getHex(h.position).occupied=h;
@@ -454,16 +455,40 @@ public class Game implements MouseListener, MouseMotionListener{
 		}
 	}
 
-	public Unit makeHero(String str,String team) {
+	public Unit makeHero(String str,String team, Hex hex) {
 		Unit h = null;
-		if(str.equals("JAR.ie")) {
-			Unit JARie = new JARie(grid,"JAR.ie",team,null);
-			return JARie;
-		}else if(str.equals("Myria")) {
-			Unit Myria = new Myria(grid,"Myria",team,null);
+		if(str.equals("Ak'ar")) {
+			h = new Akar(grid,str,team,hex);
+		}else if(str.equals("Asger")) {
+			h = new Asger(grid,str,team,hex);
+		}else if(str.equals("Charity")) {
+			h = new Charity(grid,str,team,hex);
+		}else if(str.equals("Destiny")) {
+			h = new Destiny(grid,str,team,hex);
+		}else if(str.equals("JAR.ie")) {
+			h = new JARie(grid,str,team,hex);
+		}else if(str.equals("Kaito")) {
+			h = new Kaito(grid,str,team,hex);
+		}else if(str.equals("Kaj")) {
+			h = new Kaj(grid,str,team,hex);
+		}else if(str.equals("LAR.ie")) {
+			h = new LARie(grid,str,team,hex);
+		}else if(str.equals("Lindera")) {
+			h = new Lindera(grid,str,team,hex);
+		}else if(str.equals("Magmus")) {
+			h = new Magmus(grid,str,team,hex);
 		}else if(str.equals("Malor")) {
-			Unit Malor = new Malor(grid,"Malor",team,null);
+			h = new Malor(grid,str,team,hex);
+		}else if(str.equals("Mortimer")) {
+			h = new Mortimer(grid,str,team,hex);
+		}else if(str.equals("Myria")) {
+			h = new Myria(grid,str,team,hex);
+		}else if(str.equals("Olaf")) {
+			h = new Olaf(grid,str,team,hex);
+		}else if(str.equals("Serenity")) {
+			h = new Serenity(grid,str,team,hex);
 		}
+			
 		return h;
 	}
 
@@ -503,7 +528,7 @@ public class Game implements MouseListener, MouseMotionListener{
 					temp.setLayout(new BoxLayout(temp,BoxLayout.PAGE_AXIS));
 					temp.add(new JLabel("Info:"));
 					if(h.occupied!=null) {
-						temp.add(new JLabel(h.occupied.name));
+						temp.add(new JLabel(h.q+" "+h.r+" "+h.s));
 						if(h.occupied.currentShield>0) {
 							temp.add(new JLabel("Health: ("+h.occupied.currentShield+")"+h.occupied.currentHealth+"/"+
 									h.occupied.maxHealth));
