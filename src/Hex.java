@@ -179,6 +179,15 @@ class Hex
     	return false;
     }
     
+    public boolean adjacentAlly(Grid grid, Hero h1) {
+    	for(Hex h: grid.hexes) {
+    		if(h.distance(this)==1&&h.hasAlly(h1)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     public ArrayList<Hex> findLine(Grid grid,Hex h){
     	Hex difference = h.subtract(this);
     	Hex nextHex = this.add(difference);

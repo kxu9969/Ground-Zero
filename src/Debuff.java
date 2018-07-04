@@ -9,7 +9,7 @@ public class Debuff extends Effect{
 	}
 
 	public void onAddition() {
-		if(effectName.equals("Consuming Flame")) {
+		if(effectName.equals("Armor Removed")) {
 			owner.currentArmor=0;
 		}
 	}
@@ -18,8 +18,8 @@ public class Debuff extends Effect{
 		if(effectName.equals("Timed Life")) {
 			owner.die();
 		}
-		if(effectName.equals("Consuming Flame")) {
-			if(true) {//has other armor setting effects
+		if(effectName.equals("Armor Removed")) {
+			if(!owner.hasDebuff("Armor Removed")) {//has other armor setting effects
 				owner.currentArmor=owner.defaultArmor;
 			}
 		}

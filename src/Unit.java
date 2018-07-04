@@ -50,7 +50,7 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void setStamina(int i) {
-		setStamina = i;
+		setStamina += i;
 	}
 
 	public void setStamina() {
@@ -134,7 +134,7 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 	
 	public boolean noArmor() {
-		if(hasBuff("Configuration: FMJ Plasma")) {//buffs for armor pierce
+		if(hasBuff("Configuration: FMJ Plasma")||hasBuff("Empowered Animus")) {//buffs for armor pierce
 			return true;
 		}
 		return false;
@@ -167,9 +167,19 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Spiritual Unity")) {
 			damage+=10;
 		}
+		if(hasBuff("Energetic Blows")) {
+			damage+=20;
+		}
 		if(hasBuff("Lethality")) {
 			damage+=((BuffStack)getBuff("Lethality")).stacks*10;
 			removeSameBuff("Lethality");
+		}
+		if(hasBuff("Empowered Animus")) {
+			for(Hex h1:grid.hexes) {
+				if(h1.hasEnemy(this)) {
+					h1.occupied.takeBasic(damage, this, armor, shield);
+				}
+			}
 		}
 		damage = h.occupied.takeBasic(damage, this, armor, shield);
 		basicAttackedThisTurn = true;
@@ -226,16 +236,8 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 	}
 	
-	public void basicAttack(Hex h) {
-		boolean armor = true;
-		boolean anotherTurn = false;
-		if(noArmor()) {
-			armor = false;
-		}
-		if(anotherTurn()) {
-			anotherTurn = true;
-		}
-		basicAttack(h,this.basicDamage,armor,true,anotherTurn);
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield) {
+		basicAttack(h,damage,armor,shield,true);
 	}
 	
 	public void basicAttack(Hex h,int damage) {
@@ -249,9 +251,17 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		basicAttack(h,damage,armor,true,anotherTurn);
 	}
-
-	public void basicAttack(Hex h,int damage,boolean armor,boolean shield) {
-		basicAttack(h,damage,armor,shield,true);
+	
+	public void basicAttack(Hex h) {
+		boolean armor = true;
+		boolean anotherTurn = false;
+		if(noArmor()) {
+			armor = false;
+		}
+		if(anotherTurn()) {
+			anotherTurn = true;
+		}
+		basicAttack(h,this.basicDamage,armor,true,anotherTurn);
 	}
 	
 	public int takeBasic(int damage, Unit attacker,boolean armor,boolean shield) {
@@ -478,8 +488,8 @@ public abstract class Unit {//broadest branch, all space takers
 	
 	public void removeBuff(Buff b) {
 		if(!b.enchant||b.duration==0) {
-			b.onRemoval();
 			b.owner.buffs.remove(b);
+			b.onRemoval();
 		}
 	}
 
@@ -497,8 +507,8 @@ public abstract class Unit {//broadest branch, all space takers
 	
 	public void removeDebuff(Debuff d) {
 		if(!d.enchant||d.duration==0) {
-			d.onRemoval();
 			d.owner.debuffs.remove(d);
+			d.onRemoval();
 		}
 		if(d instanceof Mark) {
 			d.caster.marks.remove(d);
