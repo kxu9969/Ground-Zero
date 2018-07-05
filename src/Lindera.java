@@ -131,7 +131,7 @@ public class Lindera extends Hero{
 	}
 
 	public void ability3(Hex h) {
-		if(h.occupied.hasMark("Marked", this)) {
+		if(h.occupied.hasMark(this)) {
 			h.occupied.currentHealth=h.occupied.maxHealth/2;
 		}else {
 			addDebuff(new Mark("Marked",h.occupied,3,this,false));

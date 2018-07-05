@@ -28,11 +28,11 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit;//= new JARie(grid,"JARie","Team 1",new Hex(5,2, -7));
-//	Hero tempHero = new Kaito(grid,"Kaito","Team 2",new Hex(4,2,-6));
-//	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
-//	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
-//	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
+	Unit currentUnit= new Vera(grid,"Vera","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new Kaluk(grid,"Kaluk","Team 2",new Hex(4,2,-6));
+	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
+	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
+	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 
 	final static int Visual_Width = 1200;
 	final static int Visual_Height = 970;
@@ -53,17 +53,17 @@ public class Game implements MouseListener, MouseMotionListener{
 		for(Unit h:this.team2) {
 			this.units.add(h);
 		}
-		currentUnit = units.get(0);
-//		this.team1.add(currentUnit);
-//		units.add(currentUnit);
-//		this.team2.add(tempHero);
-//		units.add(tempHero);
-//		this.team2.add(one);
-//		this.team2.add(two);
-//		this.team2.add(three);
-//		units.add(one);
-//		units.add(two);
-//		units.add(three);
+//		currentUnit = units.get(0);
+		this.team1.add(currentUnit);
+		units.add(currentUnit);
+		this.team2.add(tempHero);
+		units.add(tempHero);
+		this.team2.add(one);
+		this.team2.add(two);
+		this.team2.add(three);
+		units.add(one);
+		units.add(two);
+		units.add(three);
 
 		for(Unit h:units) {
 			grid.getHex(h.position).occupied=h;

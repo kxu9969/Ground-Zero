@@ -163,11 +163,17 @@ public abstract class Unit {//broadest branch, all space takers
 	
 	public void clearBasic() {};
 
-	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
 		if(hasBuff("Spiritual Unity")) {
 			damage+=10;
 		}
 		if(hasBuff("Energetic Blows")) {
+			damage+=20;
+		}
+		if(hasBuff("Centered Stance")) {
+			damage+=20;
+		}
+		if(hasBuff("Hunting Rites")) {
 			damage+=20;
 		}
 		if(hasBuff("Lethality")) {
@@ -189,7 +195,7 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Succubus' Rage")) {
 			addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
 		}
-		if(!end) {
+		if(!anotherTurn) {
 			grid.game.endOfTurn();
 		}else {
 			if(hasBuff("Configuration: Hyper-Potato")&&!getBuff(
@@ -237,7 +243,11 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 	
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield) {
-		basicAttack(h,damage,armor,shield,true);
+		boolean anotherTurn = false;
+		if(anotherTurn()) {
+			anotherTurn = true;
+		}
+		basicAttack(h,damage,armor,shield,anotherTurn);
 	}
 	
 	public void basicAttack(Hex h,int damage) {
@@ -402,7 +412,7 @@ public abstract class Unit {//broadest branch, all space takers
 		boolean addDebuff = true;
 		ArrayList<Debuff> toBeRemoved = new ArrayList<Debuff>();
 		for(Debuff d1: debuffs) {
-			if(!(d1 instanceof Mark )&& d1.effectName.equals(d.effectName)) {
+			if(!(d instanceof Mark )&& d1.effectName.equals(d.effectName)) {
 				if(d instanceof DebuffStack) {
 					d1.onRemoval();
 					((DebuffStack)d1).stacks+=((DebuffStack)d).stacks;
@@ -421,14 +431,29 @@ public abstract class Unit {//broadest branch, all space takers
 					toBeRemoved.add(d1);
 				}
 			}
+			if(d instanceof Mark) {
+				if(d1.owner==d.owner) {
+					if(d1.duration>d.duration) {
+						addDebuff = false;
+					}else {
+						toBeRemoved.add(d1);
+					}
+				}
+			}
 		}
 		for(Debuff d1:toBeRemoved) {
 			debuffs.remove(d1);
+			if(d1 instanceof Mark) {
+				d1.caster.marks.remove(d1);
+			}
 		}
 		if(addDebuff) {
 			debuffs.add(d);
 			if(debuffs==d.owner.debuffs) {
 				d.onAddition();
+			}
+			if(d instanceof Mark) {
+				d.caster.marks.add((Mark) d);
 			}
 		}
 		if(d.effectName.equals("Silenced")) {
@@ -461,9 +486,6 @@ public abstract class Unit {//broadest branch, all space takers
 			rewriteDebuff(b,addedDebuffs);
 		}else {//when adding to others, adds it immediately
 			rewriteDebuff(b,b.owner.debuffs);
-		}
-		if(b instanceof Mark) {
-			b.caster.marks.add((Mark) b);
 		}
 	}
 
@@ -532,10 +554,10 @@ public abstract class Unit {//broadest branch, all space takers
 		return false;
 	}
 	
-	public boolean hasMark(String str,Hero h) {
+	public boolean hasMark(Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
-				if(d.effectName.equals(str)&&d.caster==h) {
+				if(d.effectName.equals("Marked")&&d.caster==h) {
 					return true;
 				}
 			}

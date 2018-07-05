@@ -41,6 +41,7 @@ public class Myria extends Hero{
 					h.color=Color.RED;
 				}
 			}
+			position.color=Color.red;
 		}else if(queue1.size()==1) {
 			Hex firstClick = (Hex) queue1.get(0);
 			for(Hex h:grid.hexes)	{

@@ -72,7 +72,7 @@ public class Vera extends Hero{
 	public void showAb3() {
 		if(queue3.size()==0) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)<=3&&h.occupied==null&&h.adjacentEnemy(grid, this)) {
+				if((position.distance(h)<=3&&h.occupied==null||h==position)&&h.adjacentEnemy(grid, this)) {
 					h.color=Color.RED;
 				}
 			}

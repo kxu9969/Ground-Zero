@@ -12,11 +12,17 @@ public class Buff extends Effect{
 		if(effectName.equals("Second Ring, Fourth Sign")) {
 			owner.basicDamage+=30;
 		}
+		if(effectName.equals("Centered Stance")) {
+			owner.armorPiercing+=10;
+		}
 	}
 	
 	public void onRemoval() {	
 		if(effectName.equals("Second Ring, Fourth Sign")) {
 			owner.basicDamage-=30;
+		}
+		if(effectName.equals("Centered Stance")) {
+			owner.armorPiercing-=10;
 		}
 		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {

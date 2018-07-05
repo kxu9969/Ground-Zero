@@ -35,7 +35,7 @@ public class Mortimer extends Hero{
 	public void showAb1() {	
 		if(queue1.size()==0) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)<=3&&h.occupied==null&&h.adjacentEnemy(grid, this)) {
+				if((position.distance(h)<=3&&h.occupied==null||h==position)&&h.adjacentEnemy(grid, this)) {
 					h.color=Color.RED;
 				}
 			}
@@ -69,8 +69,8 @@ public class Mortimer extends Hero{
 		}
 		else if(queue1.size()==1) {
 			setPosition((Hex)queue1.get(0));
-			basicAttack(h,basicDamage,false,true);
-			basicAttack(h,basicDamage,false,true);
+			basicAttack(h,basicDamage,false,true,true);
+			basicAttack(h,basicDamage,false,true,true);
 			abcdDelay[0]=true;
 			grid.game.endOfTurn();
 		}		
