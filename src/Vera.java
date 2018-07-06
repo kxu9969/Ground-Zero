@@ -113,7 +113,7 @@ public class Vera extends Hero{
 			for(Buff b:toBeRemoved) {
 				h.occupied.removeBuff(b);
 			}
-			basicAttack(h);
+			basicAttack(h,basicDamage,true,true,true);
 			abcdDelay[2]=true;
 			grid.game.endOfTurn();
 		}			

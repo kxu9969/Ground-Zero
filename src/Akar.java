@@ -75,15 +75,17 @@ public class Akar extends Hero{
 	}
 
 	public void showAb3() {
-		for(Hex h:grid.hexes) {
-			if(h.hasEnemy(this)) {
-				h.color=Color.RED;
+		if(queue3.size()<3) {
+			for(Hex h:grid.hexes) {
+				if(h.hasEnemy(this)) {
+					h.color=Color.RED;
+				}
+			}
+			for(Object h:queue3) {
+				((Hex)h).color=null;
 			}
 		}
 		position.color=Color.green;
-		for(Object h:queue3) {
-			((Hex)h).color=null;
-		}
 	}
 
 	public void clearAb3() {

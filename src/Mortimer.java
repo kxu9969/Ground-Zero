@@ -77,15 +77,18 @@ public class Mortimer extends Hero{
 	}
 	
 	public void showAb2() {
-		for(Hex h:grid.hexes) {
-			if(position.distance(h)==1&&h.hasEnemy(this)) {
-				h.color=Color.RED;
+		if(queue2.size()<2) {
+			for(Hex h:grid.hexes) {
+				if(position.distance(h)==1&&h.hasEnemy(this)) {
+					h.color=Color.RED;
+				}
 			}
+			for(Object h:queue2) {
+				((Hex)h).color=null;
+			}		
 		}
 		position.color=Color.green;
-		for(Object h:queue2) {
-			((Hex)h).color=null;
-		}		
+
 	}
 	
 	public void clearAb2() {

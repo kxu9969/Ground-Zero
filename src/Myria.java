@@ -72,7 +72,7 @@ public class Myria extends Hero{
 		}
 		else if(queue1.size()==1) {
 			setPosition((Hex)queue1.get(0));
-			basicAttack(h);
+			basicAttack(h,basicDamage,true,true,true);
 			this.addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
 			abcdDelay[0]=true;
 			grid.game.endOfTurn();

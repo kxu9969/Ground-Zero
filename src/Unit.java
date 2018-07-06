@@ -8,7 +8,7 @@ public abstract class Unit {//broadest branch, all space takers
 	int ab1cd,ab2cd,ab3cd = 0;
 	int ultcd = 8;
 	boolean[] abcdDelay = {false,false,false,false};
-	boolean dead,basicAttackedThisTurn = false;
+	boolean dead,basicAttackedThisTurn,basicAttackedLastTurn = false;
 	boolean hasAb1,hasAb2,hasAb3,hasUlt=true;
 	Hex position;
 	Grid grid;
@@ -100,11 +100,13 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public int heal(int health) {
-		currentHealth+=health;
-		if(currentHealth>maxHealth) {
-			int difference = currentHealth-maxHealth;
-			currentHealth = maxHealth;
-			return difference;
+		if(!hasDebuff("Cursed")) {
+			currentHealth+=health;
+			if(currentHealth>maxHealth) {
+				int difference = currentHealth-maxHealth;
+				currentHealth = maxHealth;
+				return difference;
+			}
 		}
 		return 0;
 	}
@@ -740,6 +742,11 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 			if(hasBuff("Whirling Scythes")) {
 				getBuff("Whirling Scythes").toggle = false;
+			}
+			if(basicAttackedThisTurn) {
+				basicAttackedLastTurn=true;
+			}else {
+				basicAttackedLastTurn=false;
 			}
 			basicAttackedThisTurn = false;
 			for(Unit u:grid.game.units) {

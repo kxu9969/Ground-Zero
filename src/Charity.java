@@ -84,15 +84,17 @@ public class Charity extends Hero{
 				}
 			}
 		}else {
-			for(Object h:queue3) {
-				for(Hex h1:grid.hexes) {
-					if(((Hex)h).distance(h1)==1&&h1.hasAlly(this)) {
-						h1.color=Color.red;
+			if(queue3.size()<3) {
+				for(Object h:queue3) {
+					for(Hex h1:grid.hexes) {
+						if(((Hex)h).distance(h1)==1&&h1.hasAlly(this)) {
+							h1.color=Color.red;
+						}
 					}
 				}
-			}
-			for(Object h:queue3) {
-				((Hex)h).color=null;
+				for(Object h:queue3) {
+					((Hex)h).color=null;
+				}
 			}
 		}
 		position.color=Color.green;
