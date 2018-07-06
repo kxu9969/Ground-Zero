@@ -16,11 +16,17 @@ public class Marcos extends Hero{
 		defaultArmor = 40;
 		currentArmor = defaultArmor;
 		armorPiercing = 50;
-		basicRange = 2;
+		basicRange = 1;
 		ab1cdMax = 2;
 		ab2cdMax = 3;
 		ab3cdMax = 2;
 		ultcdMax = 8;	
+		qU="A fast attacker whose attacks Curse opponents, he can quickly burst down enemies with attacks that keep coming, preventing enemies from responding. When he cannot get in range or his combos are disrupted, however, he is extremely fragile.";
+		qP="Bleeding Out: Basic attacks Curse enemies for 1 turn, preventing them from healing. Additional stacks increase the Curse duration, up to 3 turns.";
+		q1="Riposte (2): Lunges through an adjacent target to the tile behind, dealing 50 damage ignoring armor.";
+		q2="Follow Through (2): Basic attacks an adjacent target twice. If you basic attacked last turn refill your stamina immediately.";
+		q3="Lunge (3):  Dash to an enemy within 3 range and basic attack them twice. If you did not basic attack last turn, refill stamina immediately.";
+		q4="Dancing Blades (8): Enchant up to three nearby targets within 5 range and remove their armor for 2 turns, then attack them all in order.";
 	}
 	
 	public void basicAttack(Hex h, int damage, boolean armor, boolean shield, boolean anotherTurn) {

@@ -169,6 +169,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Spiritual Unity")) {
 			damage+=10;
 		}
+		if(hasBuff("Rip")) {
+			damage+=10;
+		}
 		if(hasBuff("Energetic Blows")) {
 			damage+=20;
 		}
@@ -617,10 +620,10 @@ public abstract class Unit {//broadest branch, all space takers
 		return a;
 	}
 	
-	public Debuff getMark(String str,Hero h) {
+	public Debuff getMark(Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
-				if(d.effectName.equals(str)&&d.caster==h) {
+				if(d.effectName.equals("Marked")&&d.caster==h) {
 					return d;
 				}
 			}
