@@ -15,6 +15,9 @@ public class Buff extends Effect{
 		if(effectName.equals("Centered Stance")) {
 			owner.armorPiercing+=10;
 		}
+		if(effectName.equals("Surface-to-Surface Missiles")) {
+			owner.currentArmor+=30;
+		}
 	}
 	
 	public void onRemoval() {	
@@ -23,6 +26,9 @@ public class Buff extends Effect{
 		}
 		if(effectName.equals("Centered Stance")) {
 			owner.armorPiercing-=10;
+		}
+		if(effectName.equals("Surface-to-Surface Missiles")) {
+			owner.currentArmor-=30;
 		}
 		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {

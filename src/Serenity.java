@@ -88,18 +88,16 @@ public class Serenity extends Hero{
 	}
 
 	public void showUlt() {
+		ultimate(null);
+	}
+
+	public void ultimate(Hex h) {
 		for(Unit u:team) {
 			u.gainShield(200);
 		}
 		setStamina();
 		abcdDelay[3]=true;
-		grid.game.endOfTurn();
-	}
-
-	@Override
-	public void ultimate(Hex h) {
-		// TODO Auto-generated method stub
-		
+		grid.game.endOfTurn();		
 	}
 
 }

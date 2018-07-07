@@ -29,7 +29,7 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
 	Unit currentUnit= new Blur(grid,"Blur","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new Kaluk(grid,"Kaluk","Team 2",new Hex(4,2,-6));
+	Hero tempHero = new BARie(grid,"BAR.ie","Team 2",new Hex(4,2,-6));
 	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
 	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));
 	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
@@ -251,7 +251,7 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	public void setButtons() {
-		if(currentUnit.hasDebuff("Rooted")) {
+		if(currentUnit.hasDebuff("Rooted")||currentUnit.hasBuff("Surface-to-Surface Missiles")) {
 			move.setEnabled(false);
 		}else {
 			move.setEnabled(true);

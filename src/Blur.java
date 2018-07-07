@@ -109,10 +109,10 @@ public class Blur extends Hero{
 		basicAttack(h,basicDamage,true,true,true);
 		addBuff(new Buff("Rip",this,2,this,false));
 		if(h.occupied.hasMark(this)) {
-			ab3cd = 1;
+			ab3cdMax = 1;
 			setStamina();
 		}else {
-			ab3cd = 3;
+			ab3cdMax = 3;
 		}
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

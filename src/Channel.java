@@ -29,10 +29,26 @@ public class Channel extends Buff{
 				owner.rewriteBuff(new BuffStack("Gathering Darkness",owner,-1,owner,false,2),owner.buffs);
 				owner.grid.game.endOfTurn();
 			}
+			else if(methodName.equals("Suppressive Fire")) {
+				for(Hex h:affected) {
+					if(h.occupied!=null) {
+						owner.basicAttack(h);
+					}
+				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+				}
+				owner.grid.game.endOfTurn();
+			}
 		}else {
 			if(methodName.equals("Shadow Step")) {
 				Hex h = affected.get(0);
-				((ShadowStep)h.occupied).die(true);			}
+				((ShadowStep)h.occupied).die(true);	
+			}
+			else if(methodName.equals("Suppressive Fire")){
+				
+			}
 		}
 	}
 }

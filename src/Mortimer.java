@@ -31,7 +31,7 @@ public class Mortimer extends Hero{
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
 		super.basicAttack(h, basicDamage, false, shield,end);
 	}
-	
+
 	public void showAb1() {	
 		if(queue1.size()==0) {
 			for(Hex h:grid.hexes) {
@@ -75,7 +75,7 @@ public class Mortimer extends Hero{
 			grid.game.endOfTurn();
 		}		
 	}
-	
+
 	public void showAb2() {
 		if(queue2.size()<2) {
 			for(Hex h:grid.hexes) {
@@ -90,7 +90,7 @@ public class Mortimer extends Hero{
 		position.color=Color.green;
 
 	}
-	
+
 	public void clearAb2() {
 		queue2.clear();
 		grid.game.setButtons();
@@ -136,17 +136,14 @@ public class Mortimer extends Hero{
 		ultimate(null);
 	}
 
-	@Override
 	public void ultimate(Hex h1) {
-		for(Hex h:grid.hexes) {
-			if(h.hasEnemy(this)) {
-				int damage = h.occupied.currentArmor;
-				if(currentHealth<maxHealth*0.25) {
-					damage+=70;
-				}
-				h.occupied.takeAbility(damage, this, false, true);
-				addDebuff(new Debuff("Armor Removed",h.occupied,2,this,true));
+		for(Unit u:enemyTeam) {
+			int damage = u.currentArmor;
+			if(currentHealth<maxHealth*0.25) {
+				damage+=70;
 			}
+			u.takeAbility(damage, this, false, true);
+			addDebuff(new Debuff("Armor Removed",u,2,this,true));
 		}
 		setStamina();
 		abcdDelay[3]=true;

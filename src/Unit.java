@@ -126,6 +126,13 @@ public abstract class Unit {//broadest branch, all space takers
 				}
 			}
 		}
+		if(hasBuff("Surface-to-Surface Missiles")) {
+			for(Hex h:grid.hexes) {
+				if(h.hasEnemy(this)&&h.occupied.hasMark((Hero) this)) {
+					h.color=Color.red;
+				}
+			}
+		}
 		if(singularity) {
 			for(Hex h:grid.hexes) {
 				if(h.color==Color.red&&!(h.occupied instanceof Singularity)) {
@@ -620,11 +627,11 @@ public abstract class Unit {//broadest branch, all space takers
 		return a;
 	}
 	
-	public Debuff getMark(Hero h) {
+	public Mark getMark(Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
 				if(d.effectName.equals("Marked")&&d.caster==h) {
-					return d;
+					return (Mark) d;
 				}
 			}
 		}
