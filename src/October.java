@@ -20,6 +20,12 @@ public class October extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 1;
 		ultcdMax = 8;		
+		qU="An old, feral werewolf, he consumed the essence of a wandering magus on the eve of his namesake. Now he scours the land for more prey, hoping to increase his arcane prowess.";
+		qP="Shackles and Fetters: October cannot basic attack.";
+		q1="Madness and Agony (5): Deal 60 damage to an enemy within 5 range and stun them for 1 turn, dealing 60 damage again at the start of their stunned turn.";
+		q2="Thunder and Storm (3): Mark a tile within 4 range for 6 turns. Occupants take 30 damage ignoring armor at the start and end of their turn and are Cursed for 2 turns.";
+		q3="Scour and Burn (1): Deal 50 damage to an enemy within 3 range. If they are Marked by October, deal 80 damage instead, ignoring armor and shield, and reset the cooldown of this ability.";
+		q4="Hunter and Prey (8): Mark an enemy within 3 range for 4 turns and reset the cooldowns of your other abilities. If the Marked enemy is adjacent to you, refill your stamina immediately. If the Marked enemy ends their turn adjacent to you, refill your stamina immediately.";
 	}
 	
 	public boolean ableBasic() {
