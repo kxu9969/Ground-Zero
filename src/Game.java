@@ -541,6 +541,9 @@ public class Game implements MouseListener, MouseMotionListener{
 							temp.add(new JLabel("Health: "+h.occupied.currentHealth+"/"+
 									h.occupied.maxHealth));
 						}
+						temp.add(new JLabel("Armor: "+h.occupied.currentArmor+"/"
+								+h.occupied.defaultArmor));
+						temp.add(new JLabel("Armor Piercing: "+h.occupied.armorPiercing));
 						temp.add(new JLabel("Stamina: "+h.occupied.currentStamina+"/"
 								+h.occupied.maxStamina));
 						String str = "Buffs: ";
@@ -557,7 +560,7 @@ public class Game implements MouseListener, MouseMotionListener{
 					if(h.effects.size()>0) {
 						temp.add(new JLabel("Tile Effects:"));
 						for(Effect e1:h.effects) {
-							temp.add(new JLabel(e1.effectName));
+							temp.add(new JLabel(e1.effectName+"("+e1.duration+")"));
 						}
 					}
 					information.add(temp);

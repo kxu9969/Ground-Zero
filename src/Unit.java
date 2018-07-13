@@ -702,6 +702,10 @@ public abstract class Unit {//broadest branch, all space takers
 			removeBuff(c);
 		}
 		if(has) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
 			grid.game.endOfTurn();
 		}
 	}

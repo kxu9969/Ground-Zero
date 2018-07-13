@@ -76,10 +76,6 @@ public class Channel extends Buff{
 					u.takeAbility(600, owner, false, false);
 				}
 			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
 		}else {
 			if(methodName.equals("Shadow Step")) {
 				Hex h = affected.get(0);
