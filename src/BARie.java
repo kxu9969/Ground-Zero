@@ -21,6 +21,12 @@ public class BARie extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 2;
 		ultcdMax = 8;		
+		qU="A long-ranged assassin, BAR.ie Marks his targets before continually striking at them from range. His attacks are best against Marked targets, and his ultimate lets him pick off wounded enemies easily.";
+		qP="Targeting Matrix: Enemies hit by basic attacks are Marked for 3 turns.";
+		q1="Spitfire Missile (2): Fires a missile to a marked target (no range), dealing 70 damage to adjacent tiles and consuming the Mark.";
+		q2="Death Ray (3): Fires a laser blast at a target within 3 tiles, dealing 40 damage. If it is marked, range is infinite and cooldown is 0.";
+		q3="Suppressive Fire (2): Channel for 1 turn, then basic attack all units in a line for 5 tiles at the start of your next turn, penetrating targets. Can be interrupted by silences.";
+		q4="Surface-to-Surface Missiles (8): Gain +30 armor and Mark all enemies. Can no longer move but can attack any Marked target. Lasts 4 turns, refill stamina immediately.";
 	}
 	
 	public void basicAttack(Hex h, int damage, boolean armor, boolean shield, boolean anotherTurn) {
