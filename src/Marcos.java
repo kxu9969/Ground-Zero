@@ -33,9 +33,8 @@ public class Marcos extends Hero{
 		if(!h.occupied.hasDebuff("Cursed")) {
 			addDebuff(new Debuff("Cursed",h.occupied,1,this,false));
 		}else {
-			h.occupied.getDebuff("Cursed").duration++;
-			if(h.occupied.getDebuff("Cursed").duration>3) {
-				h.occupied.getDebuff("Cursed").duration=3;
+			if(h.occupied.getDebuff("Cursed").duration<3) {
+				h.occupied.getDebuff("Cursed").duration++;
 			}
 		}
 		super.basicAttack(h, damage, armor, shield, anotherTurn);

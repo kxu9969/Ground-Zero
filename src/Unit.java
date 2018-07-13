@@ -444,7 +444,7 @@ public abstract class Unit {//broadest branch, all space takers
 				}
 			}
 			if(d instanceof Mark) {
-				if(d1.owner==d.owner) {
+				if(d1.owner==d.owner&&d1.effectName.equals(d.effectName)) {
 					if(d1.duration>d.duration) {
 						addDebuff = false;
 					}else {
@@ -732,15 +732,31 @@ public abstract class Unit {//broadest branch, all space takers
 		if(position.hasEffect("Nature's Bounty")) {
 			heal(30);
 		}
+		if(position.hasEffect("Thunder and Storm")) {
+			takeAbility(30,position.getEffect("Thunder and Storm").owner,false,true);
+			rewriteDebuff(new Debuff("Cursed",this,2,position.getEffect("Thunder and Storm").owner,false),debuffs);
+		}
 		if(hasBuff("Divine Radiance")) {
 			heal(20);
 		}
 		if(hasDebuff("Molten Blast")) {
 			takeAbility(20,getDebuff("Molten Blast").caster,false,false);
 		}
+		if(hasDebuff("Madness and Agony")) {
+			takeAbility(60,getDebuff("Madness and Agony").caster,true,true);
+		}
 				
 	};
 	public void endOfTurn() {
+		if(position.hasEffect("Thunder and Storm")) {
+			takeAbility(30,position.getEffect("Thunder and Storm").owner,false,true);
+			addDebuff(new Debuff("Cursed",this,3,position.getEffect("Thunder and Storm").owner,false));
+		}
+		if(hasDebuff("Hunter and Prey")) {
+			if(position.distance(getDebuff("Hunter and Prey").caster.position)==1) {
+				getDebuff("Hunter and Prey").caster.currentStamina = getDebuff("Hunter and Prey").caster.maxStamina;
+			}
+		}
 		if(!dead) {
 			currentStamina = setStamina;
 			setStamina = 0;
@@ -807,6 +823,7 @@ public abstract class Unit {//broadest branch, all space takers
 	public abstract void showUlt();
 	public void clearUlt() {};
 	public abstract void ultimate(Hex h);
+	public boolean ableBasic() {return true;}
 	public boolean ableAb1() {return true;}
 	public boolean ableAb2() {return true;}
 	public boolean ableAb3() {return true;}
