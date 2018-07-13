@@ -18,6 +18,9 @@ public class Buff extends Effect{
 		if(effectName.equals("Surface-to-Surface Missiles")) {
 			owner.currentArmor+=30;
 		}
+		if(effectName.equals("Ancient Tongue: Inferno")) {
+			owner.currentArmor+=20;
+		}
 	}
 	
 	public void onRemoval() {	
@@ -29,6 +32,9 @@ public class Buff extends Effect{
 		}
 		if(effectName.equals("Surface-to-Surface Missiles")) {
 			owner.currentArmor-=30;
+		}
+		if(effectName.equals("Ancient Tongue: Inferno")) {
+			owner.currentArmor-=20;
 		}
 		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {

@@ -94,8 +94,8 @@ public class October extends Hero{
 		ab1cd=0;
 		ab2cd=0;
 		ab3cd=0;
-		addDebuff(new Mark("Marked",h.occupied,4,this,false));
-		addDebuff(new Mark("Hunter and Prey",h.occupied,4,this,false));
+		addDebuff(new Mark("Marked",h.occupied,5,this,false));
+		addDebuff(new Mark("Hunter and Prey",h.occupied,5,this,false));
 		if(position.distance(h)==1) {
 			setStamina();
 		}

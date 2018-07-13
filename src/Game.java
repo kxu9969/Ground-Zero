@@ -28,7 +28,7 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new October(grid,"October","Team 1",new Hex(5,2, -7));
+	Unit currentUnit= new HWSF(grid,"He Who Speaks Fire","Team 1",new Hex(5,2, -7));
 	Hero tempHero = new BARie(grid,"BAR.ie","Team 2",new Hex(4,2,-6));
 	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
 	Hero two = new JARie(grid,"JARie","Team 2",new Hex(7,2,-9));

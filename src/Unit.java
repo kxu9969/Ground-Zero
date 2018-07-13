@@ -687,6 +687,7 @@ public abstract class Unit {//broadest branch, all space takers
 	
 	public void tickChannels() {
 		ArrayList<Channel> toBeRemoved = new ArrayList<Channel>();
+		boolean has = false;
 		for(Buff c:buffs) {
 			if(c instanceof Channel) {
 				if(c.duration>0) {
@@ -694,10 +695,14 @@ public abstract class Unit {//broadest branch, all space takers
 				}if(c.duration==0) {
 					toBeRemoved.add((Channel) c);
 				}
+				has = true;
 			}
 		}
 		for(Channel c:toBeRemoved) {
 			removeBuff(c);
+		}
+		if(has) {
+			grid.game.endOfTurn();
 		}
 	}
 
@@ -732,6 +737,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(position.hasEffect("Nature's Bounty")) {
 			heal(30);
 		}
+		if(position.hasEffect("Burning")) {
+			takeAbility(10,position.getEffect("Burning").owner,false,false);
+		}
 		if(position.hasEffect("Thunder and Storm")) {
 			takeAbility(30,position.getEffect("Thunder and Storm").owner,false,true);
 			rewriteDebuff(new Debuff("Cursed",this,2,position.getEffect("Thunder and Storm").owner,false),debuffs);
@@ -751,6 +759,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(position.hasEffect("Thunder and Storm")) {
 			takeAbility(30,position.getEffect("Thunder and Storm").owner,false,true);
 			addDebuff(new Debuff("Cursed",this,3,position.getEffect("Thunder and Storm").owner,false));
+		}
+		if(position.hasEffect("Burning")) {
+			takeAbility(10,position.getEffect("Burning").owner,false,false);
 		}
 		if(hasDebuff("Hunter and Prey")) {
 			if(position.distance(getDebuff("Hunter and Prey").caster.position)==1) {
