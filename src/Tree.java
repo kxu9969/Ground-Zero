@@ -1,7 +1,7 @@
 
-public class TreeWall extends Occupant{
+public class Tree extends Occupant{
 
-	TreeWall(Grid grid, String name, String team, Hex h) {
+	Tree(Grid grid, String name, String team, Hex h) {
 		super(grid, name, team, h);
 	}
 
@@ -9,7 +9,7 @@ public class TreeWall extends Occupant{
 	public void assembleStats() {
 		maxHealth = 50;
 		currentHealth = maxHealth;
-		currentArmor = 0;
+		currentArmor = 0;		
 	}
 
 	@Override
@@ -59,7 +59,5 @@ public class TreeWall extends Occupant{
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 }

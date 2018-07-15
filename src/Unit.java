@@ -192,6 +192,10 @@ public abstract class Unit {//broadest branch, all space takers
 			damage+=((BuffStack)getBuff("Lethality")).stacks*10;
 			removeSameBuff("Lethality");
 		}
+		if(hasBuff("Rampage")) {
+			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
+			removeSameBuff("Rampage");
+		}
 		if(hasBuff("Empowered Animus")) {
 			for(Hex h1:grid.hexes) {
 				if(h1.hasEnemy(this)) {
