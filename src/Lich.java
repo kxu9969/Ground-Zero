@@ -1,27 +1,22 @@
 
-public class BogBeast extends Summon{
+public class Lich extends Summon{
 
-	BogBeast(Grid grid, String name, String team, Hex h,Unit owner) {
+	Lich(Grid grid, String name, String team, Hex h, Unit owner) {
 		super(grid, name, team, h, owner);
 	}
 
 	public void assembleStats() {
-		maxHealth = 300;
+		maxHealth = 100;
 		currentHealth = maxHealth;
-		maxStamina = 45;
+		maxStamina = 60;
 		currentStamina = 0;
 		basicDamage = 40;
-		defaultArmor = 50;
+		defaultArmor = 0;
 		currentArmor = defaultArmor;
-		armorPiercing = 70;
-		basicRange = 1;	
-		qU="A monstrosity summoned by Ak’ar, it can root enemies with basic attacks and is hard to kill.";
-		qP="Tendrils: Basic attacks root the target for 1 turn. Timed Life:  This unit automatically dies after 3 of its turns.\r\n";
-	}
-	
-	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
-		addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
-		super.basicAttack(h,damage,armor,shield,end);
+		armorPiercing = 30;
+		basicRange = 5;		
+		qU="These once-great archmages now rise to serve once again, firing bolts of unholy magic into enemy ranks.";
+		qP="Unhallowed Magic: Attacks deal damage to enemies in adjacent tiles.";
 	}
 
 	@Override
@@ -71,7 +66,5 @@ public class BogBeast extends Summon{
 		// TODO Auto-generated method stub
 		
 	}
-	
-
 
 }

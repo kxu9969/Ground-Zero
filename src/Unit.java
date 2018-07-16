@@ -153,7 +153,7 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 	
 	public boolean noArmor() {
-		if(hasBuff("Configuration: FMJ Plasma")||hasBuff("Empowered Animus")) {//buffs for armor pierce
+		if(hasBuff("Configuration: FMJ Plasma")||hasBuff("Empowered Animus")||this instanceof Lich) {//buffs for armor pierce
 			return true;
 		}
 		return false;
@@ -183,6 +183,10 @@ public abstract class Unit {//broadest branch, all space takers
 	public void clearBasic() {};
 
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
+		int damageDealt=0;
+		if(noArmor()) {
+			armor = false;
+		}
 		if(hasBuff("Spiritual Unity")) {
 			damage+=10;
 		}
@@ -206,17 +210,17 @@ public abstract class Unit {//broadest branch, all space takers
 			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
 			removeSameBuff("Rampage");
 		}
-		if(hasBuff("Empowered Animus")) {
+		if(hasBuff("Empowered Animus")||this instanceof Lich) {//AoE Attacks
 			for(Hex h1:grid.hexes) {
-				if(h1.hasEnemy(this)) {
-					h1.occupied.takeBasic(damage, this, armor, shield);
+				if(h.distance(h1)==1&&h1.hasEnemy(this)) {
+					damageDealt+=h1.occupied.takeBasic(damage, this, armor, shield);
 				}
 			}
 		}
-		damage = h.occupied.takeBasic(damage, this, armor, shield);
+		damageDealt += h.occupied.takeBasic(damage, this, armor, shield);
 		basicAttackedThisTurn = true;
 		if(hasLeech()) {//buffs for lifesteal
-			heal(damage);
+			heal(damageDealt);
 		}
 		if(hasBuff("Succubus' Rage")) {
 			addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
@@ -393,10 +397,12 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 		dead = true;
+		currentStamina=0;
 		position.clearHex();
 		grid.game.checkGameOver();
-		if(this==grid.game.currentUnit&&!grid.game.ending)
+		if(this==grid.game.currentUnit&&!grid.game.ending) {
 			grid.game.endOfTurn();
+		}
 	}
 	
 	public void rewriteBuff(Buff b,ArrayList<Buff> buffs) {

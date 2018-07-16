@@ -43,6 +43,10 @@ public class Buff extends Effect{
 				}catch(Exception e) {}
 			}
 		}
+		else if(effectName.equals("Necrotic Tether")) {
+			((Hero)owner).tetherDie=true;
+			owner.die();
+		}
 	}
 
 }

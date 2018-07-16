@@ -28,10 +28,10 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Veena(grid,"Veena","Team 1",new Hex(5,2, -7));
+	Unit currentUnit= new Blur(grid,"Blur","Team 1",new Hex(5,2, -7));
 	Hero tempHero = new BARie(grid,"BAR.ie","Team 2",new Hex(4,2,-6));
 	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
-	Hero two = new Helena(grid,"Helena","Team 2",new Hex(7,2,-9));
+	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 
 	final static int Visual_Width = 1200;
@@ -255,11 +255,13 @@ public class Game implements MouseListener, MouseMotionListener{
 			move.setEnabled(false);
 		}else {
 			move.setEnabled(true);
+			qM.setEnabled(true);
 		}
 		if(!currentUnit.ableBasic()) {
 			basic.setEnabled(false);
 		}else {
 			basic.setEnabled(true);
+			qB.setEnabled(true);
 		}
 		if(currentUnit.hasAb1()) {
 			ab1.setText("Ability 1 ("+currentUnit.ab1cd+")");
@@ -267,6 +269,7 @@ public class Game implements MouseListener, MouseMotionListener{
 				ab1.setEnabled(false);
 			}else {
 				ab1.setEnabled(true);
+				q1.setEnabled(true);
 			}
 		}
 		else {
@@ -280,6 +283,7 @@ public class Game implements MouseListener, MouseMotionListener{
 				ab2.setEnabled(false);
 			}else {
 				ab2.setEnabled(true);
+				q2.setEnabled(true);
 			}
 		}
 		else {
@@ -293,6 +297,7 @@ public class Game implements MouseListener, MouseMotionListener{
 				ab3.setEnabled(false);
 			}else {
 				ab3.setEnabled(true);
+				q3.setEnabled(true);
 			}
 		}
 		else {
@@ -306,6 +311,7 @@ public class Game implements MouseListener, MouseMotionListener{
 				ult.setEnabled(false);
 			}else {
 				ult.setEnabled(true);
+				q4.setEnabled(true);
 			}
 		}
 		else {

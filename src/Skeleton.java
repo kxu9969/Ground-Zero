@@ -1,27 +1,23 @@
 
-public class BogBeast extends Summon{
+public class Skeleton extends Summon{
 
-	BogBeast(Grid grid, String name, String team, Hex h,Unit owner) {
+	Skeleton(Grid grid, String name, String team, Hex h, Unit owner) {
 		super(grid, name, team, h, owner);
 	}
 
 	public void assembleStats() {
-		maxHealth = 300;
+		maxHealth = 60;
 		currentHealth = maxHealth;
-		maxStamina = 45;
+		maxStamina = 70;
 		currentStamina = 0;
-		basicDamage = 40;
-		defaultArmor = 50;
+		basicDamage = 10;
+		defaultArmor = 40;
 		currentArmor = defaultArmor;
-		armorPiercing = 70;
+		armorPiercing = 40;
 		basicRange = 1;	
-		qU="A monstrosity summoned by Ak’ar, it can root enemies with basic attacks and is hard to kill.";
-		qP="Tendrils: Basic attacks root the target for 1 turn. Timed Life:  This unit automatically dies after 3 of its turns.\r\n";
-	}
-	
-	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
-		addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
-		super.basicAttack(h,damage,armor,shield,end);
+		qU="Armed with sword and shield, they emerge to surround enemies and protect their master.";
+		qP="Timed Life: This unit automatically dies after 3 of its turns.";
+		
 	}
 
 	@Override
@@ -71,7 +67,5 @@ public class BogBeast extends Summon{
 		// TODO Auto-generated method stub
 		
 	}
-	
-
 
 }

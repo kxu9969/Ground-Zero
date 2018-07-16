@@ -1,8 +1,9 @@
 
 public abstract class Summon extends Unit{//may not have certain abilities
-	
-	Summon(Grid grid, String name, String team, Hex h) {
+	Unit owner;
+	Summon(Grid grid, String name, String team, Hex h,Unit owner) {
 		super(grid, name, team, h);
+		this.owner = owner;
 		hasAb1=false;
 		hasAb2=false;
 		hasAb3=false;

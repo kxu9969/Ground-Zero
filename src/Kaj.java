@@ -88,7 +88,7 @@ public class Kaj extends Hero{
 		else {
 			str="Team 2";
 		}
-		FeralGuide b = new FeralGuide(grid,"Feral Guide",str,h);
+		FeralGuide b = new FeralGuide(grid,"Feral Guide",str,h,this);
 		grid.game.addUnit(b);
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

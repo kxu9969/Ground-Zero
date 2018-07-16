@@ -67,7 +67,7 @@ public class Akar extends Hero{
 		else {
 			str="Team 2";
 		}
-		BogBeast b = new BogBeast(grid,"Bog Beast",str,h);
+		BogBeast b = new BogBeast(grid,"Bog Beast",str,h,this);
 		grid.game.addUnit(b);
 		addDebuff(new Debuff("Timed Life",b,3,this,true));
 		abcdDelay[1]=true;

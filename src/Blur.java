@@ -19,7 +19,13 @@ public class Blur extends Hero{
 		ab1cdMax = 2;
 		ab2cdMax = 2;
 		ab3cdMax = 3;
-		ultcdMax = 8;			
+		ultcdMax = 8;	
+		qU="A direwolf, Blur is a powerful striker that carefully sets up and prepares his targets before dashing in and getting the kill before their allies can even respond.";
+		qP="Stalk: Targets basic attacked by Blur have their current stamina reduced by 20.";
+		q1="Pounce (2): Jumps to a nearby target within 3 tiles, and basic attacks them. If the target has been Marked by Blur, regain stamina immediately.";
+		q2="Hunt (2): Mark an enemy for 2 turns. If the target is already Marked, reset the Mark and attack them if possible.";
+		q3="Rip (3): Basic attack an adjacent enemy twice. Increase your damage by 10 for 2 turns. If the target has been marked by Blur, cooldown is 1 and regain stamina immediately.";
+		q4="Howl (8): Mark all enemies for 2 turns and set their stamina back down to 0. Regain stamina immediately.";
 	}
 
 	public void basicAttack(Hex h,int damage,boolean armor, boolean shield,boolean anotherTurn) {

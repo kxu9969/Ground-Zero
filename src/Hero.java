@@ -1,8 +1,38 @@
 
 public abstract class Hero extends PartialHero{
-
+	boolean tetherDie=false;
 	Hero(Grid grid, String name, String team, Hex h) {
 		super(grid, name, team, h);
+	}
+	
+	public void die() {
+		boolean tether = false;//is there a tether effect
+		boolean expire = false;//is your tether already procc'd
+		for(Unit u:team) {
+			if(u instanceof Amon) {
+				tether= true;
+			}
+		}
+		if(tether) {
+			if(tetherDie) {
+				expire = true;
+			}
+		}
+		if(tether&&expire) {
+			tetherDie=false;
+			super.die();
+		}else if(tether&&!expire) {
+			if(grid.game.ending) {
+				addBuff(new Buff("Necrotic Tether",this,1,this,true));
+				addDebuff(new Debuff("Cursed",this,1,this,true));
+			}else {
+				rewriteBuff(new Buff("Necrotic Tether",this,1,this,true),buffs);
+				rewriteDebuff(new Debuff("Cursed",this,1,this,true),debuffs);
+				this.currentHealth=0;
+			}
+		}else if(!tether) {
+			super.die();
+		}
 	}
 
 }
