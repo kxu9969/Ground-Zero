@@ -117,12 +117,22 @@ public abstract class Unit {//broadest branch, all space takers
 
 	public void showBasic() {
 		boolean singularity = false;
-		for(Hex h:grid.hexes) {
-			if(position.distance(h)<=basicRange&&position.distance(h)>0&&h.occupied!=null
-					&&!h.occupied.team.equals(team)) {//also needs to check for team
-				h.color=Color.RED;
-				if(h.occupied instanceof Singularity) {
-					singularity = true;
+		if(hasDebuff("Blinded")) {
+			for(Hex h:grid.hexes) {
+				if(position.distance(h)==1&&h.hasEnemy(this)) {//also needs to check for team
+					h.color=Color.RED;
+					if(h.occupied instanceof Singularity) {
+						singularity = true;
+					}
+				}
+			}
+		}else {
+			for(Hex h:grid.hexes) {
+				if(position.distance(h)<=basicRange&&h.hasEnemy(this)) {//also needs to check for team
+					h.color=Color.RED;
+					if(h.occupied instanceof Singularity) {
+						singularity = true;
+					}
 				}
 			}
 		}
@@ -739,11 +749,11 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void startOfTurn() {
-		if(position.hasEffect("Poisonseeds")) {
-			takeAbility(20,position.getEffect("Poisonseeds").owner,false,false);
-		}
 		if(position.hasEffect("Nature's Bounty")) {
 			heal(30);
+		}
+		if(position.hasEffect("Poisonseeds")) {
+			takeAbility(20,position.getEffect("Poisonseeds").owner,false,false);
 		}
 		if(position.hasEffect("Burning")) {
 			takeAbility(10,position.getEffect("Burning").owner,false,false);
@@ -760,6 +770,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(hasDebuff("Madness and Agony")) {
 			takeAbility(60,getDebuff("Madness and Agony").caster,true,true);
+		}
+		if(hasDebuff("Virulent Toxins")) {
+			takeAbility(10,getDebuff("Virulent Toxins").caster,false,false);
 		}
 				
 	};

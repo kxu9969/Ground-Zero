@@ -19,7 +19,13 @@ public class Helena extends Hero{
 		ab1cdMax = 2;
 		ab2cdMax = 3;
 		ab3cdMax = 1;
-		ultcdMax = 8;			
+		ultcdMax = 8;	
+		qU="A area denial specialist whose abilities scale to extreme range with her passive, she best when positioned in the back with a tree in a safe place to preserve her passive stacks.";
+		qP="Earthen Affinity: Gains 1 stack of One With The Earth at the start of each turn, increasing ability and basic attack range by 1. Stores up to 9. They are all lost if you move.";
+		q1="Nature’s Fury (2): Deal 10+(*1*x10)/2 damage to all enemies within *1* tile.";
+		q2="Uproot (3): Root all enemies within *1* tile for 1 turn.";
+		q3="Arbol Vessel (1): Summons a tree on any tile with 50 health. Can be recast to grow a another tree. Target a tree to swap tiles with the tree, which dies after swap. Does not count as moving.";
+		q4="Rampage (8): Give all allies within *1* tile +10 damage for each stack of One With The Earth on their next basic attack.";
 	}
 	
 	public void showBasic() {
