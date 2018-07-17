@@ -108,7 +108,7 @@ public class Helena extends Hero{
 			else {
 				str="Team 2";
 			}
-			Tree b = new Tree(grid,"Tree",str,h);
+			Tree b = new Tree(grid,"Tree",str,h,this);
 			grid.game.occupants.add(b);
 		}else {
 			h.clearHex();

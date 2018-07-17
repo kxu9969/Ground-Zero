@@ -1,8 +1,8 @@
 
 public class Tree extends Occupant{
 
-	Tree(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Tree(Grid grid, String name, String team, Hex h,Unit owner) {
+		super(grid, name, team, h,owner);
 	}
 
 	@Override

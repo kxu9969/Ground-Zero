@@ -74,7 +74,7 @@ public class Kaito extends Hero{
 		else {
 			str="Team 2";
 		}
-		ShadowStep s = new ShadowStep(grid,"Shadow Step",str,h);
+		ShadowStep s = new ShadowStep(grid,"Shadow Step",str,h,this);
 		grid.game.occupants.add(s);
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();

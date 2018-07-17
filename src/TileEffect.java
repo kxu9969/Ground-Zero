@@ -20,6 +20,14 @@ public class TileEffect extends Effect{
 				}
 			}
 		}
+		if(effectName.equals("Improvised Explosive")) {
+			for(Hex h:owner.grid.hexes) {
+				if(location.distance(h)==1&&h.hasEnemy(owner)) {
+					h.occupied.takeAbility(70, owner, true, true);
+					owner.addDebuff(new Debuff("Cursed",h.occupied,1,owner,false));
+				}
+			}
+		}
 	}
 
 }

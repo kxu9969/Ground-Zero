@@ -16,7 +16,7 @@ public class Amon extends Hero{
 		defaultArmor = 10;
 		currentArmor = defaultArmor;
 		armorPiercing = 40;
-		basicRange = 1;
+		basicRange = 5;
 		ab1cdMax = 2;
 		ab2cdMax = 2;
 		ab3cdMax = 3;

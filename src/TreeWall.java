@@ -1,8 +1,8 @@
 
 public class TreeWall extends Occupant{
 
-	TreeWall(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	TreeWall(Grid grid, String name, String team, Hex h,Unit owner) {
+		super(grid, name, team, h,owner);
 	}
 
 	@Override

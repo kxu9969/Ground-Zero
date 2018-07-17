@@ -64,7 +64,7 @@ public class Kaj extends Hero{
 			else {
 				str="Team 2";
 			}
-			TreeWall b = new TreeWall(grid,"Wall of Trees",str,h);
+			TreeWall b = new TreeWall(grid,"Wall of Trees",str,h,this);
 			addDebuff(new Debuff("Timed Life",b,3,this,true));
 			grid.game.occupants.add(b);
 		}

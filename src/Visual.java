@@ -66,6 +66,11 @@ public class Visual extends JPanel{
 				g2.fillOval((int)mainLayout.hexToPixel(h).x-1, (int)mainLayout.hexToPixel(h).y-17, 6, 6);
 				g2.setColor(Color.black);
 			}
+			if(h.hasEffect("Improvised Explosive")||h.hasEffect("D.M.R. Mine")) {
+				g2.setColor(new Color(255,140,0));
+				g2.fillOval((int)mainLayout.hexToPixel(h).x-8, (int)mainLayout.hexToPixel(h).y-17, 6, 6);
+				g2.setColor(Color.black);
+			}
 			if(h.color!=null) {
 				if(!(h.occupied instanceof ShadowStep)) {
 					g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);

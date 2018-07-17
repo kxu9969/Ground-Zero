@@ -119,7 +119,8 @@ public abstract class Unit {//broadest branch, all space takers
 		boolean singularity = false;
 		if(hasDebuff("Blinded")) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)==1&&h.hasEnemy(this)) {//also needs to check for team
+				if(position.distance(h)==1&&(h.hasEnemy(this)||
+						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
 					if(h.occupied instanceof Singularity) {
 						singularity = true;
@@ -128,7 +129,8 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}else {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)<=basicRange&&h.hasEnemy(this)) {//also needs to check for team
+				if(position.distance(h)<=basicRange&&(h.hasEnemy(this)||
+						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
 					if(h.occupied instanceof Singularity) {
 						singularity = true;
@@ -176,6 +178,8 @@ public abstract class Unit {//broadest branch, all space takers
 			return true;
 		}else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
 			return true;
+		}else if(hasBuff("Ratchet Suit")&&!getBuff("Ratchet Suit").toggle) {
+			return true;
 		}
 		return false;
 	}
@@ -210,7 +214,7 @@ public abstract class Unit {//broadest branch, all space takers
 			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
 			removeSameBuff("Rampage");
 		}
-		if(hasBuff("Empowered Animus")||this instanceof Lich) {//AoE Attacks
+		if(hasBuff("Empowered Animus")||hasBuff("Ratchet Suit")||this instanceof Lich) {//AoE Attacks
 			for(Hex h1:grid.hexes) {
 				if(h.distance(h1)==1&&h1.hasEnemy(this)) {
 					damageDealt+=h1.occupied.takeBasic(damage, this, armor, shield);
@@ -255,6 +259,19 @@ public abstract class Unit {//broadest branch, all space takers
 				grid.game.setButtons();
 				getBuff("Third Ring, Second Sign").toggle=true;
 			}
+			else if(hasBuff("Ratchet Suit")&&!getBuff("Ratchet Suit").toggle) {
+				grid.game.move.lock=true;
+				grid.game.basic.lock=false;
+				grid.game.ab1.lock=true;
+				grid.game.ab2.lock=true;
+				grid.game.ab3.lock=true;
+				grid.game.ult.lock=true;
+				grid.game.cancel.lock=false;
+				grid.game.pass.lock=false;
+				grid.game.clear();
+				grid.game.setButtons();
+				getBuff("Ratchet Suit").toggle=true;
+			}
 			else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
 				grid.game.move.lock=false;
 				grid.game.basic.lock=true;
@@ -268,7 +285,6 @@ public abstract class Unit {//broadest branch, all space takers
 				grid.game.setButtons();
 				getBuff("Whirling Scythes").toggle=true;
 			}
-
 		}
 	}
 	
@@ -396,6 +412,7 @@ public abstract class Unit {//broadest branch, all space takers
 				grid.game.team2.remove(this);
 			}
 		}
+		removeAll();
 		dead = true;
 		currentStamina=0;
 		position.clearHex();
@@ -575,6 +592,32 @@ public abstract class Unit {//broadest branch, all space takers
 			debuffs.remove(d);
 			d.owner.marks.remove(d);
 		}
+	}
+	
+	public void removeAll() {
+		ArrayList toBeRemoved = new ArrayList();
+		for(Object o:debuffs) {//removes marks of others
+			if(o instanceof Mark) {
+				toBeRemoved.add(o);
+			}
+		}
+		for(Object o:toBeRemoved) {
+			((Mark)o).caster.marks.remove(o);
+		}
+		toBeRemoved.clear();
+		for(Mark o:marks) {//removes your marks
+			if(o instanceof Mark) {
+				toBeRemoved.add(o);
+			}
+		}
+		for(Object o:toBeRemoved) {
+			((Mark)o).owner.removeDebuff((Mark)o);;
+		}
+		buffs.clear();
+		debuffs.clear();
+		addedBuffs.clear();
+		addedDebuffs.clear();
+		
 	}
 
 	public boolean hasBuff(String str) {
@@ -768,6 +811,11 @@ public abstract class Unit {//broadest branch, all space takers
 			takeAbility(30,position.getEffect("Thunder and Storm").owner,false,true);
 			rewriteDebuff(new Debuff("Cursed",this,2,position.getEffect("Thunder and Storm").owner,false),debuffs);
 		}
+		if(position.hasEffect("D.M.R. Mine")) {
+			takeAbility(30,position.getEffect("D.M.R. Mine").owner,true,true);
+			rewriteDebuff(new Debuff("Stunned",this,1,position.getEffect("D.M.R. Mine").owner,false),debuffs);
+			position.removeEffect("D.M.R. Mine");
+		}
 		if(hasBuff("Divine Radiance")) {
 			heal(20);
 		}
@@ -779,6 +827,14 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(hasDebuff("Virulent Toxins")) {
 			takeAbility(10,getDebuff("Virulent Toxins").caster,false,false);
+		}
+		if(hasDebuff("Detonation Rounds")) {
+			takeAbility(10,getDebuff("Detonation Rounds").caster,false,false);
+			for(Hex h:grid.hexes) {
+				if(position.distance(h)==1&&h.hasEnemy(getDebuff("Detonation Rounds").caster)) {
+					h.occupied.takeAbility(10, getDebuff("Detonation Rounds").caster, false, false);
+				}
+			}
 		}
 				
 	};
@@ -806,6 +862,9 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 			if(hasBuff("Whirling Scythes")) {
 				getBuff("Whirling Scythes").toggle = false;
+			}
+			if(hasBuff("Ratchet Suit")) {
+				getBuff("Ratchet Suit").toggle = false;
 			}
 			if(basicAttackedThisTurn) {
 				basicAttackedLastTurn=true;

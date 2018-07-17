@@ -1,20 +1,31 @@
 
-public class ShadowStep extends Occupant{
+public class MissileBomb extends Occupant{
 
-	ShadowStep(Grid grid, String name, String team, Hex h,Unit owner) {
+	MissileBomb(Grid grid, String name, String team, Hex h,Unit owner) {
 		super(grid, name, team, h,owner);
 	}
 
 	public void assembleStats() {
-		maxHealth = 0;
+		maxHealth = 100;
 		currentHealth = maxHealth;
+		currentArmor = 0;		
 	}
 	
-	public void die() {};
-	public void die(boolean b) {
-		if(b) {
-			super.die();
+	public int takeBasic(int damage, Unit attacker,boolean armor,boolean shield) {	
+		int i = super.takeBasic(damage, attacker, armor, shield);
+		if(attacker==owner) {
+			die();
 		}
+		return i;
+	}
+	
+	public void die() {
+		for(Hex h:grid.hexes) {
+			if(position.distance(h)==1&&h.hasEnemy(this)) {
+				h.occupied.takeAbility(50, owner, true, true);
+			}
+		}
+		super.die();
 	}
 
 	@Override
