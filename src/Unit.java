@@ -45,8 +45,13 @@ public abstract class Unit {//broadest branch, all space takers
 			this.team = grid.game.team2;
 			enemyTeam = grid.game.team1;
 		}
+		if(h!=null) {
 		position = grid.getHex(h).setHero(this);
+		}
 		assembleStats();
+	}
+	
+	Unit(){
 	}
 
 	public void setStamina(int i) {
@@ -72,6 +77,60 @@ public abstract class Unit {//broadest branch, all space takers
 
 	public abstract void assembleStats();
 
+	public void assembleStats(Unit u) {//manually change position, may have to change marks
+		maxHealth = u.maxHealth;
+		currentHealth = u.currentHealth;
+		maxStamina = u.maxStamina;
+		currentStamina = u.currentStamina;
+		basicDamage = u.basicDamage;
+		defaultArmor = u.defaultArmor;
+		currentArmor = u.currentArmor;
+		armorPiercing = u.armorPiercing;
+		basicRange = u.basicRange;
+		ab1cdMax = u.ab1cdMax;
+		ab2cdMax = u.ab2cdMax;
+		ab3cdMax = u.ab3cdMax;
+		ultcdMax = u.ultcdMax;
+		currentShield = u.currentShield;
+		moveRange = u.moveRange;
+		ab1cd=u.ab1cd;
+		ab2cd=u.ab2cd;
+		ab3cd=u.ab3cd;
+		ultcd=u.ultcd;
+		abcdDelay = u.abcdDelay;
+		dead = u.dead;
+		basicAttackedThisTurn = u.basicAttackedThisTurn;
+		basicAttackedLastTurn = u.basicAttackedLastTurn;
+		hasAb1 = u.hasAb1;
+		hasAb2 = u.hasAb2;
+		hasAb3 = u.hasAb3;
+		hasUlt = u.hasUlt;
+		position = u.position;
+		grid = u.grid;
+		name = u.name;
+		qM = u.qM;
+		qB = u.qB;
+		q1 = u.q1;
+		q2 = u.q2;
+		q3 = u.q3;
+		q4 = u.q4;
+		qP = u.qP;
+		qU = u.qU;
+		team = u.team;
+		enemyTeam = u.enemyTeam;
+		inAura = u.inAura;
+		buffs = u.buffs;
+		debuffs = u.debuffs;
+		marks = u.marks;
+		addedBuffs = u.addedBuffs;//use when giving self an effect on own turn
+		addedDebuffs = u.addedDebuffs;
+		queue1 = u.queue1;//stores relevant info for multistep functions, is cleared
+		queue2 = u.queue2;
+		queue3 = u.queue3;
+		queue4 = u.queue4;
+		setStamina = u.setStamina;
+	}
+	
 	public void showMove() {
 		for(Hex h:grid.hexes) {
 			if(position.distance(h)<=moveRange&&h.occupied==null) {

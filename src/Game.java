@@ -30,7 +30,7 @@ public class Game implements MouseListener, MouseMotionListener{
 	Grid grid = new Grid(this);;
 	Unit currentUnit= new Sig(grid,"Sig","Team 1",new Hex(5,2, -7));
 	Hero tempHero = new BARie(grid,"BAR.ie","Team 2",new Hex(4,2,-6));
-	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
+	Hero one = new Beholder(grid,"Charity","Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new JARie(grid,"JARie","Team 2",new Hex(8,2,-10));
 
@@ -38,6 +38,7 @@ public class Game implements MouseListener, MouseMotionListener{
 	final static int Visual_Height = 970;
 	int nextUnitCounter = 0;
 	boolean ending = false;
+	boolean pauseEndTurn,triedToEnd = false;
 
 	Game(ArrayList<String> team1,ArrayList<String>team2, ArrayList<Hex> hex1, ArrayList<Hex> hex2){		
 
@@ -184,32 +185,36 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	public void endOfTurn() {
-		ending = true;
-		currentUnit.endOfTurn();
-		currentUnit.tickAbilities();
-		currentUnit.tickBuffs();
-		currentUnit.tickDebuffs();
-		currentUnit.tickMarks();
-		currentUnit.addSelfBuffs();
-		currentUnit.addSelfDebuffs();
-		for(Hex h:grid.hexes) {
-			h.tickEffects();
+		if(!pauseEndTurn) {
+			ending = true;
+			currentUnit.endOfTurn();
+			currentUnit.tickAbilities();
+			currentUnit.tickBuffs();
+			currentUnit.tickDebuffs();
+			currentUnit.tickMarks();
+			currentUnit.addSelfBuffs();
+			currentUnit.addSelfDebuffs();
+			for(Hex h:grid.hexes) {
+				h.tickEffects();
+			}
+			for(int i = 0;i<occupants.size();i++) {
+				Occupant o = occupants.get(i);
+				o.endOfTurn();
+				o.tickAbilities();
+				o.tickBuffs();
+				o.tickDebuffs();
+				o.addSelfBuffs();
+				o.addSelfDebuffs();
+			}
+			for(boolButton b:buttonList) {
+				b.lock = false;
+			}
+			ending = false;
+			clear();
+			nextTurn();
+		}else {
+			triedToEnd = true;
 		}
-		for(int i = 0;i<occupants.size();i++) {
-			Occupant o = occupants.get(i);
-			o.endOfTurn();
-			o.tickAbilities();
-			o.tickBuffs();
-			o.tickDebuffs();
-			o.addSelfBuffs();
-			o.addSelfDebuffs();
-		}
-		for(boolButton b:buttonList) {
-			b.lock = false;
-		}
-		ending = false;
-		clear();
-		nextTurn();
 	}
 
 	public void nextTurn() {

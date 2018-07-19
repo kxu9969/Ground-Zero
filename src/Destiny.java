@@ -22,7 +22,7 @@ public class Destiny extends Hero{
 		ultcdMax = 8;
 		qU="Destiny is a support character who uses her stacks of Tranquility to scale her abilities rapidly, increasing the number of affected targets or their duration.";
 		qP="Inner Peace: Gains a stack of Tranquility at the start of each turn, up to 9.";
-		q1="Spiritual Unity (2): Heal an ally for 40 and increase their basic damage by 10 for 3 turns. Costs 1 Tranquility for each additional ally.";
+		q1="Spiritual Unity (2): Heal another ally for 40 and increase their basic damage by 10 for 3 turns. Costs 1 Tranquility for each additional ally.";
 		q2="Internal Strife (2): Stun a target for given number of turns, costing 2 Tranquility per turn.";
 		q3="Harmonious Stride (1): Teleport allies to adjacent tiles, costing 2 Tranquility per ally.";
 		q4="Enlightenment (8): Gain max stacks of Tranquility. Your abilities next turn don’t consume Tranquility stacks on cast. Refill stamina immediately.";
