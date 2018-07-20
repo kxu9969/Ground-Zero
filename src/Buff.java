@@ -21,6 +21,12 @@ public class Buff extends Effect{
 		if(effectName.equals("Ancient Tongue: Inferno")) {
 			owner.currentArmor+=20;
 		}
+		if(effectName.equals("From Below")) {
+			owner.addDebuff(new Debuff("Rooted",caster,-1,owner,true));
+		}
+		if(effectName.equals("From Within")) {
+			owner.maxStamina-=25;
+		}
 	}
 	
 	public void onRemoval() {	
@@ -35,6 +41,12 @@ public class Buff extends Effect{
 		}
 		if(effectName.equals("Ancient Tongue: Inferno")) {
 			owner.currentArmor-=20;
+		}
+		if(effectName.equals("From Below")) {
+			caster.debuffs.remove(caster.getDebuff("Rooted"));
+		}
+		if(effectName.equals("From Within")) {
+			owner.maxStamina+=25;
 		}
 		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {

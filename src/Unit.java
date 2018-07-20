@@ -46,11 +46,11 @@ public abstract class Unit {//broadest branch, all space takers
 			enemyTeam = grid.game.team1;
 		}
 		if(h!=null) {
-		position = grid.getHex(h).setHero(this);
+			position = grid.getHex(h).setHero(this);
 		}
 		assembleStats();
 	}
-	
+
 	Unit(){
 	}
 
@@ -72,7 +72,15 @@ public abstract class Unit {//broadest branch, all space takers
 		position = h;
 		position.setHero(this);
 		updateAura();
-		//set debuffs
+		if(position.tramples.size()>0) {
+			ArrayList<TrampleOccupant> trigger = new ArrayList<TrampleOccupant>();
+			for(TrampleOccupant t:position.tramples) {
+				trigger.add(t);
+			}
+			for(TrampleOccupant t:trigger) {
+				t.onTrample();
+			}
+		}
 	}
 
 	public abstract void assembleStats();
@@ -130,7 +138,7 @@ public abstract class Unit {//broadest branch, all space takers
 		queue4 = u.queue4;
 		setStamina = u.setStamina;
 	}
-	
+
 	public void showMove() {
 		for(Hex h:grid.hexes) {
 			if(position.distance(h)<=moveRange&&h.occupied==null) {
@@ -169,7 +177,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return 0;
 	}
-	
+
 	public void gainShield(int shield) {
 		currentShield+=shield;
 	}
@@ -212,14 +220,14 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 	}
-	
+
 	public boolean noArmor() {
 		if(hasBuff("Configuration: FMJ Plasma")||hasBuff("Empowered Animus")||this instanceof Lich) {//buffs for armor pierce
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean hasLeech() {
 		if(hasBuff("Configuration: Leeching Potato")||hasBuff("Succubus' Rage")
 				||this instanceof Malor) {
@@ -227,7 +235,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return false;
 	}
-	
+
 	public boolean anotherTurn() {
 		if(hasBuff("Configuration: Hyper-Potato")&&!getBuff(
 				"Configuration: Hyper-Potato").toggle) {
@@ -242,7 +250,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return false;
 	}
-	
+
 	public void clearBasic() {};
 
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
@@ -346,7 +354,7 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 	}
-	
+
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield) {
 		boolean anotherTurn = false;
 		if(anotherTurn()) {
@@ -354,7 +362,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		basicAttack(h,damage,armor,shield,anotherTurn);
 	}
-	
+
 	public void basicAttack(Hex h,int damage) {
 		boolean armor = true;
 		boolean anotherTurn = false;
@@ -366,7 +374,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		basicAttack(h,damage,armor,true,anotherTurn);
 	}
-	
+
 	public void basicAttack(Hex h) {
 		boolean armor = true;
 		boolean anotherTurn = false;
@@ -378,24 +386,31 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		basicAttack(h,this.basicDamage,armor,true,anotherTurn);
 	}
-	
+
 	public int takeBasic(int damage, Unit attacker,boolean armor,boolean shield) {
-		return takeDamage(damage,attacker,armor,shield);
-	}
+		if(hasBuff("Shield of Earth")&&!getBuff("Shield of Earth").caster.dead) {
+			return getBuff("Shield of Earth").caster.takeBasic(damage, attacker, armor, shield);
+		}else {
+			return takeDamage(damage,attacker,armor,shield);
+		}	}
 	public int takeAbility(int damage, Unit attacker,boolean armor, boolean shield) {
-		return takeDamage(damage,attacker,armor,shield);
+		if(hasBuff("Shield of Earth")&&!getBuff("Shield of Earth").caster.dead) {
+			return getBuff("Shield of Earth").caster.takeAbility(damage, attacker, armor, shield);
+		}else {
+			return takeDamage(damage,attacker,armor,shield);
+		}
 	}
 
 	private int takeDamage(int damage, Unit h, boolean armor, boolean shield) {//process armor
 		if(hasBuff("Second Ring, Fourth Sign")&&
 				(!getBuff("Second Ring, Fourth Sign").caster.hasBuff("Second Ring, Fourth Sign")||
-				(getBuff("Second Ring, Fourth Sign").caster.hasBuff("Second Ring, Fourth Sign")&&
-				!getBuff("Second Ring, Fourth Sign").caster.getBuff("Second Ring, Fourth Sign").toggle))) {
+						(getBuff("Second Ring, Fourth Sign").caster.hasBuff("Second Ring, Fourth Sign")&&
+								!getBuff("Second Ring, Fourth Sign").caster.getBuff("Second Ring, Fourth Sign").toggle))) {
 			getBuff("Second Ring, Fourth Sign").toggle= true;
 			getBuff("Second Ring, Fourth Sign").caster.takeDamage(damage,h,armor,shield);
 			getBuff("Second Ring, Fourth Sign").toggle= false;
 		}
-		
+
 		if(hasDebuff("Stormcall")) {
 			damage+=20;
 		}
@@ -448,7 +463,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return damage;
 	}
-	
+
 	public void die() {
 		for(Unit u:inAura) {
 			removeAura(u);
@@ -474,13 +489,15 @@ public abstract class Unit {//broadest branch, all space takers
 		removeAll();
 		dead = true;
 		currentStamina=0;
-		position.clearHex();
+		if(!(this instanceof TrampleOccupant)) {
+			position.clearHex();
+		}
 		grid.game.checkGameOver();
 		if(this==grid.game.currentUnit&&!grid.game.ending) {
 			grid.game.endOfTurn();
 		}
 	}
-	
+
 	public void rewriteBuff(Buff b,ArrayList<Buff> buffs) {
 		boolean addBuff = true;
 		ArrayList<Buff> toBeRemoved = new ArrayList<Buff>();
@@ -515,7 +532,7 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 	}
-	
+
 	public void rewriteDebuff(Debuff d,ArrayList<Debuff> debuffs) {
 		boolean addDebuff = true;
 		ArrayList<Debuff> toBeRemoved = new ArrayList<Debuff>();
@@ -566,7 +583,14 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(d.effectName.equals("Silenced")) {
 			for(int i = d.owner.buffs.size()-1;i>=0;i--) {
-				if(d.owner.buffs.get(i) instanceof Channel) {
+				if(d.owner.buffs.get(i) instanceof Channel||d.owner.buffs.get(i).effectName.equals("From Below")) {
+					removeBuff(d.owner.buffs.get(i));
+				}
+			}
+		}
+		if(d.effectName.equals("Stunned")) {
+			for(int i = d.owner.buffs.size()-1;i>=0;i--) {
+				if(d.owner.buffs.get(i).effectName.equals("From Below")) {
 					removeBuff(d.owner.buffs.get(i));
 				}
 			}
@@ -615,7 +639,7 @@ public abstract class Unit {//broadest branch, all space takers
 			removeBuff(b);
 		}
 	}
-	
+
 	public void removeBuff(Buff b) {
 		if(!b.enchant||b.duration==0) {
 			b.owner.buffs.remove(b);
@@ -634,7 +658,7 @@ public abstract class Unit {//broadest branch, all space takers
 			removeDebuff(b);
 		}
 	}
-	
+
 	public void removeDebuff(Debuff d) {
 		if(!d.enchant||d.duration==0) {
 			d.owner.debuffs.remove(d);
@@ -644,7 +668,7 @@ public abstract class Unit {//broadest branch, all space takers
 			d.caster.marks.remove(d);
 		}
 	}
-	
+
 	public void removeMark(Mark d) {
 		if(!d.enchant||d.duration==0) {
 			d.onRemoval();
@@ -652,7 +676,7 @@ public abstract class Unit {//broadest branch, all space takers
 			d.owner.marks.remove(d);
 		}
 	}
-	
+
 	public void removeAll() {
 		ArrayList toBeRemoved = new ArrayList();
 		for(Object o:debuffs) {//removes marks of others
@@ -676,7 +700,7 @@ public abstract class Unit {//broadest branch, all space takers
 		debuffs.clear();
 		addedBuffs.clear();
 		addedDebuffs.clear();
-		
+
 	}
 
 	public boolean hasBuff(String str) {
@@ -687,7 +711,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return false;
 	}
-	
+
 	public boolean hasMark(Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
@@ -708,8 +732,8 @@ public abstract class Unit {//broadest branch, all space takers
 		return false;
 	}
 
-	
-	
+
+
 	public Buff getBuff(String str) {
 		for(Buff b:buffs) {
 			if(b.effectName.equals(str)) {
@@ -718,7 +742,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Buff> getBuffs(String str) {
 		ArrayList<Buff> a = new ArrayList<Buff>();
 		for(Buff d: buffs) {
@@ -728,7 +752,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return a;
 	}
-	
+
 
 	public Debuff getDebuff(String str) {
 		for(Debuff d: debuffs) {
@@ -738,7 +762,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Debuff> getDebuffs(String str) {
 		ArrayList<Debuff> a = new ArrayList<Debuff>();
 		for(Debuff d: debuffs) {
@@ -748,7 +772,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		return a;
 	}
-	
+
 	public Mark getMark(Hero h) {
 		for(Debuff d: debuffs) {
 			if(d instanceof Mark) {
@@ -791,7 +815,7 @@ public abstract class Unit {//broadest branch, all space takers
 			removeDebuff(b);
 		}
 	}
-	
+
 	public void tickMarks() {
 		ArrayList<Mark> toBeRemoved = new ArrayList<Mark>();
 		for(Mark m:marks) {
@@ -806,7 +830,7 @@ public abstract class Unit {//broadest branch, all space takers
 			m.caster.removeDebuff(m);
 		}
 	}
-	
+
 	public void tickChannels() {
 		ArrayList<Channel> toBeRemoved = new ArrayList<Channel>();
 		boolean has = false;
@@ -878,6 +902,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Divine Radiance")) {
 			heal(20);
 		}
+		if(hasBuff("From Within")) {
+			gainShield(50);
+		}
 		if(hasDebuff("Molten Blast")) {
 			takeAbility(20,getDebuff("Molten Blast").caster,false,false);
 		}
@@ -895,7 +922,7 @@ public abstract class Unit {//broadest branch, all space takers
 				}
 			}
 		}
-				
+
 	};
 	public void endOfTurn() {
 		if(position.hasEffect("Thunder and Storm")) {
@@ -936,7 +963,7 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 	}
-	
+
 	public void updateAura() {
 		if(inAura()!=null) {
 			ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
@@ -957,12 +984,12 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 	}
-	
+
 	public ArrayList<Unit> inAura(){return null;}
 	public void addAura(Unit u) {}
 	public void removeAura(Unit u) {}
 	public void runAura() {}
-	
+
 	public boolean hasAb1() {return hasAb1;}
 	public abstract void showAb1();
 	public void clearAb1() {};

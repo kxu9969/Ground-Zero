@@ -5,6 +5,7 @@ class Hex
 {
 	Color color = null;
 	Unit occupied = null;
+	ArrayList<TrampleOccupant> tramples = new ArrayList<TrampleOccupant>();
 	ArrayList<TileEffect> effects = new ArrayList<TileEffect>();
 	
 	public void tickEffects() {

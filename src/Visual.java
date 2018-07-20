@@ -85,6 +85,15 @@ public class Visual extends JPanel{
 						(float)mainLayout.hexToPixel(h).y);
 				g2.setColor(Color.black);
 			}
+			if(h.tramples.size()>0) {
+				if(h.tramples.get(0).team==grid.game.team1)
+					g2.setColor(Color.red);
+				else
+					g2.setColor(Color.blue);
+				g2.drawString(h.tramples.get(0).name, (float)mainLayout.hexToPixel(h).x-25, 
+						(float)mainLayout.hexToPixel(h).y);
+				g2.setColor(Color.black);
+			}
 		}	
 		canvas.setIcon(new ImageIcon(image));
 	}
