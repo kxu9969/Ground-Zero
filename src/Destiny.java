@@ -206,7 +206,7 @@ public class Destiny extends Hero{
 			queue3.add(((BuffStack)getBuff("Tranquility")).stacks);
 		}if(queue3.size()%2!=0) {//remove those already selected
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)==1&&h.occupied==null) {
+				if(position.distance(h)==1&&h.isEmpty()) {
 					h.color=Color.red;
 				}
 			}

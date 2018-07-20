@@ -5,7 +5,6 @@ class Hex
 {
 	Color color = null;
 	Unit occupied = null;
-	ArrayList<TrampleOccupant> tramples = new ArrayList<TrampleOccupant>();
 	ArrayList<TileEffect> effects = new ArrayList<TileEffect>();
 	
 	public void tickEffects() {
@@ -59,7 +58,7 @@ class Hex
 	public boolean push(Grid grid, Hex position) {
 		Hex difference = this.subtract(position);
 		Hex nextHex = this.add(difference);
-		if(grid.game.onMap(nextHex)&&nextHex.occupied==null) {
+		if(grid.game.onMap(nextHex)&&nextHex.isEmpty()) {
 			this.occupied.setPosition(nextHex);
 			return true;
 		}
@@ -152,6 +151,13 @@ class Hex
     
     public boolean equals(Hex b) {
     	if(q == b.q&& r == b.r && s == b.s) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean isEmpty() {
+    	if(this.occupied==null||this.occupied instanceof TrampleOccupant) {
     		return true;
     	}
     	return false;

@@ -44,7 +44,7 @@ public class GuayTho extends Hero{
 			}
 		}else if(queue1.size()==1) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)==1&&h.occupied==null) {
+				if(position.distance(h)==1&&h.isEmpty()) {
 					h.color=Color.red;
 				}
 			}

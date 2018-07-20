@@ -58,7 +58,7 @@ public class Kaito extends Hero{
 
 	public void showAb2() {
 		for(Hex h:grid.hexes) {
-			if(h.occupied==null) {
+			if(h.isEmpty()) {
 				h.color=Color.red;
 			}
 		}

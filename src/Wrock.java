@@ -19,7 +19,13 @@ public class Wrock extends Hero{
 		ab1cdMax = 4;
 		ab2cdMax = 5;
 		ab3cdMax = 4;
-		ultcdMax = 8;			
+		ultcdMax = 8;
+		qU="An earth elemental tasked by the gods with herding young mountains, Wrock fights poachers and earthquakes that would seek to disturb his flock.";
+		qP="Earthen Resilience: Whenever Wrock takes damage, gain a stack of Earthen Resilience, granting him 10 armor. Lose these stacks at the start of his next turn.";
+		q1="From Below (4): Spear an enemy within 3 range with a column of stone, dealing 40 damage and rooting them until Wrock casts this again or is silenced, stunned, or placed in stasis.";
+		q2="From Above (5): Throw an adjacent ally onto an empty nearby tile within 4 range, dealing 50 damage to adjacent tiles. Grant the ally Shield of Earth for 1 turn, making Wrock take their damage instead.";
+		q3="From Within (4): Gain 50 shield at the start of your turns and reduce your max stamina by 25 for two turns.";
+		q4="From All Sides (8): Trap an enemy in a prison of earth, creating up to 6 permanent spears on empty adjacent tiles that block movement. Attempting to move onto a spear tile deals 60 damage ignoring armor and shield and stuns for 2 turns, consuming the spear. The spears have 150 health and can be destroyed by damage.";
 	}
 	
 	public void startOfTurn() {
@@ -68,7 +74,7 @@ public class Wrock extends Hero{
 			}
 		}else if(queue2.size()==1) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)<=4&&h.occupied==null) {
+				if(position.distance(h)<=4&&h.isEmpty()) {
 					h.color=Color.red;
 				}
 			}

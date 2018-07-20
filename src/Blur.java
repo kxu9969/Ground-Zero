@@ -39,7 +39,7 @@ public class Blur extends Hero{
 	public void showAb1() {	
 		if(queue1.size()==0) {
 			for(Hex h:grid.hexes) {
-				if(position.distance(h)<=3&&h.occupied==null&&h.adjacentEnemy(grid, this)) {
+				if(position.distance(h)<=3&&h.isEmpty()&&h.adjacentEnemy(grid, this)) {
 					h.color=Color.RED;
 				}
 			}

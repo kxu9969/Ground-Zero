@@ -88,7 +88,7 @@ public class Magmus extends Hero{
 
 	public void showAb3() {
 		for(Hex h:grid.hexes) {
-			if(position.distance(h)<=5&&h.occupied==null) {
+			if(position.distance(h)<=5&&h.isEmpty()) {
 				h.color=Color.red;
 			}
 		}

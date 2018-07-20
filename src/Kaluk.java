@@ -45,7 +45,7 @@ public class Kaluk extends Hero{
 	public void showAb1() {	
 		if(queue1.size()==0) {
 			for(Hex h:grid.hexes) {
-				if((position.distance(h)<=3&&h.occupied==null||h==position)&&h.adjacentEnemy(grid, this)) {
+				if((position.distance(h)<=3&&h.isEmpty()||h==position)&&h.adjacentEnemy(grid, this)) {
 					h.color=Color.RED;
 				}
 			}
@@ -100,7 +100,7 @@ public class Kaluk extends Hero{
 
 	public void showAb3() {
 		for(Hex h:grid.hexes) {
-			if(position.distance(h)<=5&&h.occupied==null) {
+			if(position.distance(h)<=5&&h.isEmpty()) {
 				h.color=Color.red;
 			}
 		}

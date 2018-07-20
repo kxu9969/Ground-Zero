@@ -70,17 +70,11 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		position.clearHex();
 		position = h;
+		if(position.occupied!=null) {
+			((TrampleOccupant)position.occupied).onTrample(this);
+		}
 		position.setHero(this);
 		updateAura();
-		if(position.tramples.size()>0) {
-			ArrayList<TrampleOccupant> trigger = new ArrayList<TrampleOccupant>();
-			for(TrampleOccupant t:position.tramples) {
-				trigger.add(t);
-			}
-			for(TrampleOccupant t:trigger) {
-				t.onTrample();
-			}
-		}
 	}
 
 	public abstract void assembleStats();
@@ -141,7 +135,7 @@ public abstract class Unit {//broadest branch, all space takers
 
 	public void showMove() {
 		for(Hex h:grid.hexes) {
-			if(position.distance(h)<=moveRange&&h.occupied==null) {
+			if(position.distance(h)<=moveRange&&h.isEmpty()) {
 				h.color=Color.RED;
 			}
 		}

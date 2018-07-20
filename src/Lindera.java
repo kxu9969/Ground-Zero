@@ -34,7 +34,7 @@ public class Lindera extends Hero{
 			super.showBasic();
 		}else {
 			for(Hex h:grid.hexes) {
-				if(((Hex)queueB.get(0)).distance(h)==1&&h.occupied==null) {
+				if(((Hex)queueB.get(0)).distance(h)==1&&h.isEmpty()) {
 					h.color=Color.red;
 				}else if(((Hex)queueB.get(0)).equals(h)) {
 					h.color=Color.red;

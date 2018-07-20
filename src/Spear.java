@@ -11,14 +11,14 @@ public class Spear extends TrampleOccupant{
 		currentArmor = 0;		
 	}
 	
-	public void onTrample() {
-		position.occupied.takeAbility(60, owner, false, false);
-		if(position.occupied==grid.game.currentUnit) {
-			addDebuff(new Debuff("Stunned",position.occupied,3,owner,false));
+	public void onTrample(Unit u) {
+		u.takeAbility(60, owner, false, false);
+		if(u==grid.game.currentUnit) {
+			addDebuff(new Debuff("Stunned",u,3,owner,false));
 		}else {
-			addDebuff(new Debuff("Stunned",position.occupied,2,owner,false));
+			addDebuff(new Debuff("Stunned",u,2,owner,false));
 		}
-		super.onTrample();
+		super.onTrample(u);
 	}
 
 	@Override
