@@ -134,10 +134,8 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void showMove() {
-		for(Hex h:grid.hexes) {
-			if(position.distance(h)<=moveRange&&h.isEmpty()) {
-				h.color=Color.RED;
-			}
+		for(Hex h:grid.floodFill(position,moveRange)){
+			h.color=Color.RED;
 		}
 	}
 

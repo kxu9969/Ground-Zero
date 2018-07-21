@@ -543,8 +543,8 @@ public class Game implements MouseListener, MouseMotionListener{
 					JPanel temp = new JPanel();
 					temp.setLayout(new BoxLayout(temp,BoxLayout.PAGE_AXIS));
 					temp.add(new JLabel("Info:"));
+					temp.add(new JLabel(h.q+" "+h.r+" "+h.s));
 					if(h.occupied!=null) {
-						temp.add(new JLabel(h.q+" "+h.r+" "+h.s));
 						if(h.occupied.currentShield>0) {
 							temp.add(new JLabel("Health: ("+h.occupied.currentShield+")"+h.occupied.currentHealth+"/"+
 									h.occupied.maxHealth));

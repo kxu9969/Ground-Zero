@@ -5,6 +5,7 @@ class Hex
 {
 	Color color = null;
 	Unit occupied = null;
+	int movementCost = 1;
 	ArrayList<TileEffect> effects = new ArrayList<TileEffect>();
 	
 	public void tickEffects() {
@@ -131,10 +132,20 @@ class Hex
     }
 
     static public ArrayList<Hex> diagonals = new ArrayList<Hex>(){{add(new Hex(2, -1, -1)); add(new Hex(1, -2, 1)); add(new Hex(-1, -1, 2)); add(new Hex(-2, 1, 1)); add(new Hex(-1, 2, -1)); add(new Hex(1, 1, -2));}};
+    
+    static public ArrayList<Hex> adjacents = new ArrayList<Hex>(){{add(new Hex(1, -1, 0)); add(new Hex(-1, 1, 0)); add(new Hex(-1, 0, 1)); add(new Hex(1, 0, -1)); add(new Hex(0, 1, -1)); add(new Hex(0, -1, 1));}};
 
     public Hex diagonalNeighbor(int direction)
     {
         return add(Hex.diagonals.get(direction));
+    }
+    
+    public ArrayList<Hex> allAdjacents(){
+    	ArrayList<Hex> adjacent = new ArrayList<Hex>();
+    	for(Hex h:adjacents) {
+    		adjacent.add(add(h));
+    	}
+    	return adjacent;
     }
 
 
