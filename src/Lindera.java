@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Lindera extends Hero{
-	ArrayList<Hex> queueB = new ArrayList<Hex>();
 	Lindera(Grid grid, String name, String team, Hex h) {
 		super(grid, name, team, h);
 	}
@@ -50,7 +49,6 @@ public class Lindera extends Hero{
 	
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean end) {
 		if(queueB.size()==0) {
-			queueB.clear();
 			queueB.add(h);
 			grid.game.move.setEnabled(false);
 			grid.game.basic.setEnabled(false);
@@ -63,6 +61,7 @@ public class Lindera extends Hero{
 			showBasic();
 		}else {
 			((Hex)queueB.get(0)).occupied.setPosition(h);
+			queueB.clear();
 			super.basicAttack(h,damage,armor,shield,end);
 		}
 	}

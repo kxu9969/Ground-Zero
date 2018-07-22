@@ -28,9 +28,9 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Amon(grid,"JAR.ie","Team 1",new Hex(5,2, -7));
+	Unit currentUnit= new JARie(grid,"JAR.ie","Team 1",new Hex(5,2, -7));
 	Hero tempHero = new BARie(grid,"BAR.ie","Team 2",new Hex(4,2,-6));
-	Hero one = new Charity(grid,"Charity","Team 2",new Hex(6,2,-8));
+	Hero one = new Vaal(grid,"Vaal","Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new Wrock(grid,"Wrock","Team 2",new Hex(8,2,-10));
 
@@ -164,7 +164,6 @@ public class Game implements MouseListener, MouseMotionListener{
 
 	public void startOfTurn() {
 		clear();
-		setButtons();
 		for(Unit u:units) {
 			u.updateAura();
 		}
@@ -182,6 +181,7 @@ public class Game implements MouseListener, MouseMotionListener{
 			}
 			endOfTurn();
 		}
+		setButtons();
 	}
 
 	public void endOfTurn() {
@@ -522,8 +522,12 @@ public class Game implements MouseListener, MouseMotionListener{
 			if(visual.image.getRGB(e.getX(), e.getY())!=Color.BLACK.getRGB()) {
 				Hex h = visual.grid.getHex(visual.mainLayout.pixelToHex(
 						new Point(e.getX(),e.getY())).hexRound());
+				if(h==null) {
+					 h = visual.grid.getDeletedHex(visual.mainLayout.pixelToHex(
+								new Point(e.getX(),e.getY())).hexRound());
+				}
 				if(e.getButton()==MouseEvent.BUTTON1) {
-					if(onMap(h)&&(visual.checkBorder(h, visual.mainLayout.hexToPixel(h), Color.red.getRGB())
+					if(h!=null&&(visual.checkBorder(h, visual.mainLayout.hexToPixel(h), Color.red.getRGB())
 							||visual.checkBorder(h, visual.mainLayout.hexToPixel(h), Color.green.getRGB()))) {
 						if(move.toggle) {
 							currentUnit.move(h);

@@ -33,6 +33,7 @@ public abstract class Unit {//broadest branch, all space takers
 	ArrayList<Object> queue2 = new ArrayList<Object>();
 	ArrayList<Object> queue3 = new ArrayList<Object>();
 	ArrayList<Object> queue4 = new ArrayList<Object>();
+	ArrayList<Hex> queueB = new ArrayList<Hex>();
 	int setStamina = 0;
 
 	Unit(Grid grid,String name,String team,Hex h){
@@ -130,6 +131,7 @@ public abstract class Unit {//broadest branch, all space takers
 		queue2 = u.queue2;
 		queue3 = u.queue3;
 		queue4 = u.queue4;
+		queueB = u.queueB;
 		setStamina = u.setStamina;
 	}
 
@@ -189,6 +191,45 @@ public abstract class Unit {//broadest branch, all space takers
 		}else {
 			for(Hex h:grid.hexes) {
 				if(position.distance(h)<=basicRange&&(h.hasEnemy(this)||
+						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
+					h.color=Color.RED;
+					if(h.occupied instanceof Singularity) {
+						singularity = true;
+					}
+				}
+			}
+		}
+		if(hasBuff("Surface-to-Surface Missiles")) {
+			for(Hex h:grid.hexes) {
+				if(h.hasEnemy(this)&&h.occupied.hasMark((Hero) this)) {
+					h.color=Color.red;
+				}
+			}
+		}
+		if(singularity) {
+			for(Hex h:grid.hexes) {
+				if(h.color==Color.red&&!(h.occupied instanceof Singularity)) {
+					h.color= null;
+				}
+			}
+		}
+	}
+	
+	public void showBasic(Hex hex) {
+		boolean singularity = false;
+		if(hasDebuff("Blinded")) {
+			for(Hex h:grid.hexes) {
+				if(hex.distance(h)==1&&(h.hasEnemy(this)||
+						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
+					h.color=Color.RED;
+					if(h.occupied instanceof Singularity) {
+						singularity = true;
+					}
+				}
+			}
+		}else {
+			for(Hex h:grid.hexes) {
+				if(hex.distance(h)<=basicRange&&(h.hasEnemy(this)||
 						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
 					if(h.occupied instanceof Singularity) {

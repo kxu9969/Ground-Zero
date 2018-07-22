@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Grid {
 	ArrayList<Hex> hexes = new ArrayList<Hex>();
+	ArrayList<Hex> deleted = new ArrayList<Hex>();
 	Game game;
 
 	Grid(Game game){//25 columns of 20-21
@@ -41,6 +42,37 @@ public class Grid {
 		}
 		return null;
 	}
+	
+	public Hex getDeletedHex(Hex h) {
+		for(Hex h1:deleted) {
+			if(h.equals(h1)) {
+				return h1;
+			}
+		}
+		return null;
+	}
+	
+	public void deleteHex(Hex h) {
+		for(Hex h1:hexes) {
+			if(h.equals(h1)) {
+				hexes.remove(h);
+				deleted.add(h);
+				h.color=null;
+				return;
+			}
+		}
+	}
+	
+	public void restoreHex(Hex h) {
+		for(Hex h1:deleted) {
+			if(h.equals(h1)) {
+				hexes.add(h);
+				deleted.remove(h);
+				h.color=null;
+				return;
+			}
+		}
+	}
 
 	public ArrayList<Hex> floodFill(Hex start, int fillRange) {
 		ArrayList<Hex> list = new ArrayList<Hex>();
@@ -59,7 +91,7 @@ public class Grid {
 		return list;
 	}
 
-	public void continueFill(Hex start, int fillRange, int steps, ArrayList<MovementHex> list) {
+	private void continueFill(Hex start, int fillRange, int steps, ArrayList<MovementHex> list) {
 		if(steps>fillRange||!start.isEmpty()) {
 			return;
 		}else if(contains(list,start)&&steps<fetch(list,start).steps) {

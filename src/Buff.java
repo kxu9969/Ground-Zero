@@ -12,19 +12,19 @@ public class Buff extends Effect{
 		if(effectName.equals("Second Ring, Fourth Sign")) {
 			owner.basicDamage+=30;
 		}
-		if(effectName.equals("Centered Stance")) {
+		else if(effectName.equals("Centered Stance")) {
 			owner.armorPiercing+=10;
 		}
-		if(effectName.equals("Surface-to-Surface Missiles")) {
+		else if(effectName.equals("Surface-to-Surface Missiles")) {
 			owner.currentArmor+=30;
 		}
-		if(effectName.equals("Ancient Tongue: Inferno")) {
+		else if(effectName.equals("Ancient Tongue: Inferno")) {
 			owner.currentArmor+=20;
 		}
-		if(effectName.equals("From Below")) {
+		else if(effectName.equals("From Below")) {
 			owner.addDebuff(new Debuff("Rooted",caster,-1,owner,true));
 		}
-		if(effectName.equals("From Within")) {
+		else if(effectName.equals("From Within")) {
 			owner.maxStamina-=25;
 		}
 	}
@@ -36,17 +36,35 @@ public class Buff extends Effect{
 		if(effectName.equals("Centered Stance")) {
 			owner.armorPiercing-=10;
 		}
-		if(effectName.equals("Surface-to-Surface Missiles")) {
+		else if(effectName.equals("Surface-to-Surface Missiles")) {
 			owner.currentArmor-=30;
 		}
-		if(effectName.equals("Ancient Tongue: Inferno")) {
+		else if(effectName.equals("Ancient Tongue: Inferno")) {
 			owner.currentArmor-=20;
 		}
-		if(effectName.equals("From Below")) {
+		else if(effectName.equals("From Below")) {
 			caster.debuffs.remove(caster.getDebuff("Rooted"));
 		}
-		if(effectName.equals("From Within")) {
+		else if(effectName.equals("From Within")) {
 			owner.maxStamina+=25;
+		}
+		else if(effectName.equals("Relative Perception")) {
+			if(duration==0) {
+				for(Hex h:owner.grid.hexes) {
+					if(h.hasEffect("Relative Perception")&&h.getEffect("Relative Perception").owner==owner) {
+						if(h.isEmpty()) {
+							owner.setPosition(h);
+						}
+						h.removeEffect("Relative Perception");
+					}
+				}
+			}else {
+				for(Hex h:owner.grid.hexes) {
+					if(h.hasEffect("Relative Perception")&&h.getEffect("Relative Perception").owner==owner) {
+						h.removeEffect("Relative Perception");
+					}
+				}
+			}
 		}
 		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {

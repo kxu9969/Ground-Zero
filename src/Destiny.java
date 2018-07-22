@@ -204,21 +204,33 @@ public class Destiny extends Hero{
 	public void showAb3() {
 		if(queue3.size()==0) {
 			queue3.add(((BuffStack)getBuff("Tranquility")).stacks);
-		}if(queue3.size()%2!=0) {//remove those already selected
-			for(Hex h:grid.hexes) {
-				if(position.distance(h)==1&&h.isEmpty()) {
-					h.color=Color.red;
-				}
-			}
-		}else if(queue3.size()>1&&queue3.size()%2==0){//remove those already selected
-			for(Hex h:grid.hexes) {
-				if(h.hasAlly(this)) {
-					h.color=Color.red;
-				}
-			}
 		}
-		for(int i = 1;i<queue3.size();i++) {
-			((Hex)queue3.get(i)).color=null;
+		if(ableAb3()&&(queue3.size()-1)/2<team.size()-1) {
+			if(queue3.size()%2!=0) {//remove those already selected
+				for(Hex h:grid.hexes) {
+					if(position.distance(h)==1&&h.isEmpty()) {
+						h.color=Color.red;
+					}
+				}
+			}else if(queue3.size()>1&&queue3.size()%2==0){//remove those already selected
+				for(Hex h:grid.hexes) {
+					if(h.hasAlly(this)) {
+						h.color=Color.red;
+					}
+				}
+			}
+			if(queue3.size()%2!=0) {//add new hexes from moving others
+				for(int i =1;i+1<queue3.size();i+=2) {
+					if(((Hex)queue3.get(i+1)).distance(position)==1) {
+						((Hex)queue3.get(i+1)).color=Color.red;
+					}
+					((Hex)queue3.get(i)).color=null;
+				}
+			}else if(queue3.size()%2==0&&queue3.size()>1) {//remove already queued to move
+				for(int i =1;i+1<queue3.size();i+=2) {
+					((Hex)queue3.get(i+1)).color=null;
+				}
+			}
 		}
 		position.color=Color.green;
 	}
@@ -238,7 +250,7 @@ public class Destiny extends Hero{
 	public void ability3(Hex h) {
 		if(h==position) {
 			try {
-				for(int i =1;i<queue3.size();i+=2) {
+				for(int i =1;i+1<queue3.size();i+=2) {
 					((Hex)queue3.get(i+1)).occupied.setPosition(((Hex)queue3.get(i)));
 				}
 			}catch(Exception e) {}
@@ -273,7 +285,7 @@ public class Destiny extends Hero{
 			grid.game.ult.setEnabled(false);
 			grid.game.pass.setEnabled(false);
 			grid.game.visual.clear();
-			position.color=Color.green;
+			showAb3();
 		}
 	}
 

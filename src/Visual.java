@@ -47,6 +47,12 @@ public class Visual extends JPanel{
 		for(ArrayList<Point> a1: a) {
 			g2 = drawHex(g2,a1);
 		}
+		for(Hex h:grid.deleted) {
+			g2 = fill(g2,mainLayout.hexToPixel(h),new Color(100,0,0).getRGB());
+			if(h.color!=null) {
+				g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
+			}
+		}
 		for(Hex h:grid.hexes) {
 			if(h.hasEffect("Poisonseeds")) {
 				g2 = fill(g2,mainLayout.hexToPixel(h),new Color(147,112,219).getRGB());
@@ -90,6 +96,9 @@ public class Visual extends JPanel{
 	}
 	
 	public void clear() {
+		for(Hex h:grid.deleted) {
+			h.color=null;
+		}
 		for(Hex h:grid.hexes) {
 			if(h.occupied==null) {
 				h.color=null;
@@ -120,7 +129,7 @@ public class Visual extends JPanel{
 		return g2;
 	}
 
-	public Graphics2D fill(Graphics2D g2, Point center,int rgb)	{//is broken
+	public Graphics2D fill(Graphics2D g2, Point center,int rgb)	{
 		int x = (int)center.x;
 		int y = (int)center.y;
 		int i = x;
