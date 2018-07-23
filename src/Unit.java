@@ -214,7 +214,7 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 	}
-	
+
 	public void showBasic(Hex hex) {
 		boolean singularity = false;
 		if(hasDebuff("Blinded")) {
@@ -314,14 +314,18 @@ public abstract class Unit {//broadest branch, all space takers
 			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
 			removeSameBuff("Rampage");
 		}
-		if(hasBuff("Empowered Animus")||hasBuff("Ratchet Suit")||this instanceof Lich) {//AoE Attacks
-			for(Hex h1:grid.hexes) {
-				if(h.distance(h1)==1&&h1.hasEnemy(this)) {
-					damageDealt+=h1.occupied.takeBasic(damage, this, armor, shield);
+		int counter = 0;
+		do {
+			if(hasBuff("Empowered Animus")||hasBuff("Ratchet Suit")||this instanceof Lich) {//AoE Attacks
+				for(Hex h1:grid.hexes) {
+					if(h.distance(h1)==1&&h1.hasEnemy(this)) {
+						damageDealt+=h1.occupied.takeBasic(damage, this, armor, shield);
+					}
 				}
 			}
-		}
-		damageDealt += h.occupied.takeBasic(damage, this, armor, shield);
+			damageDealt += h.occupied.takeBasic(damage, this, armor, shield);
+			counter++;
+		}while(hasBuff("Adaptive Programming")&&counter<=((BuffStack)getBuff("Adaptive Programming")).stacks);
 		basicAttackedThisTurn = true;
 		if(hasLeech()) {//buffs for lifesteal
 			heal(damageDealt);
@@ -569,6 +573,12 @@ public abstract class Unit {//broadest branch, all space takers
 	public void rewriteDebuff(Debuff d,ArrayList<Debuff> debuffs) {
 		boolean addDebuff = true;
 		ArrayList<Debuff> toBeRemoved = new ArrayList<Debuff>();
+		if(d.owner instanceof Alpha&&(d.effectName.equals("Rooted")||d.effectName.equals("Stunned"))) {
+			d.owner.currentStamina+=20;
+			if(d.owner.currentStamina>d.owner.maxStamina) {
+				d.owner.currentStamina=d.owner.maxStamina;
+			}
+		}
 		for(Debuff d1: debuffs) {
 			if(!(d instanceof Mark )&& d1.effectName.equals(d.effectName)) {
 				if(d instanceof DebuffStack) {

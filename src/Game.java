@@ -28,8 +28,8 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new JARie(grid,"JAR.ie","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new BARie(grid,"BAR.ie","Team 2",new Hex(4,2,-6));
+	Unit currentUnit= new Alpha(grid,"Alpha","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new Myria(grid,"Myria","Team 2",new Hex(4,2,-6));
 	Hero one = new Vaal(grid,"Vaal","Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new Wrock(grid,"Wrock","Team 2",new Hex(8,2,-10));

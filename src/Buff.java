@@ -27,6 +27,9 @@ public class Buff extends Effect{
 		else if(effectName.equals("From Within")) {
 			owner.maxStamina-=25;
 		}
+		else if(effectName.equals("Overclock Core")) {
+			owner.basicDamage+=40;
+		}
 	}
 	
 	public void onRemoval() {	
@@ -47,6 +50,11 @@ public class Buff extends Effect{
 		}
 		else if(effectName.equals("From Within")) {
 			owner.maxStamina+=25;
+		}
+		else if(effectName.equals("Overclock Core")) {
+			owner.basicDamage-=40;
+			owner.rewriteDebuff(new Debuff("Silenced",owner,2,owner,false),owner.debuffs);
+			owner.addDebuff(new DebuffStack("Overclocked",owner,-1,owner,true,1));
 		}
 		else if(effectName.equals("Relative Perception")) {
 			if(duration==0) {

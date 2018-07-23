@@ -2,7 +2,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Beholder extends Hero{
+public class Beholder extends Hero{//ALSO NEEDS TO SUPER THE HASABILITY METHODS
 	Class c1;
 	Class c2;
 	Class c3;
