@@ -21,6 +21,12 @@ public class Vaal extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 4;
 		ultcdMax = 8;		
+		qU="A powerful damage dealer that can use and abuse the map to his advantage, Vaal excels at leaving himself a way out before diving in suicidally only to be recalled out before death.";
+		qP="Spatial Rift: When basic attacking, can teleport 1 tile to the target.";
+		q1="Void Realm (3): Delete an unoccupied tile. Can be recast on a deleted tile to restore it.";
+		q2="Dimensional Strike (3): Target up to 5 nearby enemies adjacent to each other and attack them all.";
+		q3="Relative Perception (4): Mark your current tile. After 3 turns, teleport back here if possible.";
+		q4="Infinite Stride (8): Teleport all allies to respective new locations. Regain stamina immediately.";
 	}
 	
 	public void showBasic() {
