@@ -427,15 +427,23 @@ public abstract class Unit {//broadest branch, all space takers
 	public int takeBasic(int damage, Unit attacker,boolean armor,boolean shield) {
 		if(hasBuff("Shield of Earth")&&!getBuff("Shield of Earth").caster.dead) {
 			return getBuff("Shield of Earth").caster.takeBasic(damage, attacker, armor, shield);
-		}else {
-			return takeDamage(damage,attacker,armor,shield);
-		}	}
-	public int takeAbility(int damage, Unit attacker,boolean armor, boolean shield) {
-		if(hasBuff("Shield of Earth")&&!getBuff("Shield of Earth").caster.dead) {
-			return getBuff("Shield of Earth").caster.takeAbility(damage, attacker, armor, shield);
-		}else {
-			return takeDamage(damage,attacker,armor,shield);
 		}
+		return takeDamage(damage,attacker,armor,shield);
+	}
+
+	public int takeAbility(int damage, Unit attacker,boolean armor, boolean shield) {
+		if(adjCragg()) {
+			for(Hex h:position.allAdjacents()) {
+				h=grid.getHex(h);
+				if(h.hasAlly(this)&&h.occupied instanceof Cragg) {
+					return h.occupied.takeAbility(damage, attacker, armor, shield);
+				}
+			}
+		}
+		else if(hasBuff("Shield of Earth")&&!getBuff("Shield of Earth").caster.dead) {
+			return getBuff("Shield of Earth").caster.takeAbility(damage, attacker, armor, shield);
+		}
+		return takeDamage(damage,attacker,armor,shield);
 	}
 
 	private int takeDamage(int damage, Unit h, boolean armor, boolean shield) {//process armor
@@ -1005,6 +1013,16 @@ public abstract class Unit {//broadest branch, all space takers
 				u.updateAura();
 			}
 		}
+	}
+
+	private boolean adjCragg() {
+		for(Hex h:position.allAdjacents()) {
+			h=grid.getHex(h);
+			if(h.hasAlly(this)&&h.occupied instanceof Cragg) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void updateAura() {

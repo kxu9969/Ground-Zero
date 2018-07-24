@@ -83,12 +83,17 @@ public class Kaito extends Hero{
 	public void showAb3() {	
 		ability3(null);
 	}
+	
+	public boolean ableAb3() {
+		if(hasBuff("Gathering Darkness")) {
+			return true;
+		}
+		return false;
+	}
 
 	public void ability3(Hex h) {	
-		if(hasBuff("Gathering Darkness")) {
-			addBuff(new BuffStack("Lethality",this,-1,this,false,((BuffStack)getBuff("Gathering Darkness")).stacks,99));
-			removeSameBuff("Gathering Darkness");
-		}
+		addBuff(new BuffStack("Lethality",this,-1,this,false,((BuffStack)getBuff("Gathering Darkness")).stacks,99));
+		removeSameBuff("Gathering Darkness");
 		setStamina();
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

@@ -15,7 +15,7 @@ public class Destiny extends Hero{
 		defaultArmor = 60;
 		currentArmor = defaultArmor;
 		armorPiercing = 40;
-		basicRange = 2;
+		basicRange = 1;
 		ab1cdMax = 2;
 		ab2cdMax = 1;
 		ab3cdMax = 2;
