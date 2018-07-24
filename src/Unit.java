@@ -314,6 +314,10 @@ public abstract class Unit {//broadest branch, all space takers
 			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
 			removeSameBuff("Rampage");
 		}
+		if(hasBuff("Granite Fists")) {
+			damage+=((BuffStack)getBuff("Granite Fists")).stacks*10;
+			removeSameBuff("Granite Fists");
+		}
 		int counter = 0;
 		do {
 			if(hasBuff("Empowered Animus")||hasBuff("Ratchet Suit")||this instanceof Lich) {//AoE Attacks

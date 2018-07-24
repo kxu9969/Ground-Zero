@@ -17,7 +17,7 @@ public class BuffStack extends Buff{
 		if(effectName.equals("Gathering Darkness")) {
 			owner.currentArmor+=stacks*5;
 		}
-		if(effectName.equals("Earthen Resilience")) {
+		else if(effectName.equals("Earthen Resilience")) {
 			owner.currentArmor+=stacks*10;
 		}
 	}
@@ -26,7 +26,7 @@ public class BuffStack extends Buff{
 		if(effectName.equals("Gathering Darkness")) {
 			owner.currentArmor-=stacks*5;
 		}
-		if(effectName.equals("Earthen Resilience")) {
+		else if(effectName.equals("Earthen Resilience")) {
 			owner.currentArmor-=stacks*10;
 		}
 	}

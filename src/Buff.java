@@ -21,6 +21,9 @@ public class Buff extends Effect{
 		else if(effectName.equals("Ancient Tongue: Inferno")) {
 			owner.currentArmor+=20;
 		}
+		else if(effectName.equals("Diorite Plating")) {
+			owner.currentArmor+=20;
+		}
 		else if(effectName.equals("From Below")) {
 			owner.addDebuff(new Debuff("Rooted",caster,-1,owner,true));
 		}
@@ -36,13 +39,16 @@ public class Buff extends Effect{
 		if(effectName.equals("Second Ring, Fourth Sign")) {
 			owner.basicDamage-=30;
 		}
-		if(effectName.equals("Centered Stance")) {
+		else if(effectName.equals("Centered Stance")) {
 			owner.armorPiercing-=10;
 		}
 		else if(effectName.equals("Surface-to-Surface Missiles")) {
 			owner.currentArmor-=30;
 		}
 		else if(effectName.equals("Ancient Tongue: Inferno")) {
+			owner.currentArmor-=20;
+		}
+		else if(effectName.equals("Diorite Plating")) {
 			owner.currentArmor-=20;
 		}
 		else if(effectName.equals("From Below")) {

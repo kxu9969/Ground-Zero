@@ -18,7 +18,7 @@ public class Debuff extends Effect{
 		if(effectName.equals("Timed Life")) {
 			owner.die();
 		}
-		if(effectName.equals("Armor Removed")) {
+		else if(effectName.equals("Armor Removed")) {
 			if(!owner.hasDebuff("Armor Removed")) {//has other armor setting effects
 				owner.currentArmor=owner.defaultArmor;
 			}

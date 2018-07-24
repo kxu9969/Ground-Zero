@@ -77,6 +77,12 @@ public class Cragg extends Hero{
 	public void ability3(Hex h) {
 		gainShield(((BuffStack)getBuff("Feral Magic")).stacks*20);
 		removeSameBuff("Feral Magic");
+		for(Hex h1:position.allAdjacents()) {
+			h1=grid.getHex(h1);
+			if(h1.hasAlly(this)) {
+				addBuff(new Buff("Diorite Plating",h1.occupied,2,this,false));
+			}
+		}
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
 	}
