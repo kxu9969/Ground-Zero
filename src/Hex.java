@@ -8,6 +8,11 @@ class Hex
 	int movementCost = 1;
 	ArrayList<TileEffect> effects = new ArrayList<TileEffect>();
 	
+	public void addEffect(TileEffect t) {
+		t.onAddition();
+		effects.add(t);
+	}
+	
 	public void tickEffects() {
 		for(int i = 0;i<effects.size();i++) {
 			Effect b = effects.get(i);

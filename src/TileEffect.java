@@ -10,7 +10,14 @@ public class TileEffect extends Effect{
 		location = h;
 	}
 	
-	public void onAddition() {}
+	public void onAddition() {
+		if(effectName.equals("Stasis")) {
+			owner.grid.stasisHex(location);
+			if(location.occupied!=null) {
+				owner.addDebuff(new Debuff("Stasis",location.occupied,-1,owner,true));
+			}
+		}
+	}
 	
 	public void onRemoval() {
 		if(effectName.equals("Poisonseeds")) {
@@ -19,8 +26,13 @@ public class TileEffect extends Effect{
 					h.effects.add(new TileEffect("Poisonseeds",owner,2,caster,false,h));
 				}
 			}
+		}else if(effectName.equals("Stasis")) {
+			owner.grid.restoreHex(location);
+			if(location.occupied!=null) {
+				location.occupied.debuffs.remove(location.occupied.getDebuff("Stasis"));
+			}
 		}
-		if(effectName.equals("Improvised Explosive")) {
+		else if(effectName.equals("Improvised Explosive")) {
 			for(Hex h:owner.grid.hexes) {
 				if(location.distance(h)==1&&h.hasEnemy(owner)) {
 					h.occupied.takeAbility(70, owner, true, true);

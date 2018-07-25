@@ -147,7 +147,7 @@ public class Vaal extends Hero{
 
 	public void ability3(Hex h) {
 		addBuff(new Buff("Relative Perception",this,3,this,false));
-		position.effects.add(new TileEffect("Relative Perception",this,-1,this,false,position));
+		position.addEffect(new TileEffect("Relative Perception",this,-1,this,false,position));
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
 	}

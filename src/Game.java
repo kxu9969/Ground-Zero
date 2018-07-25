@@ -28,9 +28,9 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new October(grid,"October","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new JARie(grid,"JAR.ie","Team 2",new Hex(4,2,-6));
-	Hero one = new Cragg(grid,"Cragg","Team 2",new Hex(6,2,-8));
+	Unit currentUnit= new JARie(grid,"JARie","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new HWSF(grid,"HWSF","Team 2",new Hex(4,2,-6));
+	Hero one = new Isaac(grid,"Issac","Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new Wrock(grid,"Wrock","Team 2",new Hex(8,2,-10));
 
@@ -197,6 +197,10 @@ public class Game implements MouseListener, MouseMotionListener{
 			for(Hex h:grid.hexes) {
 				h.tickEffects();
 			}
+			for(int i = grid.stasis.size()-1;i>=0;i--) {
+				Hex h = grid.stasis.get(i);
+				h.tickEffects();
+			}
 			for(int i = 0;i<occupants.size();i++) {
 				Occupant o = occupants.get(i);
 				o.endOfTurn();
@@ -224,13 +228,15 @@ public class Game implements MouseListener, MouseMotionListener{
 			outerloop:
 				while(true) {
 					for(;nextUnitCounter<units.size();nextUnitCounter++) {//keeps track of current place in list
-						if(units.get(nextUnitCounter).currentStamina>=units.get(
-								nextUnitCounter).maxStamina&&!units.get(nextUnitCounter).dead) {
-							currentUnit = units.get(nextUnitCounter);
-							nextUnitCounter++;
-							break outerloop;
-						}else if(!units.get(nextUnitCounter).dead){
-							units.get(nextUnitCounter).currentStamina+=5;
+						if(!units.get(nextUnitCounter).dead&&!units.get(nextUnitCounter).hasDebuff("Stasis")) {
+							if(units.get(nextUnitCounter).currentStamina>=units.get(
+									nextUnitCounter).maxStamina&&!units.get(nextUnitCounter).dead) {
+								currentUnit = units.get(nextUnitCounter);
+								nextUnitCounter++;
+								break outerloop;
+							}else {
+								units.get(nextUnitCounter).currentStamina+=5;
+							}
 						}
 					}
 					
@@ -524,6 +530,9 @@ public class Game implements MouseListener, MouseMotionListener{
 						new Point(e.getX(),e.getY())).hexRound());
 				if(h==null) {
 					 h = visual.grid.getDeletedHex(visual.mainLayout.pixelToHex(
+								new Point(e.getX(),e.getY())).hexRound());
+				}if(h==null) {
+					 h = visual.grid.getStasisHex(visual.mainLayout.pixelToHex(
 								new Point(e.getX(),e.getY())).hexRound());
 				}
 				if(e.getButton()==MouseEvent.BUTTON1) {

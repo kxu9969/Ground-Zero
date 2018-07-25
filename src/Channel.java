@@ -45,7 +45,7 @@ public class Channel extends Buff{
 							h1.occupied.takeAbility(80, owner, true, true);
 						}
 					}
-					h.effects.add(new TileEffect("Burning",owner,6,owner,false,h));
+					h.addEffect(new TileEffect("Burning",owner,6,owner,false,h));
 				}
 			}
 			else if(methodName.equals("Ancient Tongue: Blazing Pillars")) {
@@ -58,7 +58,7 @@ public class Channel extends Buff{
 							h1.occupied.takeAbility(80, owner, false, true);
 						}
 					}
-					h.effects.add(new TileEffect("Burning",owner,6,owner,false,h));
+					h.addEffect(new TileEffect("Burning",owner,6,owner,false,h));
 				}
 			}
 			else if(methodName.equals("Ancient Tongue: Inferno")) {

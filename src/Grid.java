@@ -1,8 +1,10 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Grid {
 	ArrayList<Hex> hexes = new ArrayList<Hex>();
 	ArrayList<Hex> deleted = new ArrayList<Hex>();
+	ArrayList<Hex> stasis = new ArrayList<Hex>();
 	Game game;
 
 	Grid(Game game){//25 columns of 20-21
@@ -52,6 +54,15 @@ public class Grid {
 		return null;
 	}
 	
+	public Hex getStasisHex(Hex h) {
+		for(Hex h1:stasis) {
+			if(h.equals(h1)) {
+				return h1;
+			}
+		}
+		return null;
+	}
+	
 	public void deleteHex(Hex h) {
 		for(Hex h1:hexes) {
 			if(h.equals(h1)) {
@@ -63,11 +74,30 @@ public class Grid {
 		}
 	}
 	
+	public void stasisHex(Hex h) {
+		for(Hex h1:hexes) {
+			if(h.equals(h1)) {
+				hexes.remove(h);
+				stasis.add(h);
+				h.color=Color.gray;
+				return;
+			}
+		}
+	}
+	
 	public void restoreHex(Hex h) {
 		for(Hex h1:deleted) {
 			if(h.equals(h1)) {
 				hexes.add(h);
 				deleted.remove(h);
+				h.color=null;
+				return;
+			}
+		}
+		for(Hex h1:stasis) {
+			if(h.equals(h1)) {
+				hexes.add(h);
+				stasis.remove(h);
 				h.color=null;
 				return;
 			}

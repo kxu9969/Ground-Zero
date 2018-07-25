@@ -122,7 +122,7 @@ public class Akar extends Hero{
 	}
 
 	public void ultimate(Hex h) {
-		h.effects.add(new TileEffect("Poisonseeds",this,2,this,false,h));
+		h.addEffect(new TileEffect("Poisonseeds",this,2,this,false,h));
 		abcdDelay[3]=true;
 		grid.game.endOfTurn();
 	}

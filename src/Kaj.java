@@ -39,7 +39,7 @@ public class Kaj extends Hero{
 	}
 
 	public void ability1(Hex h) {
-		h.effects.add(new TileEffect("Nature's Bounty",this,-1,this,false,h));
+		h.addEffect(new TileEffect("Nature's Bounty",this,-1,this,false,h));
 		abcdDelay[0]=true;
 		grid.game.endOfTurn();
 	}

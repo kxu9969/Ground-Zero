@@ -483,7 +483,9 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	private int takeDamage(int damage) {//process shield
-		if(hasBuff("Block")) {
+		if(hasDebuff("Stasis")||hasBuff("Holy Guard")) {
+			return 0;
+		}else if(hasBuff("Block")) {
 			removeSameBuff("Block");
 			return 0;
 		}else {
@@ -503,7 +505,9 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	private int takeTrueDamage(int damage) {
-		if(hasBuff("Block")) {
+		if(hasDebuff("Stasis")||hasBuff("Holy Guard")) {
+			return 0;
+		}else if(hasBuff("Block")) {
 			removeSameBuff("Block");
 			return 0;
 		}currentHealth-=damage;
@@ -1022,7 +1026,7 @@ public abstract class Unit {//broadest branch, all space takers
 	private boolean adjCragg() {
 		for(Hex h:position.allAdjacents()) {
 			h=grid.getHex(h);
-			if(h.hasAlly(this)&&h.occupied instanceof Cragg) {
+			if(h!=null&&h.hasAlly(this)&&h.occupied instanceof Cragg) {
 				return true;
 			}
 		}

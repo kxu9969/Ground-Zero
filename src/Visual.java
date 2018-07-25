@@ -47,6 +47,20 @@ public class Visual extends JPanel{
 		for(ArrayList<Point> a1: a) {
 			g2 = drawHex(g2,a1);
 		}
+		for(Hex h:grid.stasis) {
+			if(h.color!=null) {
+				g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
+			}
+			if(h.occupied!=null) {
+				if(h.occupied.team==grid.game.team1)
+					g2.setColor(Color.red);
+				else
+					g2.setColor(Color.blue);
+				g2.drawString(h.occupied.name, (float)mainLayout.hexToPixel(h).x-25, 
+						(float)mainLayout.hexToPixel(h).y);
+				g2.setColor(Color.black);
+			}
+		}
 		for(Hex h:grid.deleted) {
 			g2 = fill(g2,mainLayout.hexToPixel(h),new Color(100,0,0).getRGB());
 			if(h.color!=null) {

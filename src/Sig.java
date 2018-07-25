@@ -46,7 +46,7 @@ public class Sig extends Hero{
 			h.occupied.takeAbility(70, this, true, true);
 			addDebuff(new Debuff("Cursed",h.occupied,1,this,false));
 		}else {
-			h.effects.add(new TileEffect("Improvised Explosive",this,3,this,false,h));
+			h.addEffect(new TileEffect("Improvised Explosive",this,3,this,false,h));
 		}
 		abcdDelay[0]=true;
 		grid.game.endOfTurn();
@@ -61,7 +61,7 @@ public class Sig extends Hero{
 	}
 
 	public void ability2(Hex h) {
-		h.effects.add(new TileEffect("D.M.R. Mine",this,-1,this,false,h));	
+		h.addEffect(new TileEffect("D.M.R. Mine",this,-1,this,false,h));	
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}

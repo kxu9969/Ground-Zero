@@ -30,7 +30,7 @@ public class HWSF extends Hero{
 	}
 	
 	public void basicAttack(Hex h, int damage, boolean armor, boolean shield, boolean anotherTurn) {
-		h.effects.add(new TileEffect("Burning",this,6,this,false,h));
+		h.addEffect(new TileEffect("Burning",this,6,this,false,h));
 		super.basicAttack(h, damage, armor, shield, anotherTurn);
 	}
 

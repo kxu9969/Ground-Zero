@@ -57,7 +57,7 @@ public class October extends Hero{
 	}
 
 	public void ability2(Hex h) {
-		h.effects.add(new TileEffect("Thunder and Storm",this,6,this,false,h));
+		h.addEffect(new TileEffect("Thunder and Storm",this,6,this,false,h));
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
 	}
