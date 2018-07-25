@@ -87,7 +87,7 @@ public class Isaac extends Hero{
 		}
 		affected.add(h);
 		for(Hex h1:affected) {
-			h1.addEffect(new TileEffect("Stasis",this,6,this,false,h1));
+			h1.addEffect(new TileEffect("Stasis",this,7,this,false,h1));
 		}
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
