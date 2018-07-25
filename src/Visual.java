@@ -62,7 +62,8 @@ public class Visual extends JPanel{
 			}
 		}
 		for(Hex h:grid.deleted) {
-			g2 = fill(g2,mainLayout.hexToPixel(h),new Color(100,0,0).getRGB());
+			g2.fillOval((int)mainLayout.hexToPixel(h).x-14, (int)mainLayout.hexToPixel(h).y-14, 28, 28);
+
 			if(h.color!=null) {
 				g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
 			}

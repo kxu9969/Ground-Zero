@@ -81,7 +81,9 @@ public class Isaac extends Hero{
 	public void ability3(Hex h) {
 		ArrayList<Hex> affected = new ArrayList<Hex>();
 		for(Hex h1:h.allAdjacents()) {
-			affected.add(grid.getHex(h1));
+			if(grid.getHex(h1)!=null) {
+				affected.add(grid.getHex(h1));
+			}
 		}
 		affected.add(h);
 		for(Hex h1:affected) {
