@@ -67,7 +67,7 @@ class FractionalHex
     }
 
 
-    static public ArrayList<Hex> hexLinedraw(Hex a, Hex b)
+    static public ArrayList<Hex> hexInterpolate(Hex a, Hex b)
     {
         int N = a.distance(b);
         FractionalHex a_nudge = new FractionalHex(a.q + 0.000001, a.r + 0.000001, a.s - 0.000002);
@@ -78,6 +78,30 @@ class FractionalHex
         {
             results.add(a_nudge.hexLerp(b_nudge, step * i).hexRound());
         }
+        return results;
+    }
+    
+    static public ArrayList<Hex> hexExtrapolate(Hex a, Hex b,Grid g)
+    {
+        int N = a.distance(b);
+        FractionalHex a_nudge = new FractionalHex(a.q + 0.000001, a.r + 0.000001, a.s - 0.000002);
+        FractionalHex b_nudge = new FractionalHex(b.q + 0.000001, b.r + 0.000001, b.s - 0.000002);
+        ArrayList<Hex> results = new ArrayList<Hex>(){{}};
+        double step = 1.0 / Math.max(N, 1);
+        int i = 0;
+        outerloop:
+        	while(true) {
+        		while(step * i<=1) {
+        			i++;
+        		}
+        		Hex h = a_nudge.hexLerp(b_nudge, step * i).hexRound();
+        		results.add(h);
+        		i++;
+	        	if(g.getHex(h)==null) {
+	        		results.remove(h);
+	        		break outerloop;
+	        	}
+        	}
         return results;
     }
 
@@ -381,7 +405,7 @@ public class Tests
 
     static public void testHexLinedraw()
     {
-        Tests.equalHexArray("hex_linedraw", new ArrayList<Hex>(){{add(new Hex(0, 0, 0)); add(new Hex(0, -1, 1)); add(new Hex(0, -2, 2)); add(new Hex(1, -3, 2)); add(new Hex(1, -4, 3)); add(new Hex(1, -5, 4));}}, FractionalHex.hexLinedraw(new Hex(0, 0, 0), new Hex(1, -5, 4)));
+        Tests.equalHexArray("hex_linedraw", new ArrayList<Hex>(){{add(new Hex(0, 0, 0)); add(new Hex(0, -1, 1)); add(new Hex(0, -2, 2)); add(new Hex(1, -3, 2)); add(new Hex(1, -4, 3)); add(new Hex(1, -5, 4));}}, FractionalHex.hexInterpolate(new Hex(0, 0, 0), new Hex(1, -5, 4)));
     }
 
 

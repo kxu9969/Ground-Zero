@@ -285,8 +285,8 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void clearBasic() {};
-
-	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
+	
+	public void partialBasic(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
 		int damageDealt=0;
 		if(noArmor()) {
 			armor = false;
@@ -306,17 +306,18 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Hunting Rites")) {
 			damage+=20;
 		}
-		if(hasBuff("Lethality")) {
+		if(hasBuff("Lethality")) {//doesn't consume one time effects
 			damage+=((BuffStack)getBuff("Lethality")).stacks*10;
-			removeSameBuff("Lethality");
 		}
 		if(hasBuff("Rampage")) {
 			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
-			removeSameBuff("Rampage");
 		}
 		if(hasBuff("Granite Fists")) {
 			damage+=((BuffStack)getBuff("Granite Fists")).stacks*10;
-			removeSameBuff("Granite Fists");
+		}
+		if(hasBuff("Entangling Shot")) {
+			addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
+			addDebuff(new Debuff("Entangled",h.occupied,2,this,false));
 		}
 		int counter = 0;
 		do {
@@ -394,6 +395,36 @@ public abstract class Unit {//broadest branch, all space takers
 				getBuff("Whirling Scythes").toggle=true;
 			}
 		}
+	}
+
+	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
+		if(hasBuff("Lethality")) {//consumes one time effects
+			damage+=((BuffStack)getBuff("Lethality")).stacks*10;
+			removeSameBuff("Lethality");
+		}
+		if(hasBuff("Rampage")) {
+			damage+=((BuffStack)getBuff("Rampage")).stacks*10;
+			removeSameBuff("Rampage");
+		}
+		if(hasBuff("Granite Fists")) {
+			damage+=((BuffStack)getBuff("Granite Fists")).stacks*10;
+			removeSameBuff("Granite Fists");
+		}
+		if(hasBuff("Entangling Shot")) {
+			addDebuff(new Debuff("Rooted",h.occupied,1,this,false));
+			addDebuff(new Debuff("Entangled",h.occupied,2,this,false));
+			removeSameBuff("Entangling Shot");
+		}
+		if(hasBuff("Flurry")) {
+			TileEffect t = new TileEffect("Echo",this,3,this,false,position);
+			if(position.hasEffect("Echo")) {
+				position.getEffect("Echo").info.add(h);
+			}else {
+				t.info.add(h);
+				position.addEffect(t);
+			}
+		}
+		partialBasic(h,damage,armor,shield,anotherTurn);
 	}
 
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield) {
@@ -980,6 +1011,9 @@ public abstract class Unit {//broadest branch, all space takers
 					h.occupied.takeAbility(10, getDebuff("Detonation Rounds").caster, false, false);
 				}
 			}
+		}
+		if(hasDebuff("Entangled")) {
+			takeAbility(10,getDebuff("Entangled").caster,false,true);
 		}
 
 	};

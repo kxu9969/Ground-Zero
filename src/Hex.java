@@ -211,7 +211,7 @@ class Hex
     	return false;
     }
     
-    public ArrayList<Hex> findLine(Grid grid,Hex h){
+    public ArrayList<Hex> extendLineAdj(Grid grid,Hex h){
     	Hex difference = h.subtract(this);
     	Hex nextHex = this.add(difference);
     	ArrayList<Hex> hexes = new ArrayList<Hex>();
@@ -225,5 +225,4 @@ class Hex
     public String toString() {
     	return q+" "+r+" "+s;
     }
-
 }

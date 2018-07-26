@@ -59,7 +59,7 @@ public class Magmus extends Hero{
 	}
 
 	public void ability1(Hex h) {
-		ArrayList<Hex> hexes = position.findLine(grid, h);
+		ArrayList<Hex> hexes = position.extendLineAdj(grid, h);
 		while(hexes.size()>3) {
 			hexes.remove(3);
 		}

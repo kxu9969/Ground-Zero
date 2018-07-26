@@ -43,7 +43,7 @@ public class Marcos extends Hero{
 	public void showAb1() {
 		for(Hex h:grid.hexes) {
 			if(position.distance(h)==1&&h.hasEnemy(this)) {
-				ArrayList<Hex> hexes = position.findLine(grid, h);
+				ArrayList<Hex> hexes = position.extendLineAdj(grid, h);
 				if(hexes.size()>1&&hexes.get(1).occupied == null) {
 					hexes.get(1).color=Color.red;
 				}

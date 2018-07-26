@@ -84,7 +84,7 @@ public class BARie extends Hero{
 	}
 
 	public void ability3(Hex h) {
-		ArrayList<Hex> hexes = position.findLine(grid, h);
+		ArrayList<Hex> hexes = position.extendLineAdj(grid, h);
 		while(hexes.size()>5) {
 			hexes.remove(5);
 		}

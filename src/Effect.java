@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public abstract class Effect {
 	boolean enchant = false;
@@ -6,6 +7,7 @@ public abstract class Effect {
 	Unit owner;
 	Unit caster;
 	boolean toggle = false;
+	ArrayList<Object> info = new ArrayList<Object>();
 	
 	Effect(String effectName, Unit owner, int duration,Unit caster){
         this.effectName = effectName;

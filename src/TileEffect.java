@@ -40,6 +40,11 @@ public class TileEffect extends Effect{
 				}
 			}
 		}
+		else if(effectName.equals("Echo")) {
+			for(int i = info.size()-1;i>=0;i--) {
+				owner.basicAttack(((Hex)info.get(i)), owner.basicDamage, true, true, true);
+			}
+		}
 	}
 
 }

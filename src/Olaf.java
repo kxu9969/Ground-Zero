@@ -96,7 +96,7 @@ public class Olaf extends Hero{
 
 	@Override
 	public void ultimate(Hex h) {
-		ArrayList<Hex> hexes = position.findLine(grid, h);
+		ArrayList<Hex> hexes = position.extendLineAdj(grid, h);
 		while(hexes.size()>5) {
 			hexes.remove(5);
 		}

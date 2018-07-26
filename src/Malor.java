@@ -100,7 +100,7 @@ public class Malor extends Hero{
 	}
 
 	public void ultimate(Hex h) {
-		ArrayList<Hex> hexes = position.findLine(grid, h);
+		ArrayList<Hex> hexes = position.extendLineAdj(grid, h);
 		for(Hex h1:hexes) {
 			if(h1.hasEnemy(this)) {
 				int damage = h1.occupied.takeAbility(50, this, false, false);
