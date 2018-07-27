@@ -6,7 +6,10 @@ public abstract class Hero extends PartialHero{
 	}
 	
 	public void die() {
-		if(hasBuff("Original Sin")) {
+		if(hasBuff("Temporal Relativity")) {
+			currentHealth = (int) getBuff("Temporal Relativity").info.get(0);
+			removeSameBuff("Temporal Relativity");
+		}else if(hasBuff("Original Sin")) {
 			currentHealth = maxHealth/2;
 			buffs.remove(getBuff("Original Sin"));
 		}else {

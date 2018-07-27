@@ -143,7 +143,10 @@ public abstract class Unit {//broadest branch, all space takers
 
 	public void move(Hex h) {
 		setPosition(h);
-		if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
+		grid.game.clear();
+		if(hasBuff("Accelerate")) {
+			removeSameBuff("Accelerate");
+		}else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
 			grid.game.move.lock=true;
 			grid.game.basic.lock=false;
 			grid.game.ab1.lock=true;

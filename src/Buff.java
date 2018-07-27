@@ -62,6 +62,11 @@ public class Buff extends Effect{
 			owner.rewriteDebuff(new Debuff("Silenced",owner,2,owner,false),owner.debuffs);
 			owner.addDebuff(new DebuffStack("Overclocked",owner,-1,owner,true,1));
 		}
+		else if(effectName.equals("Temporal Relativity")) {
+			if(duration==0) {
+				owner.currentHealth = (int) info.get(0);
+			}
+		}
 		else if(effectName.equals("Relative Perception")) {
 			if(duration==0) {
 				for(Hex h:owner.grid.hexes) {

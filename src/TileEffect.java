@@ -11,7 +11,7 @@ public class TileEffect extends Effect{
 	}
 	
 	public void onAddition() {
-		if(effectName.equals("Stasis")) {
+		if(effectName.equals("Stasis")||effectName.equals("Chronal Prison")) {
 			owner.grid.stasisHex(location);
 			if(location.occupied!=null) {
 				owner.addDebuff(new Debuff("Stasis",location.occupied,-1,owner,true));
@@ -30,6 +30,14 @@ public class TileEffect extends Effect{
 			owner.grid.restoreHex(location);
 			if(location.occupied!=null) {
 				location.occupied.debuffs.remove(location.occupied.getDebuff("Stasis"));
+			}
+		}else if(effectName.equals("Chronal Prison")) {
+			owner.grid.restoreHex(location);
+			if(location.occupied!=null) {
+				location.occupied.debuffs.remove(location.occupied.getDebuff("Stasis"));
+				location.occupied.ab1cd++;
+				location.occupied.ab2cd++;
+				location.occupied.ab3cd++;
 			}
 		}
 		else if(effectName.equals("Improvised Explosive")) {

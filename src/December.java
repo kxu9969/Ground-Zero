@@ -38,7 +38,6 @@ public class December extends Hero{
 		ab2cdMax = 3;
 		ab3cdMax = 2;
 		ultcdMax = 8;		
-		ultcd=0;
 		qU="A werewolf archer who specializes in all things magical, December can output heavy damage to multiple enemies after a few turns of preparation yet is also able to protect himself through repositioning and disables.";
 		qP="Arcane Penetration: Basic attacks pierce through for 3 tiles, damaging enemies behind and applying on-hit effects.";
 		q1="Entangling Shot (3): Your next basic attack roots for 1 turn and deals 10 per turn additional damage ignoring armor for 2 turns. Refresh your basic attack.";
