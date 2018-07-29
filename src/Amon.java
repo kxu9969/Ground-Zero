@@ -50,7 +50,7 @@ public class Amon extends Hero{
 			else {
 				str="Team 2";
 			}
-			Skeleton b = new Skeleton(grid,"Skeleton",str,h1,this);
+			Amon_Skeleton b = new Amon_Skeleton(grid,"Skeleton",str,h1,this);
 			grid.game.addUnit(b);
 			addDebuff(new Debuff("Timed Life",b,3,this,true));
 		}
@@ -97,7 +97,7 @@ public class Amon extends Hero{
 		else {
 			str="Team 2";
 		}
-		Lich b = new Lich(grid,"Lich",str,h,this);
+		Amon_Lich b = new Amon_Lich(grid,"Lich",str,h,this);
 		grid.game.addUnit(b);
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

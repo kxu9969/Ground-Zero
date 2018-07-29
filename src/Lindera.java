@@ -155,7 +155,7 @@ public class Lindera extends Hero{
 		else {
 			str="Team 2";
 		}
-		Singularity b = new Singularity(grid,"Singularity",str,h,this);
+		Lindera_Singularity b = new Lindera_Singularity(grid,"Singularity",str,h,this);
 		grid.game.occupants.add(b);
 		addBuff(new Buff("Singularity",this,2,this,true));
 		queue4.add(b);

@@ -93,7 +93,7 @@ public class Helena extends Hero{
 
 	public void showAb3() {
 		for(Hex h:grid.hexes) {
-			if(h.occupied==null||h.occupied instanceof Tree) {
+			if(h.occupied==null||h.occupied instanceof Helena_Tree) {
 				h.color=Color.red;
 			}
 		}
@@ -108,7 +108,7 @@ public class Helena extends Hero{
 			else {
 				str="Team 2";
 			}
-			Tree b = new Tree(grid,"Tree",str,h,this);
+			Helena_Tree b = new Helena_Tree(grid,"Tree",str,h,this);
 			grid.game.occupants.add(b);
 		}else {
 			h.clearHex();

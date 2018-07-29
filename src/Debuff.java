@@ -23,6 +23,12 @@ public class Debuff extends Effect{
 				owner.currentArmor=owner.defaultArmor;
 			}
 		}
+		else if(effectName.equals("Thorns' Embrace")) {
+			owner.addDebuff(new Debuff("Silenced",owner,1,caster,false));
+		}
+		else if(effectName.equals("Vampiric Vine")) {
+			caster.buffs.remove((Buff)info.get(0));
+		}
 	}
 
 }

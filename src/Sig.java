@@ -82,7 +82,7 @@ public class Sig extends Hero{
 		else {
 			str="Team 2";
 		}
-		MissileBomb b = new MissileBomb(grid,"Missile Bomb",str,h,this);
+		Sig_MissileBomb b = new Sig_MissileBomb(grid,"Missile Bomb",str,h,this);
 		addDebuff(new Debuff("Timed Life",b,3,this,true));
 		grid.game.occupants.add(b);
 		abcdDelay[2]=true;

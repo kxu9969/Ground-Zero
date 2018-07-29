@@ -74,7 +74,7 @@ public class Kaito extends Hero{
 		else {
 			str="Team 2";
 		}
-		ShadowStep s = new ShadowStep(grid,"Shadow Step",str,h,this);
+		Kaito_ShadowStep s = new Kaito_ShadowStep(grid,"Shadow Step",str,h,this);
 		grid.game.occupants.add(s);
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
@@ -120,7 +120,7 @@ public class Kaito extends Hero{
 			else {
 				str="Team 2";
 			}
-			Clone c = new Clone(grid,"Clone",str,h);
+			Kaito_Clone c = new Kaito_Clone(grid,"Clone",str,h);
 			c.maxHealth=maxHealth/2;
 			if(c.currentHealth>c.maxHealth) {
 				c.currentHealth=c.maxHealth;

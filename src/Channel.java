@@ -19,7 +19,7 @@ public class Channel extends Buff{
 		if(duration<=0) {
 			if(methodName.equals("Shadow Step")) {
 				Hex h = affected.get(0);
-				((ShadowStep)h.occupied).die(true);
+				((Kaito_ShadowStep)h.occupied).die(true);
 				owner.setPosition(h);
 				for(Hex h1:owner.grid.hexes) {
 					if(owner.position.distance(h1)==1&&h1.hasEnemy(owner)) {
@@ -79,7 +79,7 @@ public class Channel extends Buff{
 		}else {
 			if(methodName.equals("Shadow Step")) {
 				Hex h = affected.get(0);
-				((ShadowStep)h.occupied).die(true);	
+				((Kaito_ShadowStep)h.occupied).die(true);	
 			}
 		}
 	}

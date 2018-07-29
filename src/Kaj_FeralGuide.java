@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class FeralGuide extends Summon{
+public class Kaj_FeralGuide extends Summon{
 
-	FeralGuide(Grid grid, String name, String team, Hex h, Unit owner) {
+	Kaj_FeralGuide(Grid grid, String name, String team, Hex h, Unit owner) {
 		super(grid, name, team, h, owner);
 	}
 

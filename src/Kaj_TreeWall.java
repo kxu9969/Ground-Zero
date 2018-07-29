@@ -1,23 +1,15 @@
 
-public class Skeleton extends Summon{
+public class Kaj_TreeWall extends Occupant{
 
-	Skeleton(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Kaj_TreeWall(Grid grid, String name, String team, Hex h,Unit owner) {
+		super(grid, name, team, h,owner);
 	}
 
+	@Override
 	public void assembleStats() {
-		maxHealth = 60;
+		maxHealth = 50;
 		currentHealth = maxHealth;
-		maxStamina = 70;
-		currentStamina = 0;
-		basicDamage = 10;
-		defaultArmor = 40;
-		currentArmor = defaultArmor;
-		armorPiercing = 40;
-		basicRange = 1;	
-		qU="Armed with sword and shield, they emerge to surround enemies and protect their master.";
-		qP="Timed Life: This unit automatically dies after 3 of its turns.";
-		
+		currentArmor = 0;
 	}
 
 	@Override
@@ -67,5 +59,7 @@ public class Skeleton extends Summon{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

@@ -93,7 +93,7 @@ public class Visual extends JPanel{
 				g2.setColor(Color.black);
 			}
 			if(h.color!=null) {
-				if(!(h.occupied instanceof ShadowStep)) {
+				if(!(h.occupied instanceof Kaito_ShadowStep)) {
 					g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
 				}
 			}

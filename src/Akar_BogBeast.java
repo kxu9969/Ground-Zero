@@ -1,7 +1,7 @@
 
-public class BogBeast extends Summon{
+public class Akar_BogBeast extends Summon{
 
-	BogBeast(Grid grid, String name, String team, Hex h,Unit owner) {
+	Akar_BogBeast(Grid grid, String name, String team, Hex h,Unit owner) {
 		super(grid, name, team, h, owner);
 	}
 

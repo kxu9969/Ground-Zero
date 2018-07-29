@@ -1,15 +1,24 @@
 
-public class Tree extends Occupant{
+public class Wrock_Spear extends TrampleOccupant{
 
-	Tree(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Wrock_Spear(Grid grid, String name, String team, Hex h, Unit owner) {
+		super(grid, name, team, h, owner);
 	}
 
-	@Override
 	public void assembleStats() {
-		maxHealth = 50;
+		maxHealth = 150;
 		currentHealth = maxHealth;
 		currentArmor = 0;		
+	}
+	
+	public void onTrample(Unit u) {
+		u.takeAbility(60, owner, false, false);
+		if(u==grid.game.currentUnit) {
+			addDebuff(new Debuff("Stunned",u,3,owner,false));
+		}else {
+			addDebuff(new Debuff("Stunned",u,2,owner,false));
+		}
+		super.onTrample(u);
 	}
 
 	@Override

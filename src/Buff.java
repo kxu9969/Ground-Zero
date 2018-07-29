@@ -67,6 +67,9 @@ public class Buff extends Effect{
 				owner.currentHealth = (int) info.get(0);
 			}
 		}
+		else if(effectName.equals("Vampiric Vine")) {
+			caster.debuffs.remove((Debuff)info.get(0));
+		}
 		else if(effectName.equals("Relative Perception")) {
 			if(duration==0) {
 				for(Hex h:owner.grid.hexes) {
@@ -88,7 +91,7 @@ public class Buff extends Effect{
 		else if(effectName.equals("Singularity")) {
 			if(owner.queue4.size()>0) {
 				try {
-					((Singularity)owner.queue4.get(0)).die();
+					((Lindera_Singularity)owner.queue4.get(0)).die();
 				}catch(Exception e) {}
 			}
 		}

@@ -64,7 +64,7 @@ public class Kaj extends Hero{
 			else {
 				str="Team 2";
 			}
-			TreeWall b = new TreeWall(grid,"Wall of Trees",str,h,this);
+			Kaj_TreeWall b = new Kaj_TreeWall(grid,"Wall of Trees",str,h,this);
 			addDebuff(new Debuff("Timed Life",b,3,this,true));
 			grid.game.occupants.add(b);
 		}
@@ -88,7 +88,7 @@ public class Kaj extends Hero{
 		else {
 			str="Team 2";
 		}
-		FeralGuide b = new FeralGuide(grid,"Feral Guide",str,h,this);
+		Kaj_FeralGuide b = new Kaj_FeralGuide(grid,"Feral Guide",str,h,this);
 		grid.game.addUnit(b);
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

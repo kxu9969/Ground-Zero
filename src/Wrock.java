@@ -140,7 +140,7 @@ public class Wrock extends Hero{
 				else {
 					str="Team 2";
 				}
-				Spear b = new Spear(grid,"Spear",str,h1,this);
+				Wrock_Spear b = new Wrock_Spear(grid,"Spear",str,h1,this);
 				grid.game.occupants.add(b);			}
 		}
 		abcdDelay[3]=true;

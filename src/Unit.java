@@ -144,6 +144,19 @@ public abstract class Unit {//broadest branch, all space takers
 	public void move(Hex h) {
 		setPosition(h);
 		grid.game.clear();
+		if(hasBuff("Vampiric Vine")) {
+			for(Buff b:getBuffs("Vampiric Vine")) {
+				if(b.caster.position.distance(position)>3) {
+					removeBuff(b);
+				}
+			}
+		}if(hasDebuff("Vampiric Vine")) {
+			for(Debuff d:getDebuffs("Vampiric Vine")) {
+				if(d.caster.position.distance(position)>3) {
+					removeDebuff(d);
+				}
+			}
+		}
 		if(hasBuff("Accelerate")) {
 			removeSameBuff("Accelerate");
 		}else if(hasBuff("Whirling Scythes")&&!getBuff("Whirling Scythes").toggle) {
@@ -184,9 +197,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasDebuff("Blinded")) {
 			for(Hex h:grid.hexes) {
 				if(position.distance(h)==1&&(h.hasEnemy(this)||
-						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
+						(h.occupied instanceof Sig_MissileBomb&&((Sig_MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
-					if(h.occupied instanceof Singularity) {
+					if(h.occupied instanceof Lindera_Singularity) {
 						singularity = true;
 					}
 				}
@@ -194,9 +207,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}else {
 			for(Hex h:grid.hexes) {
 				if(position.distance(h)<=basicRange&&(h.hasEnemy(this)||
-						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
+						(h.occupied instanceof Sig_MissileBomb&&((Sig_MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
-					if(h.occupied instanceof Singularity) {
+					if(h.occupied instanceof Lindera_Singularity) {
 						singularity = true;
 					}
 				}
@@ -211,7 +224,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(singularity) {
 			for(Hex h:grid.hexes) {
-				if(h.color==Color.red&&!(h.occupied instanceof Singularity)) {
+				if(h.color==Color.red&&!(h.occupied instanceof Lindera_Singularity)) {
 					h.color= null;
 				}
 			}
@@ -223,9 +236,9 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasDebuff("Blinded")) {
 			for(Hex h:grid.hexes) {
 				if(hex.distance(h)==1&&(h.hasEnemy(this)||
-						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
+						(h.occupied instanceof Sig_MissileBomb&&((Sig_MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
-					if(h.occupied instanceof Singularity) {
+					if(h.occupied instanceof Lindera_Singularity) {
 						singularity = true;
 					}
 				}
@@ -233,9 +246,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}else {
 			for(Hex h:grid.hexes) {
 				if(hex.distance(h)<=basicRange&&(h.hasEnemy(this)||
-						(h.occupied instanceof MissileBomb&&((MissileBomb)h.occupied).owner==this))) {//also needs to check for team
+						(h.occupied instanceof Sig_MissileBomb&&((Sig_MissileBomb)h.occupied).owner==this))) {//also needs to check for team
 					h.color=Color.RED;
-					if(h.occupied instanceof Singularity) {
+					if(h.occupied instanceof Lindera_Singularity) {
 						singularity = true;
 					}
 				}
@@ -250,7 +263,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(singularity) {
 			for(Hex h:grid.hexes) {
-				if(h.color==Color.red&&!(h.occupied instanceof Singularity)) {
+				if(h.color==Color.red&&!(h.occupied instanceof Lindera_Singularity)) {
 					h.color= null;
 				}
 			}
@@ -258,7 +271,7 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public boolean noArmor() {
-		if(hasBuff("Configuration: FMJ Plasma")||hasBuff("Empowered Animus")||this instanceof Lich) {//buffs for armor pierce
+		if(hasBuff("Configuration: FMJ Plasma")||hasBuff("Empowered Animus")||this instanceof Amon_Lich) {//buffs for armor pierce
 			return true;
 		}
 		return false;
@@ -324,7 +337,7 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		int counter = 0;
 		do {
-			if(hasBuff("Empowered Animus")||hasBuff("Ratchet Suit")||this instanceof Lich) {//AoE Attacks
+			if(hasBuff("Empowered Animus")||hasBuff("Ratchet Suit")||this instanceof Amon_Lich) {//AoE Attacks
 				for(Hex h1:grid.hexes) {
 					if(h.distance(h1)==1&&h1.hasEnemy(this)) {
 						damageDealt+=h1.occupied.takeBasic(damage, this, armor, shield);
@@ -576,9 +589,8 @@ public abstract class Unit {//broadest branch, all space takers
 		removeAll();
 		dead = true;
 		currentStamina=0;
-		if(!(this instanceof TrampleOccupant)) {
-			position.clearHex();
-		}
+		position.clearHex();
+		
 		grid.game.checkGameOver();
 		if(this==grid.game.currentUnit&&!grid.game.ending) {
 			grid.game.endOfTurn();
@@ -589,7 +601,8 @@ public abstract class Unit {//broadest branch, all space takers
 		boolean addBuff = true;
 		ArrayList<Buff> toBeRemoved = new ArrayList<Buff>();
 		for(Buff b1:buffs) {
-			if(!(b1 instanceof Channel)&&b1.effectName.equals(b.effectName)) {
+			if(!(b1 instanceof Channel||b.effectName.equals("Vampiric Vine"))&&
+					b1.effectName.equals(b.effectName)) {
 				if(b instanceof BuffStack) {
 					b1.onRemoval();
 					((BuffStack)b1).stacks+=((BuffStack) b).stacks;
@@ -630,7 +643,8 @@ public abstract class Unit {//broadest branch, all space takers
 			}
 		}
 		for(Debuff d1: debuffs) {
-			if(!(d instanceof Mark )&& d1.effectName.equals(d.effectName)) {
+			if(!(d instanceof Mark ||d.effectName.equals("Vampiric Vine"))&& 
+					d1.effectName.equals(d.effectName)) {
 				if(d instanceof DebuffStack) {
 					d1.onRemoval();
 					((DebuffStack)d1).stacks+=((DebuffStack)d).stacks;
@@ -707,6 +721,13 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void addDebuff(Debuff b) {
+		if(b.effectName.equals("Rooted")) {
+			for(Unit u:b.owner.team) {
+				if(u instanceof Lash) {
+					b.owner.heal(60);
+				}
+			}
+		}
 		if(b.owner==b.caster) {//when adding a buff to yourself, waits until end of turn to add
 			rewriteDebuff(b,addedDebuffs);
 		}else {//when adding to others, adds it immediately
@@ -995,6 +1016,12 @@ public abstract class Unit {//broadest branch, all space takers
 		if(hasBuff("Divine Radiance")) {
 			heal(20);
 		}
+		if(hasBuff("Vampiric Vine")) {
+			for(Buff b:getBuffs("Vampiric Vine")) {
+				b.caster.takeAbility(20, this, false, true);
+				heal(20);
+			}
+		}
 		if(hasBuff("From Within")) {
 			gainShield(50);
 		}
@@ -1006,6 +1033,12 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(hasDebuff("Virulent Toxins")) {
 			takeAbility(10,getDebuff("Virulent Toxins").caster,false,false);
+		}
+		if(hasDebuff("Vampiric Vine")) {
+			for(Debuff b:getDebuffs("Vampiric Vine")) {
+				takeAbility(20, b.caster, false, true);
+				b.caster.heal(20);
+			}
 		}
 		if(hasDebuff("Detonation Rounds")) {
 			takeAbility(10,getDebuff("Detonation Rounds").caster,false,false);

@@ -1,22 +1,15 @@
 
-public class Lich extends Summon{
+public class Helena_Tree extends Occupant{
 
-	Lich(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Helena_Tree(Grid grid, String name, String team, Hex h,Unit owner) {
+		super(grid, name, team, h,owner);
 	}
 
+	@Override
 	public void assembleStats() {
-		maxHealth = 100;
+		maxHealth = 50;
 		currentHealth = maxHealth;
-		maxStamina = 60;
-		currentStamina = 0;
-		basicDamage = 40;
-		defaultArmor = 0;
-		currentArmor = defaultArmor;
-		armorPiercing = 30;
-		basicRange = 5;		
-		qU="These once-great archmages now rise to serve once again, firing bolts of unholy magic into enemy ranks.";
-		qP="Unhallowed Magic: Attacks deal damage to enemies in adjacent tiles.";
+		currentArmor = 0;		
 	}
 
 	@Override

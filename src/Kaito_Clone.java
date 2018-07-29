@@ -1,9 +1,9 @@
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class Clone extends PartialHero{
+public class Kaito_Clone extends PartialHero{
 
-	Clone(Grid grid, String name, String team, Hex h) {
+	Kaito_Clone(Grid grid, String name, String team, Hex h) {
 		super(grid, name, team, h);
 	}
 
@@ -82,7 +82,7 @@ public class Clone extends PartialHero{
 		else {
 			str="Team 2";
 		}
-		ShadowStep s = new ShadowStep(grid,"Shadow Step",str,h,this);
+		Kaito_ShadowStep s = new Kaito_ShadowStep(grid,"Shadow Step",str,h,this);
 		grid.game.occupants.add(s);
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();

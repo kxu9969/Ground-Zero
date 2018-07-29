@@ -1,20 +1,23 @@
 
-public class ShadowStep extends Occupant{
+public class Amon_Skeleton extends Summon{
 
-	ShadowStep(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Amon_Skeleton(Grid grid, String name, String team, Hex h, Unit owner) {
+		super(grid, name, team, h, owner);
 	}
 
 	public void assembleStats() {
-		maxHealth = 0;
+		maxHealth = 60;
 		currentHealth = maxHealth;
-	}
-	
-	public void die() {};
-	public void die(boolean b) {
-		if(b) {
-			super.die();
-		}
+		maxStamina = 70;
+		currentStamina = 0;
+		basicDamage = 10;
+		defaultArmor = 40;
+		currentArmor = defaultArmor;
+		armorPiercing = 40;
+		basicRange = 1;	
+		qU="Armed with sword and shield, they emerge to surround enemies and protect their master.";
+		qP="Timed Life: This unit automatically dies after 3 of its turns.";
+		
 	}
 
 	@Override
