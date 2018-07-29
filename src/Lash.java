@@ -21,6 +21,12 @@ public class Lash extends Hero{
 		ab2cdMax = 5;
 		ab3cdMax = 5;
 		ultcdMax = 8;			
+		qU="A support that is able to immobilize nearly the entire team, Lash is a fragile yet potent hero whose kit allows her to root, slow, and silence enemy heroes. Her vines allow her to punish immobile enemies while her passive deters heavy crowd control.";
+		qP="Symbiosis: Whenever an ally is rooted, including overwrites, they are also healed for 60.";
+		q1="Thorns’ Embrace (4): Deal 40 damage to an enemy and root them for 2 turns, silencing them for 1 turn after.";
+		q2="Vampiric Vines (5): Tether together an enemy and an ally that are within 3 tiles of each other. At the start of either target’s turn, deal 20 damage ignoring armor to the enemy and heal the ally for 20. The tether can be broken by moving apart. Vines stack.";
+		q3="Moonglaze Flowers (5):  Target a tile and adjacent tiles. Any unoccupied tiles become covered in flowers with 50 health. Walking on one destroys the flowers and silences the occupant for 1 turn.";
+		q4="Fury of the Queen (8): Root all enemies within 3 range for 2 turns and place a Vampiric Vine tether on them all.";
 	}
 
 	public void showAb1() {
