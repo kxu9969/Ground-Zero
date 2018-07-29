@@ -225,4 +225,12 @@ class Hex
     public String toString() {
     	return q+" "+r+" "+s;
     }
+
+	public int getMoveCost(Unit u) {
+		int i = movementCost;
+		if(hasEffect("Frozen")&&getEffect("Frozen").owner!=u){
+			i++;
+		}
+		return i;
+	}
 }

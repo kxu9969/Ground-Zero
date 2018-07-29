@@ -28,8 +28,8 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Lash(grid,"Lash","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new Blur(grid,"Blur","Team 2",new Hex(4,2,-6));
+	Unit currentUnit= new Saa(grid,"Saa","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new HWSF(grid,"HWSF","Team 2",new Hex(4,2,-6));
 	Hero one = new JARie(grid,"Jarie","Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new Wrock(grid,"Wrock","Team 2",new Hex(8,2,-10));
@@ -182,6 +182,7 @@ public class Game implements MouseListener, MouseMotionListener{
 			endOfTurn();
 		}
 		setButtons();
+		checkGameOver();
 	}
 
 	public void endOfTurn() {
@@ -340,12 +341,14 @@ public class Game implements MouseListener, MouseMotionListener{
 	public void checkGameOver() {
 		boolean team1Dead = true,team2Dead = true;
 		for(Unit u : team1) {
-			if(!u.dead) {
+			if(u.hasDebuff("Stasis")&&u.getDebuff("Stasis").duration==-1) {}
+			else if(!u.dead) {
 				team1Dead = false;
 			}
 		}
 		for(Unit u : team2) {
-			if(!u.dead) {
+			if(u.hasDebuff("Stasis")&&u.getDebuff("Stasis").duration==-1) {}
+			else if(!u.dead) {
 				team2Dead = false;
 			}
 		}

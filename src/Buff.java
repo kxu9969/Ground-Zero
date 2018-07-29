@@ -33,6 +33,9 @@ public class Buff extends Effect{
 		else if(effectName.equals("Overclock Core")) {
 			owner.basicDamage+=40;
 		}
+		else if(effectName.equals("Undying")) {
+			owner.moveRange-=2;
+		}
 	}
 	
 	public void onRemoval() {	
@@ -69,6 +72,12 @@ public class Buff extends Effect{
 		}
 		else if(effectName.equals("Vampiric Vine")) {
 			caster.debuffs.remove((Debuff)info.get(0));
+		}
+		else if(effectName.equals("Undying")) {
+			owner.moveRange+=2;
+			if(info.size()>0) {
+				owner.takeAbility(((int)info.get(0))/2, owner, false, true);
+			}
 		}
 		else if(effectName.equals("Relative Perception")) {
 			if(duration==0) {

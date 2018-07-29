@@ -112,7 +112,24 @@ public class Grid {
 		for(Hex h:start.allAdjacents()) {
 			if(game.onMap(h)) {
 				h=getHex(h);
-				continueFill(h,fillRange,steps+h.movementCost,List);
+				continueFill(h,fillRange,steps+1,List);
+			}
+		}
+		for(MovementHex h:List) {
+			list.add(h.h);
+		}
+		return list;
+	}
+	
+	public ArrayList<Hex> fillMove(Hex start, int fillRange,Unit u) {
+		ArrayList<Hex> list = new ArrayList<Hex>();
+		ArrayList<MovementHex> List = new ArrayList<MovementHex>();
+		int steps = 0;
+
+		for(Hex h:start.allAdjacents()) {
+			if(game.onMap(h)) {
+				h=getHex(h);
+				continueFill(h,fillRange,steps+h.getMoveCost(u),List,u);
 			}
 		}
 		for(MovementHex h:List) {
@@ -134,6 +151,24 @@ public class Grid {
 				if(game.onMap(h)) {
 					h=getHex(h);
 					continueFill(h,fillRange,steps+h.movementCost,list);
+				}
+			}
+		}
+	}
+	
+	private void continueFill(Hex start, int fillRange, int steps, ArrayList<MovementHex> list,Unit u) {
+		if(steps>fillRange||!start.isEmpty()) {
+			return;
+		}else if(contains(list,start)&&steps<fetch(list,start).steps) {
+			rewrite(list,start,steps);
+		}else {
+			list.add(new MovementHex(start,steps));
+		}
+		if(!(start.occupied!=null&&start.occupied instanceof TrampleOccupant)){
+			for(Hex h:start.allAdjacents()) {
+				if(game.onMap(h)) {
+					h=getHex(h);
+					continueFill(h,fillRange,steps+h.getMoveCost(u),list);
 				}
 			}
 		}

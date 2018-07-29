@@ -27,6 +27,15 @@ public class Channel extends Buff{
 					}
 				}
 				owner.rewriteBuff(new BuffStack("Gathering Darkness",owner,-1,owner,false,2),owner.buffs);
+			}else if(methodName.equals("Herald of the End")) {
+				Hex h = affected.get(0);
+				((Saa_Herald)h.occupied).die(true);
+				owner.setPosition(h);
+				for(Hex h1:owner.grid.hexes) {
+					if(owner.position.distance(h1)<=2&&h1.hasEnemy(owner)) {
+						owner.addDebuff(new Debuff("Herald of the End",h1.occupied,1,owner,false));
+					}
+				}
 			}
 			else if(methodName.equals("Suppressive Fire")) {
 				for(Hex h:affected) {
@@ -80,6 +89,10 @@ public class Channel extends Buff{
 			if(methodName.equals("Shadow Step")) {
 				Hex h = affected.get(0);
 				((Kaito_ShadowStep)h.occupied).die(true);	
+			}
+			else if(methodName.equals("Herald of the End")) {
+				Hex h = affected.get(0);
+				((Saa_Herald)h.occupied).die(true);	
 			}
 		}
 	}

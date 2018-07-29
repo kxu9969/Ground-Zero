@@ -136,8 +136,11 @@ public abstract class Unit {//broadest branch, all space takers
 	}
 
 	public void showMove() {
-		for(Hex h:grid.floodFill(position,moveRange)){
-			h.color=Color.RED;
+		for(Hex h:grid.fillMove(position,moveRange,this)){
+			if(hasDebuff("Herald of the End")&&h.distance(getDebuff("Herald of the End").caster.position)>2) {	}
+			else {
+				h.color=Color.RED;
+			}
 		}
 	}
 
@@ -535,6 +538,17 @@ public abstract class Unit {//broadest branch, all space takers
 		}else if(hasBuff("Block")) {
 			removeSameBuff("Block");
 			return 0;
+		}else if(hasBuff("Undying")) {
+			Buff b = getBuff("Undying");
+			if(b.info.isEmpty()) {
+				b.info.add(damage);
+			}else {
+				int i = (int) b.info.get(0);
+				i+=damage;
+				b.info.clear();
+				b.info.add(i);
+			}
+			return 0;
 		}else {
 			if(currentShield>=damage) {
 				currentShield-=damage;
@@ -557,11 +571,24 @@ public abstract class Unit {//broadest branch, all space takers
 		}else if(hasBuff("Block")) {
 			removeSameBuff("Block");
 			return 0;
-		}currentHealth-=damage;
-		if(currentHealth<=0) {
-			die();
+		}else if(hasBuff("Undying")) {
+			Buff b = getBuff("Undying");
+			if(b.info.isEmpty()) {
+				b.info.add(damage);
+			}else {
+				int i = (int) b.info.get(0);
+				i+=damage;
+				b.info.clear();
+				b.info.add(i);
+			}
+			return 0;
+		}else{
+			currentHealth-=damage;
+			if(currentHealth<=0) {
+				die();
+			}
+			return damage;
 		}
-		return damage;
 	}
 
 	public void die() {
@@ -1000,6 +1027,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(position.hasEffect("Poisonseeds")) {
 			takeAbility(20,position.getEffect("Poisonseeds").owner,false,false);
+		}
+		if(position.hasEffect("Frozen")&&position.getEffect("Frozen").owner!=this) {
+			takeAbility(20,position.getEffect("Frozen").owner,false,false);
 		}
 		if(position.hasEffect("Burning")) {
 			takeAbility(10,position.getEffect("Burning").owner,false,false);
