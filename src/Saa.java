@@ -20,7 +20,13 @@ public class Saa extends Hero{
 		ab1cdMax = 4;
 		ab2cdMax = 3;
 		ab3cdMax = 0;
-		ultcdMax = 8;			
+		ultcdMax = 8;	
+		qU="As the demon who heralds the world’s slow and eventual death, Saa is a tank who slowly but surely puts enemies to their certain demise.";
+		qP="Engulfing Torpor: All characters within 2 tiles of Saa have their max stamina increased by 30, except for Saa himself.";
+		q1="Kingdom of Frost (4): Freeze all tiles within 3 range, rooting occupants for 1 turn and dealing 20 damage to enemies. Affected tiles are Frozen for 3 turns, requiring twice the movement cost and dealing 20 damage ignoring armor and shield to enemies who start their turn on it. You ignore frozen tiles.";
+		q2="Herald of the End (3): Mark an unoccupied tile within 2 range of an enemy and channel for 1 turn. Teleport to the tile and tether all enemies within 2 range for 1 turn, preventing them from moving farther than 2 range from you.";
+		q3="Undeath (0): Gain Undying for two turns, delaying all damage taken for two turns and reducing it by half and reducing movement by 2 tiles per turn. Gain a stack of Undeath per use, increasing the cooldown of the next cast by one for every two stacks. Refills stamina immediately.";
+		q4="Time’s End (8): Place a Mark(enchant) on up to two adjacent enemies, causing them to enter permanent stasis at the end of their next turn. Saa then immediately enters permanent stasis.";
 	}
 
 	public void showAb1() {
@@ -76,7 +82,7 @@ public class Saa extends Hero{
 	public void ability3(Hex h) {
 		addBuff(new Buff("Undying",this,2,this,false));
 		rewriteDebuff(new DebuffStack("Undeath",this,-1,this,false,1,99),debuffs);
-		ab3cd = 0 + ((DebuffStack)getDebuff("Undeath")).stacks/2;
+		ab3cdMax = 0 + ((DebuffStack)getDebuff("Undeath")).stacks/2;
 		setStamina();
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
