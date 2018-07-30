@@ -19,8 +19,14 @@ public class Vorn extends Hero{
 		basicRange = 1;
 		ab1cdMax = 4;
 		ab2cdMax = 6;
-		ab3cdMax = 1;
-		ultcdMax = 8;		
+		ab3cdMax = 0;
+		ultcdMax = 8;
+		qU="A fast-hitting melee character, Vorn specializes in gunning down individuals and flitting around the map while protecting himself from direct damage, being rather flimsy himself.";
+		qP="Transience: Debuffs expire one turn sooner, with a minimum of one turn.";
+		q1="Chronal Prison (4): Place an adjacent tile in stasis for 8 turns. After it expires, increase the cooldown of any occupant’s basic abilities by 1 turn.";
+		q2="Temporal Relativity (6): Mark your current health. After 4 turns or upon death, set your health to that value. Refill stamina immediately.";
+		q3="Accelerate (0): The next time you move, it doesn’t consume stamina.";
+		q4="Anachronic Existence (8): Make all current buffs have infinite durations. Refill stamina immediately.";
 	}
 	
 	public void tickDebuffs() {
