@@ -92,6 +92,11 @@ public class Visual extends JPanel{
 				g2.fillOval((int)mainLayout.hexToPixel(h).x-8, (int)mainLayout.hexToPixel(h).y-17, 6, 6);
 				g2.setColor(Color.black);
 			}
+			if(h.hasEffect("Frozen")) {
+				g2.setColor(new Color(0,191,255));
+				g2.fillOval((int)mainLayout.hexToPixel(h).x-15, (int)mainLayout.hexToPixel(h).y-17, 6, 6);
+				g2.setColor(Color.black);
+			}
 			if(h.color!=null) {
 				if(!(h.occupied instanceof Kaito_ShadowStep||h.occupied instanceof Saa_Herald)) {
 					g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
