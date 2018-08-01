@@ -28,8 +28,8 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Saa(grid,"Saa","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new HWSF(grid,"HWSF","Team 2",new Hex(4,2,-6));
+	Unit currentUnit= new Senryu(grid,"Senryu","Team 1",new Hex(5,2, -7));
+	Hero tempHero = new GuayTho(grid,"Guay-Tho","Team 2",new Hex(4,2,-6));
 	Hero one = new JARie(grid,"Jarie","Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
 	Hero three = new Wrock(grid,"Wrock","Team 2",new Hex(8,2,-10));
@@ -186,8 +186,105 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	public void endOfTurn() {
+		outerloop:
 		if(!pauseEndTurn) {
 			ending = true;
+			clear();
+			
+			if(currentUnit instanceof Senryu) {	
+				boolean abilty1 = false;
+				boolean ability2 = false;
+				boolean ability3 = false;
+				boolean ultimate = false;
+				if(currentUnit.addSenryuStack) {
+					 abilty1 = currentUnit.abcdDelay[0];
+					 ability2 = currentUnit.abcdDelay[1];
+					 ability3 = currentUnit.abcdDelay[2];
+					 ultimate = currentUnit.abcdDelay[3];
+					 
+				}
+
+				if(currentUnit.hasBuff("Heavenly Wisdom")&&((BuffStack)currentUnit.getBuff("Heavenly Wisdom")).stacks==4) {
+					if(abilty1||ability2||ability3||ultimate) {
+						((Senryu)currentUnit).swapForms();
+						grid.game.move.lock=true;
+						grid.game.basic.lock=true;
+						grid.game.ab1.lock=true;
+						grid.game.ab2.lock=true;
+						grid.game.ab3.lock=true;
+						grid.game.ult.lock=true;
+						grid.game.cancel.lock=false;
+						grid.game.pass.lock=true;
+						grid.game.clear();
+						grid.game.setButtons();
+						if(abilty1&&currentUnit.ultcd==0) {
+							ult.lock=false;
+							ult.toggle=true;
+							currentUnit.showUlt();
+						}else if(ability2&&currentUnit.ab3cd==0) {
+							ab3.lock=false;
+							ab3.toggle=true;
+							currentUnit.showAb3();
+						}else if(ability3&&currentUnit.ab2cd==0) {
+							ab2.lock=false;
+							ab2.toggle=true;
+							currentUnit.showAb2();
+						}else if(ultimate&&currentUnit.ab1cd==0){
+							currentUnit.abcdDelay[3]=false;
+							ab1.lock=false;
+							ab1.toggle=true;
+							currentUnit.showAb1();
+						}
+						if(grid.validTarget()) {
+							break outerloop;
+						}
+					}
+				}else if(currentUnit.hasBuff("Earthen Strength")&&((BuffStack)currentUnit.getBuff("Earthen Strength")).stacks==4) {
+					if(abilty1||ability2||ability3||ultimate) {
+						((Senryu)currentUnit).swapForms();
+						grid.game.move.lock=true;
+						grid.game.basic.lock=true;
+						grid.game.ab1.lock=true;
+						grid.game.ab2.lock=true;
+						grid.game.ab3.lock=true;
+						grid.game.ult.lock=true;
+						grid.game.cancel.lock=false;
+						grid.game.pass.lock=true;
+						grid.game.clear();
+						grid.game.setButtons();
+						if(abilty1&&currentUnit.ultcd==0) {
+							ult.lock=false;
+							ult.toggle=true;
+							currentUnit.showUlt();
+						}else if(ability2&&currentUnit.ab3cd==0) {
+							ab3.lock=false;
+							ab3.toggle=true;
+							currentUnit.showAb3();
+						}else if(ability3&&currentUnit.ab2cd==0) {
+							ab2.lock=false;
+							ab2.toggle=true;
+							currentUnit.showAb2();
+						}else if(ultimate&&currentUnit.ab1cd==0){
+							ab1.lock=false;
+							ab1.toggle=true;
+							currentUnit.showAb1();
+						}
+						if(grid.validTarget()) {
+							break outerloop;
+						}
+					}
+				}
+				if(currentUnit.addSenryuStack) {
+					if(((Senryu)currentUnit).form.equals("Heaven")) {
+						currentUnit.rewriteBuff(new BuffStack("Heavenly Wisdom",currentUnit,-1,currentUnit,false,1,4),currentUnit.buffs);
+					}else {
+						currentUnit.rewriteBuff(new BuffStack("Earthen Strength",currentUnit,-1,currentUnit,false,1,4),currentUnit.buffs);
+					}
+					currentUnit.addSenryuStack=false;
+				}
+			}
+			currentUnit.addSenryuStack = false;
+			
 			currentUnit.endOfTurn();
 			currentUnit.tickAbilities();
 			currentUnit.tickBuffs();
@@ -215,7 +312,6 @@ public class Game implements MouseListener, MouseMotionListener{
 				b.lock = false;
 			}
 			ending = false;
-			clear();
 			nextTurn();
 		}else {
 			triedToEnd = true;

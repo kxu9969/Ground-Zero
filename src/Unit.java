@@ -8,7 +8,7 @@ public abstract class Unit {//broadest branch, all space takers
 	int ab1cd,ab2cd,ab3cd = 0;
 	int ultcd = 8;
 	boolean[] abcdDelay = {false,false,false,false};
-	boolean dead,basicAttackedThisTurn,basicAttackedLastTurn = false;
+	boolean dead,basicAttackedThisTurn,basicAttackedLastTurn,addSenryuStack = false;
 	boolean hasAb1,hasAb2,hasAb3,hasUlt=true;
 	Hex position;
 	Grid grid;
@@ -63,19 +63,22 @@ public abstract class Unit {//broadest branch, all space takers
 		setStamina = maxStamina;
 	}
 
-	public void setPosition(Hex h) {		
-		for(Hex h1:grid.hexes) {
-			if(h1.equals(h)) {
-				h=h1;
+	public void setPosition(Hex h) {	
+		if(hasBuff("Mountain's Will")&&grid.game.currentUnit!=this) {}
+		else {
+			for(Hex h1:grid.hexes) {
+				if(h1.equals(h)) {
+					h=h1;
+				}
 			}
+			position.clearHex();
+			position = h;
+			if(position.occupied!=null) {
+				((TrampleOccupant)position.occupied).onTrample(this);
+			}
+			position.setHero(this);
+			updateAura();
 		}
-		position.clearHex();
-		position = h;
-		if(position.occupied!=null) {
-			((TrampleOccupant)position.occupied).onTrample(this);
-		}
-		position.setHero(this);
-		updateAura();
 	}
 
 	public abstract void assembleStats();
@@ -358,6 +361,9 @@ public abstract class Unit {//broadest branch, all space takers
 			addDebuff(new Debuff("Stunned",h.occupied,1,this,false));
 		}
 		if(!anotherTurn) {
+			if(this instanceof Senryu) {
+				addSenryuStack = true;
+			}
 			grid.game.endOfTurn();
 		}else {
 			if(hasBuff("Configuration: Hyper-Potato")&&!getBuff(
@@ -489,7 +495,7 @@ public abstract class Unit {//broadest branch, all space takers
 		if(adjCragg()) {
 			for(Hex h:position.allAdjacents()) {
 				h=grid.getHex(h);
-				if(h.hasAlly(this)&&h.occupied instanceof Cragg) {
+				if(h!=null&&h.hasAlly(this)&&h.occupied instanceof Cragg) {
 					return h.occupied.takeAbility(damage, attacker, armor, shield);
 				}
 			}
@@ -1045,6 +1051,9 @@ public abstract class Unit {//broadest branch, all space takers
 		}
 		if(hasBuff("Divine Radiance")) {
 			heal(20);
+		}
+		if(hasBuff("Forest's Heart")) {
+			heal(50);
 		}
 		if(hasBuff("Vampiric Vine")) {
 			for(Buff b:getBuffs("Vampiric Vine")) {

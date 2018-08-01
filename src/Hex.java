@@ -61,15 +61,58 @@ class Hex
 		return false;
 	}
 	
-	public boolean push(Grid grid, Hex position) {
+	public Hex push(Grid grid, Hex position) {//pushes from position onto this, return null if can't
 		Hex difference = this.subtract(position);
 		Hex nextHex = this.add(difference);
-		if(grid.game.onMap(nextHex)&&nextHex.isEmpty()) {
+		nextHex = grid.getHex(nextHex);
+		if(nextHex!=null&&nextHex.isEmpty()) {
 			this.occupied.setPosition(nextHex);
-			return true;
+			return this;//return empty hex
+		}else if(nextHex==null) {
+			return null;
+		}else {
+			Hex finish = nextHex.push(grid, this);	
+			if(finish!=null) {
+				this.occupied.setPosition(finish);
+				return this;
+			}
+			return null;
 		}
-		return false;	
 	}
+	
+	public ArrayList<Hex> pushList(Grid grid, Hex position) {//pushes from position onto this, return null if can't
+		Hex difference = this.subtract(position);
+		Hex nextHex = this.add(difference);
+		nextHex = grid.getHex(nextHex);
+		if(nextHex!=null&&nextHex.isEmpty()) {
+			this.occupied.setPosition(nextHex);
+			ArrayList<Hex> a = new ArrayList<Hex>();
+			a.add(nextHex);
+			a.add(this);
+			return a ;//return empty hex
+		}else if(nextHex==null) {
+			return null;
+		}else {
+			ArrayList<Hex> finish = nextHex.pushList(grid, this);	
+			if(finish!=null) {
+				this.occupied.setPosition(finish.get(finish.size()-1));
+				finish.add(this);
+				return finish;
+			}
+			return null;
+		}
+	}
+	
+//	public boolean push(Grid grid, Hex position) {
+//		Hex difference = this.subtract(position);
+//		Hex nextHex = this.add(difference);
+//		nextHex = grid.getHex(nextHex);
+//		if(grid.game.onMap(nextHex)&&nextHex.isEmpty()) {
+//			this.occupied.setPosition(nextHex);
+//			return true;
+//		}
+//		return false;	
+//	}
 	
 	public Hex setHero(Unit h) {
 		color = Color.YELLOW;
@@ -138,8 +181,9 @@ class Hex
 
     static public ArrayList<Hex> diagonals = new ArrayList<Hex>(){{add(new Hex(2, -1, -1)); add(new Hex(1, -2, 1)); add(new Hex(-1, -1, 2)); add(new Hex(-2, 1, 1)); add(new Hex(-1, 2, -1)); add(new Hex(1, 1, -2));}};
     
-    static public ArrayList<Hex> adjacents = new ArrayList<Hex>(){{add(new Hex(1, -1, 0)); add(new Hex(-1, 1, 0)); add(new Hex(-1, 0, 1)); add(new Hex(1, 0, -1)); add(new Hex(0, 1, -1)); add(new Hex(0, -1, 1));}};
+    static public ArrayList<Hex> adjacents = new ArrayList<Hex>(){{add(new Hex(0, -1, 1)); add(new Hex(-1, 0, 1)); add(new Hex(-1, 1, 0)); add(new Hex(0, 1, -1)); add(new Hex(1, 0, -1)); add(new Hex(1, -1, 0));}};
 
+    
     public Hex diagonalNeighbor(int direction)
     {
         return add(Hex.diagonals.get(direction));

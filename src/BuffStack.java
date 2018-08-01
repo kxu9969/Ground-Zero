@@ -20,6 +20,21 @@ public class BuffStack extends Buff{
 		else if(effectName.equals("Earthen Resilience")) {
 			owner.currentArmor+=stacks*10;
 		}
+		else if(effectName.equals("Heavenly Wisdom")) {
+			owner.armorPiercing+=stacks*5;
+			owner.currentArmor+=stacks*5;
+			owner.maxStamina-=stacks*5;
+		}
+		else if(effectName.equals("Earthen Strength")) {
+			owner.currentHealth+=stacks*30;
+			owner.maxHealth+=stacks*30;
+			owner.basicDamage+=stacks*5;
+			owner.maxStamina+=stacks*5;
+		}
+		else if(effectName.equals("Mountain's Resilience")) {
+			owner.currentArmor+=stacks*5;
+			owner.maxStamina+=stacks*5;
+		}
 	}
 	
 	public void onRemoval() {
@@ -28,6 +43,21 @@ public class BuffStack extends Buff{
 		}
 		else if(effectName.equals("Earthen Resilience")) {
 			owner.currentArmor-=stacks*10;
+		}
+		else if(effectName.equals("Heavenly Wisdom")) {
+			owner.armorPiercing-=stacks*5;
+			owner.currentArmor-=stacks*5;
+			owner.maxStamina+=stacks*5;
+		}
+		else if(effectName.equals("Earthen Strength")) {
+			owner.currentHealth-=stacks*30;
+			owner.maxHealth-=stacks*30;
+			owner.basicDamage-=stacks*5;
+			owner.maxStamina-=stacks*5;
+		}
+		else if(effectName.equals("Mountain's Resilience")) {
+			owner.currentArmor-=stacks*5;
+			owner.maxStamina-=stacks*5;
 		}
 	}
 	

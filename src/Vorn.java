@@ -47,7 +47,10 @@ public class Vorn extends Hero{
 
 	public void showAb1() {
 		for(Hex h:position.allAdjacents()) {
-			grid.getHex(h).color=Color.red;
+			h=grid.getHex(h);
+			if(h!=null) {
+				h.color=Color.red;
+			}
 		}
 	}
 

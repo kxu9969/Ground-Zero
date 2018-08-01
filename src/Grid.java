@@ -121,6 +121,15 @@ public class Grid {
 		return list;
 	}
 	
+	public boolean validTarget() {
+		for(Hex h:hexes) {
+			if(h.color==Color.red) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public ArrayList<Hex> fillMove(Hex start, int fillRange,Unit u) {
 		ArrayList<Hex> list = new ArrayList<Hex>();
 		ArrayList<MovementHex> List = new ArrayList<MovementHex>();

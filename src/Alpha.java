@@ -56,7 +56,7 @@ public class Alpha extends Hero{
 		grid.game.pass.lock=false;
 		for(Hex h1:h.allAdjacents()) {
 			h1=grid.getHex(h1);
-			if(h1.hasEnemy(this)&&!h1.equals(target)) {
+			if(h1!=null&&h1.hasEnemy(this)&&!h1.equals(target)) {
 				grid.game.ab1.lock=false;
 			}
 		}

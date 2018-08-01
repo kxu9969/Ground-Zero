@@ -98,7 +98,7 @@ public class Visual extends JPanel{
 				g2.setColor(Color.black);
 			}
 			if(h.color!=null) {
-				if(!(h.occupied instanceof Kaito_ShadowStep||h.occupied instanceof Saa_Herald)) {
+				if(!(h.occupied instanceof Kaito_ShadowStep||h.occupied instanceof Saa_Herald||h.occupied instanceof Senryu_Phoenix)) {
 					g2 = highlight(g2,h,mainLayout.hexToPixel(h),h.color);
 				}
 			}

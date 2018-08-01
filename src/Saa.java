@@ -36,7 +36,7 @@ public class Saa extends Hero{
 	public void ability1(Hex h) {
 		for(Hex h1:grid.hexes) {
 			if(position.distance(h1)<=3) {
-				h1.addEffect(new TileEffect("Frozen",this,4,this,false,h1));
+				h1.addEffect(new TileEffect("Frozen",this,20,this,false,h1));
 				if(!h1.isEmpty()) {
 					addDebuff(new Debuff("Rooted",h1.occupied,1,this,false));
 					if(h1.hasEnemy(this)) {

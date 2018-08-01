@@ -79,7 +79,7 @@ public class Cragg extends Hero{
 		removeSameBuff("Feral Magic");
 		for(Hex h1:position.allAdjacents()) {
 			h1=grid.getHex(h1);
-			if(h1.hasAlly(this)) {
+			if(h1!=null&&h1.hasAlly(this)) {
 				addBuff(new Buff("Diorite Plating",h1.occupied,2,this,false));
 			}
 		}

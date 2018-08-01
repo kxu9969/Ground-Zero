@@ -31,6 +31,9 @@ public abstract class Effect {
 	public String toString() {
 		String str = "";
 		str+=effectName;
+		if(this instanceof Mark) {
+			str+=" by "+caster.name;
+		}
 		if(enchant) {
 			str+="(E)";
 		}

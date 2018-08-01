@@ -85,6 +85,27 @@ public class Channel extends Buff{
 					u.takeAbility(600, owner, false, false);
 				}
 			}
+			else if(methodName.equals("Right Leg, Phoenix")) {
+				Hex h = affected.get(0);
+				Hex target = affected.get(1);
+				((Senryu_Phoenix)h.occupied).die(true);
+				owner.setPosition(h);
+				if(target.occupied!=null) {
+					target.occupied.takeAbility(150, owner, true, true);
+				}
+				for(Hex h1:target.allAdjacents()) {
+					h1=owner.grid.getHex(h1);
+					if(h1!=null&&h1.occupied!=null&&h1.occupied!=owner) {
+						if(h1.hasEnemy(owner)) {
+							h1.occupied.takeAbility(50, owner, true, true);
+						}
+						h1.push(owner.grid, target);
+					}
+				}
+				owner.addSenryuStack = true;
+				owner.abcdDelay[3]=true;
+
+			}
 		}else {
 			if(methodName.equals("Shadow Step")) {
 				Hex h = affected.get(0);
@@ -93,6 +114,11 @@ public class Channel extends Buff{
 			else if(methodName.equals("Herald of the End")) {
 				Hex h = affected.get(0);
 				((Saa_Herald)h.occupied).die(true);	
+			}
+			else if(methodName.equals("Right Leg, Phoenix")) {
+				Hex h = affected.get(0);
+				((Senryu_Phoenix)h.occupied).die(true);	
+				owner.setPosition(h);
 			}
 		}
 	}

@@ -32,6 +32,9 @@ public class Debuff extends Effect{
 		else if(effectName.equals("Time's End")) {
 			owner.position.addEffect(new TileEffect("Stasis",caster,-1,caster,false,owner.position));
 		}
+		else if(effectName.equals("Forest's Wrath")) {
+			owner.addDebuff(new Debuff("Silenced",owner,1,caster,false));
+		}
 	}
 
 }
