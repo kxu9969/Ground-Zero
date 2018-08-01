@@ -193,7 +193,6 @@ public class Startup {
 					hex2.add(c.h);
 				}
 			}
-			System.out.println(team1.size()+" "+team2.size());
 			screen.setVisible(false);
 			new Game(team1, team2,hex1,hex2);
 		}

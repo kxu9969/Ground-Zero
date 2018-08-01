@@ -91,10 +91,6 @@ public abstract class Unit {//broadest branch, all space takers
 		currentArmor = u.currentArmor;
 		armorPiercing = u.armorPiercing;
 		basicRange = u.basicRange;
-		ab1cdMax = u.ab1cdMax;
-		ab2cdMax = u.ab2cdMax;
-		ab3cdMax = u.ab3cdMax;
-		ultcdMax = u.ultcdMax;
 		currentShield = u.currentShield;
 		moveRange = u.moveRange;
 		ab1cd=u.ab1cd;
@@ -112,14 +108,6 @@ public abstract class Unit {//broadest branch, all space takers
 		position = u.position;
 		grid = u.grid;
 		name = u.name;
-		qM = u.qM;
-		qB = u.qB;
-		q1 = u.q1;
-		q2 = u.q2;
-		q3 = u.q3;
-		q4 = u.q4;
-		qP = u.qP;
-		qU = u.qU;
 		team = u.team;
 		enemyTeam = u.enemyTeam;
 		inAura = u.inAura;
@@ -134,6 +122,40 @@ public abstract class Unit {//broadest branch, all space takers
 		queue4 = u.queue4;
 		queueB = u.queueB;
 		setStamina = u.setStamina;
+		for(Hex h:grid.hexes) {
+			for(TileEffect t:h.effects) {
+				if(t.owner==u) {
+					t.owner=this;
+				}
+			}
+		}
+		for(Unit u1:grid.game.units) {
+			for(Buff b:u1.buffs) {
+				if(b.owner==u) {
+					b.owner=this;
+				}if(b.caster==u) {
+					b.caster=this;
+				}
+			}for(Debuff b:u1.debuffs) {
+				if(b.owner==u) {
+					b.owner=this;
+				}if(b.caster==u) {
+					b.caster=this;
+				}
+			}for(Buff b:u1.addedBuffs) {
+				if(b.owner==u) {
+					b.owner=this;
+				}if(b.caster==u) {
+					b.caster=this;
+				}
+			}for(Debuff b:u1.addedDebuffs) {
+				if(b.owner==u) {
+					b.owner=this;
+				}if(b.caster==u) {
+					b.caster=this;
+				}
+			}
+		}
 	}
 
 	public void showMove() {
@@ -818,7 +840,7 @@ public abstract class Unit {//broadest branch, all space takers
 		if(!d.enchant||d.duration==0) {
 			d.onRemoval();
 			debuffs.remove(d);
-			d.owner.marks.remove(d);
+			d.caster.marks.remove(d);
 		}
 	}
 

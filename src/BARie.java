@@ -37,6 +37,13 @@ public class BARie extends Hero{
 		}
 		super.basicAttack(h, damage, armor, shield, anotherTurn);
 	}
+	
+	public boolean ableAb1() {
+		if(marks.size()>0) {
+			return true;
+		}
+		return false;
+	}
 
 	public void showAb1() {
 		for(Hex h:grid.hexes) {

@@ -22,13 +22,18 @@ public class Game implements MouseListener, MouseMotionListener{
 	boolButton move,basic,ab1,ab2,ab3,ult,cancel,pass;
 	JButton qM,qB,q1,q2,q3,q4,qC,qP;
 	ArrayList<boolButton> buttonList;
+	Class[] classes = {Akar.class,Alpha.class,Amon.class,Asger.class,BARie.class,Beholder.class,
+			Blur.class,Charity.class,Cragg.class,December.class,Destiny.class,GuayTho.class,Helena.class,
+			HWSF.class,Isaac.class,JARie.class,Kaito.class,Kaj.class,Kaluk.class,LARie.class,
+			Lash.class,Lindera.class,Magmus.class,Malor.class,Marcos.class,Mortimer.class,Myria.class,October.class,
+			Olaf.class,Saa.class,Senryu.class,Serenity.class,Sig.class,Vaal.class,Veena.class,Vera.class,Vorn.class,Wrock.class};
 	ArrayList<Unit> units = new ArrayList<Unit>();
 	ArrayList<Unit> team1 = new ArrayList<Unit>();
 	ArrayList<Unit> team2 = new ArrayList<Unit>();
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Blur(grid,"Team 1",new Hex(5,2, -7));
+	Unit currentUnit= new Beholder(grid,"Team 1",new Hex(5,2, -7));
 	Hero tempHero = new GuayTho(grid,"Team 2",new Hex(4,2,-6));
 	Hero one = new JARie(grid,"Team 2",new Hex(6,2,-8));
 	Hero two = new Amon(grid,"Team 2",new Hex(7,2,-9));
@@ -163,7 +168,6 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	public void startOfTurn() {
-		clear();
 		for(Unit u:units) {
 			u.updateAura();
 		}
@@ -172,6 +176,7 @@ public class Game implements MouseListener, MouseMotionListener{
 			o.runAura();
 		}
 		currentUnit.startOfTurn();
+		clear();
 		currentUnit.tickChannels();
 		if(currentUnit.hasDebuff("Stunned")) {
 			System.out.println(currentUnit.name+" Stunned");
@@ -528,6 +533,8 @@ public class Game implements MouseListener, MouseMotionListener{
 				((boolButton)e.getSource()).toggle=true;
 				currentUnit.showUlt();
 			}else if(e.getSource()==cancel) {
+				pauseEndTurn = false;
+				triedToEnd = false;
 				clear();
 				setButtons();
 			}else if(e.getSource()==pass) {
