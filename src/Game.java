@@ -33,11 +33,11 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Beholder(grid,"Team 1",new Hex(5,2, -7));
-	Hero tempHero = new GuayTho(grid,"Team 2",new Hex(4,2,-6));
-	Hero one = new JARie(grid,"Team 2",new Hex(6,2,-8));
-	Hero two = new Amon(grid,"Team 2",new Hex(7,2,-9));
-	Hero three = new Kaj(grid,"Team 2",new Hex(8,2,-10));
+	Unit currentUnit= null;// new Beholder(grid,"Team 1",new Hex(5,2, -7));
+//	Hero tempHero = new GuayTho(grid,"Team 2",new Hex(4,2,-6));
+//	Hero one = new JARie(grid,"Team 2",new Hex(6,2,-8));
+//	Hero two = new Amon(grid,"Team 2",new Hex(7,2,-9));
+//	Hero three = new Kaj(grid,"Team 2",new Hex(8,2,-10));
 
 	final static int Visual_Width = 1200;
 	final static int Visual_Height = 970;
@@ -59,17 +59,17 @@ public class Game implements MouseListener, MouseMotionListener{
 		for(Unit h:this.team2) {
 			this.units.add(h);
 		}
-//		currentUnit = units.get(0);
-		this.team1.add(currentUnit);
-		units.add(currentUnit);
-		this.team2.add(tempHero);
-		units.add(tempHero);
-		this.team2.add(one);
-		this.team2.add(two);
-		this.team2.add(three);
-		units.add(one);
-		units.add(two);
-		units.add(three);
+		currentUnit = units.get(0);
+//		this.team1.add(currentUnit);
+//		units.add(currentUnit);
+//		this.team2.add(tempHero);
+//		units.add(tempHero);
+//		this.team2.add(one);
+//		this.team2.add(two);
+//		this.team2.add(three);
+//		units.add(one);
+//		units.add(two);
+//		units.add(three);
 
 		for(Unit h:units) {
 			grid.getHex(h.position).occupied=h;
@@ -162,9 +162,9 @@ public class Game implements MouseListener, MouseMotionListener{
 		frame.setVisible(true);
 
 		description = new JFrame("Description");
-		description.setLocation(1200, 200);
+		description.setLocation(1220, 100);
 		information = new JFrame("Information");
-		information.setLocation(1200, 400);
+		information.setLocation(1220, 100);
 	}
 
 	public void startOfTurn() {
@@ -541,42 +541,74 @@ public class Game implements MouseListener, MouseMotionListener{
 				endOfTurn();
 			}else if(e.getSource()==qM) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.qM));}});
+				JTextArea a = new JTextArea(currentUnit.qM,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==qB) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.qB));}});
+				JTextArea a = new JTextArea(currentUnit.qB,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==q1) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.q1));}});
+				JTextArea a = new JTextArea(currentUnit.q1,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==q2) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.q2));}});
+				JTextArea a = new JTextArea(currentUnit.q2,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==q3) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.q3));}});
+				JTextArea a = new JTextArea(currentUnit.q3,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==q4) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.q4));}});
+				JTextArea a = new JTextArea(currentUnit.q4,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==qC) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.qP));}});
+				JTextArea a = new JTextArea(currentUnit.qP,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}else if(e.getSource()==qP) {
 				description.getContentPane().removeAll();
-				description.add(new JPanel() {{add(new JLabel(currentUnit.qU));}});
+				JTextArea a = new JTextArea(currentUnit.qU,10,50);
+				a.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+				a.setLineWrap(true);
+				a.setWrapStyleWord(true);
+				description.add(a);
 				description.pack();
 				description.setVisible(true);
 			}
@@ -672,8 +704,8 @@ public class Game implements MouseListener, MouseMotionListener{
 					temp.add(new JLabel(h.q+" "+h.r+" "+h.s));
 					if(h.occupied!=null) {
 						if(h.occupied.currentShield>0) {
-							temp.add(new JLabel("Health: ("+h.occupied.currentShield+")"+h.occupied.currentHealth+"/"+
-									h.occupied.maxHealth));
+							temp.add(new JTextArea("Health: ("+h.occupied.currentShield+")"+h.occupied.currentHealth+"/"+
+									h.occupied.maxHealth),40);
 						}else {
 							temp.add(new JLabel("Health: "+h.occupied.currentHealth+"/"+
 									h.occupied.maxHealth));

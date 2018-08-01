@@ -181,20 +181,25 @@ public class Startup {
 			ArrayList<String> team2 = new ArrayList<String>();
 			ArrayList<Hex> hex1 = new ArrayList<Hex>();
 			ArrayList<Hex> hex2 = new ArrayList<Hex>();
+			boolean confirm1 = false,confirm2 = false;
 			for(JHeroBox<String> c:t1) {
 				if(!((String)c.getSelectedItem()).equals("None")) {
+					confirm1=true;
 					team1.add((String) c.getSelectedItem());
 					hex1.add(c.h);
 				}
 			}
 			for(JHeroBox<String> c:t2) {
 				if(!((String)c.getSelectedItem()).equals("None")) {
+					confirm2=true;
 					team2.add((String) c.getSelectedItem());
 					hex2.add(c.h);
 				}
 			}
-			screen.setVisible(false);
-			new Game(team1, team2,hex1,hex2);
+			if(confirm1&&confirm2) {
+				screen.setVisible(false);
+				new Game(team1, team2,hex1,hex2);
+			}
 		}
 		
 	}
