@@ -13,11 +13,13 @@ public class Senryu extends Hero{
 	int formUltcdMax = 8;
 
 
-	Senryu(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Senryu(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Senryu";
+		title = "River Dragon";
 		maxHealth = 550;
 		currentHealth = maxHealth;
 		maxStamina = 60;
@@ -526,7 +528,7 @@ public class Senryu extends Hero{
 				else {
 					str="Team 2";
 				}
-				Senryu_Phoenix s = new Senryu_Phoenix(grid,"Phoenix",str,(Hex) queue4.get(0),this);
+				Senryu_Phoenix s = new Senryu_Phoenix(grid,str,(Hex) queue4.get(0),this);
 				grid.game.occupants.add(s);
 				setStamina(10);
 				abcdDelay[3]=true;

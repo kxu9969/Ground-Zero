@@ -2,11 +2,12 @@ import java.util.ArrayList;
 
 public class Lindera_Singularity extends Occupant{
 
-	Lindera_Singularity(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Lindera_Singularity(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h,owner);
 	}
 
 	public void assembleStats() {
+		name = "Singularity";
 		maxHealth = 300;
 		currentHealth = maxHealth;
 		currentArmor = 0;		

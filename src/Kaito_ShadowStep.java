@@ -1,11 +1,12 @@
 
 public class Kaito_ShadowStep extends Occupant{
 
-	Kaito_ShadowStep(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Kaito_ShadowStep(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h,owner);
 	}
 
 	public void assembleStats() {
+		name = "Shadow Step";
 		maxHealth = 0;
 		currentHealth = maxHealth;
 	}

@@ -2,11 +2,13 @@ import java.util.ArrayList;
 
 public class Kaj_FeralGuide extends Summon{
 
-	Kaj_FeralGuide(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Kaj_FeralGuide(Grid grid, String team, Hex h, Unit owner) {
+		super(grid, team, h, owner);
 	}
 
 	public void assembleStats() {
+		name = "Feral Guide";
+		title = "Spirit Watcher";
 		maxHealth = 150;
 		currentHealth = maxHealth;
 		maxStamina = 50;

@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Vaal extends Hero{
 	
-	Vaal(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Vaal(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Vaal";
+		title = "Blade of Space";
 		maxHealth = 450;
 		currentHealth = maxHealth;
 		maxStamina = 45;

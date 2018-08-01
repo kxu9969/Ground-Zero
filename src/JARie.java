@@ -2,11 +2,13 @@
 
 public class JARie extends Hero{
 	
-	JARie(Grid grid,String name,String team,Hex h){
-		super(grid,name,team,h);
+	JARie(Grid grid,String team,Hex h){
+		super(grid,team,h);
 	}
 	
 	public void assembleStats() {
+		name = "JAR.ie";
+		title = "Assault Potato";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 50;

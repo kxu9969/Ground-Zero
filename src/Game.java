@@ -28,11 +28,11 @@ public class Game implements MouseListener, MouseMotionListener{
 	ArrayList<Unit> toBeRemoved = new ArrayList<Unit>();
 	ArrayList<Occupant> occupants = new ArrayList<Occupant>();
 	Grid grid = new Grid(this);;
-	Unit currentUnit= new Senryu(grid,"Senryu","Team 1",new Hex(5,2, -7));
-	Hero tempHero = new GuayTho(grid,"Guay-Tho","Team 2",new Hex(4,2,-6));
-	Hero one = new JARie(grid,"Jarie","Team 2",new Hex(6,2,-8));
-	Hero two = new Amon(grid,"Amon","Team 2",new Hex(7,2,-9));
-	Hero three = new Wrock(grid,"Wrock","Team 2",new Hex(8,2,-10));
+	Unit currentUnit= new Blur(grid,"Team 1",new Hex(5,2, -7));
+	Hero tempHero = new GuayTho(grid,"Team 2",new Hex(4,2,-6));
+	Hero one = new JARie(grid,"Team 2",new Hex(6,2,-8));
+	Hero two = new Amon(grid,"Team 2",new Hex(7,2,-9));
+	Hero three = new Kaj(grid,"Team 2",new Hex(8,2,-10));
 
 	final static int Visual_Width = 1200;
 	final static int Visual_Height = 970;
@@ -578,37 +578,44 @@ public class Game implements MouseListener, MouseMotionListener{
 
 	public Unit makeHero(String str,String team, Hex hex) {
 		Unit h = null;
-		if(str.equals("Ak'ar")) {
-			h = new Akar(grid,str,team,hex);
-		}else if(str.equals("Asger")) {
-			h = new Asger(grid,str,team,hex);
-		}else if(str.equals("Charity")) {
-			h = new Charity(grid,str,team,hex);
-		}else if(str.equals("Destiny")) {
-			h = new Destiny(grid,str,team,hex);
-		}else if(str.equals("JAR.ie")) {
-			h = new JARie(grid,str,team,hex);
-		}else if(str.equals("Kaito")) {
-			h = new Kaito(grid,str,team,hex);
-		}else if(str.equals("Kaj")) {
-			h = new Kaj(grid,str,team,hex);
-		}else if(str.equals("LAR.ie")) {
-			h = new LARie(grid,str,team,hex);
-		}else if(str.equals("Lindera")) {
-			h = new Lindera(grid,str,team,hex);
-		}else if(str.equals("Magmus")) {
-			h = new Magmus(grid,str,team,hex);
-		}else if(str.equals("Malor")) {
-			h = new Malor(grid,str,team,hex);
-		}else if(str.equals("Mortimer")) {
-			h = new Mortimer(grid,str,team,hex);
-		}else if(str.equals("Myria")) {
-			h = new Myria(grid,str,team,hex);
-		}else if(str.equals("Olaf")) {
-			h = new Olaf(grid,str,team,hex);
-		}else if(str.equals("Serenity")) {
-			h = new Serenity(grid,str,team,hex);
-		}
+		if(str.equals("Ak'ar")) {h = new Akar(grid,team,hex);}
+		else if(str.equals("ALPHA.XD")) {h = new Alpha(grid,team,hex);}
+		else if(str.equals("Amon")) {h = new Amon(grid,team,hex);}
+		else if(str.equals("Asger")) {h = new Asger(grid,team,hex);}
+		else if(str.equals("BAR.ie")) {h = new BARie(grid,team,hex);}
+		else if(str.equals("Beholder")) {h = new Beholder(grid,team,hex);}
+		else if(str.equals("Blur")) {h = new Blur(grid,team,hex);}
+		else if(str.equals("Charity")) {h = new Charity(grid,team,hex);}
+		else if(str.equals("Cragg")) {h = new Cragg(grid,team,hex);}
+		else if(str.equals("December")) {h = new December(grid,team,hex);}
+		else if(str.equals("Destiny")) {h = new Destiny(grid,team,hex);}
+		else if(str.equals("Guay-Tho")) {h = new GuayTho(grid,team,hex);}
+		else if(str.equals("Helena")) {h = new Helena(grid,team,hex);}
+		else if(str.equals("He Who Speaks Fire")) {h = new HWSF(grid,team,hex);}
+		else if(str.equals("Isaac")) {h = new Isaac(grid,team,hex);}
+		else if(str.equals("JAR.ie")) {h = new JARie(grid,team,hex);}
+		else if(str.equals("Kaito")) {h = new Kaito(grid,team,hex);}
+		else if(str.equals("Kaj")) {h = new Kaj(grid,team,hex);}
+		else if(str.equals("Kaluk")) {h = new Kaluk(grid,team,hex);}
+		else if(str.equals("LAR.ie")) {h = new LARie(grid,team,hex);}
+		else if(str.equals("Lash")) {h = new Lash(grid,team,hex);}
+		else if(str.equals("Lindera")) {h = new Lindera(grid,team,hex);}
+		else if(str.equals("Magmus")) {h = new Magmus(grid,team,hex);}
+		else if(str.equals("Malor")) {h = new Malor(grid,team,hex);}
+		else if(str.equals("Marcos")) {h = new Marcos(grid,team,hex);}
+		else if(str.equals("Mortimer")) {h = new Mortimer(grid,team,hex);}
+		else if(str.equals("Myria")) {h = new Myria(grid,team,hex);}
+		else if(str.equals("October")) {h = new October(grid,team,hex);}
+		else if(str.equals("Olaf")) {h = new Olaf(grid,team,hex);}
+		else if(str.equals("Saa")) {h = new Saa(grid,team,hex);}
+		else if(str.equals("Senryu")) {h = new Senryu(grid,team,hex);}
+		else if(str.equals("Serenity")) {h = new Serenity(grid,team,hex);}
+		else if(str.equals("Sig")) {h = new Sig(grid,team,hex);}
+		else if(str.equals("Vaal")) {h = new Vaal(grid,team,hex);}
+		else if(str.equals("Veena")) {h = new Veena(grid,team,hex);}
+		else if(str.equals("Vera")) {h = new Vera(grid,team,hex);}
+		else if(str.equals("Vorn")) {h = new Vorn(grid,team,hex);}
+		else if(str.equals("Wrock")) {h = new Wrock(grid,team,hex);}
 			
 		return h;
 	}

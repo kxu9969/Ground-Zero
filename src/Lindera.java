@@ -2,11 +2,13 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Lindera extends Hero{
-	Lindera(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Lindera(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Lindera";
+		title = "Void Princess";
 		maxHealth = 550;
 		currentHealth = maxHealth;
 		maxStamina = 60;
@@ -155,7 +157,7 @@ public class Lindera extends Hero{
 		else {
 			str="Team 2";
 		}
-		Lindera_Singularity b = new Lindera_Singularity(grid,"Singularity",str,h,this);
+		Lindera_Singularity b = new Lindera_Singularity(grid,str,h,this);
 		grid.game.occupants.add(b);
 		addBuff(new Buff("Singularity",this,2,this,true));
 		queue4.add(b);

@@ -1,11 +1,12 @@
 
 public class Lash_Flower extends TrampleOccupant{
 
-	Lash_Flower(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Lash_Flower(Grid grid, String team, Hex h, Unit owner) {
+		super(grid, team, h, owner);
 	}
 
 	public void assembleStats() {
+		name = "Flower";
 		maxHealth = 50;
 		currentHealth = maxHealth;
 		currentArmor = 0;		

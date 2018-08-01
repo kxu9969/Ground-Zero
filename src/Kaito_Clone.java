@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Kaito_Clone extends PartialHero{
 
-	Kaito_Clone(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Kaito_Clone(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Clone";
+		title = "Bladed Shadow";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 70;
@@ -82,7 +84,7 @@ public class Kaito_Clone extends PartialHero{
 		else {
 			str="Team 2";
 		}
-		Kaito_ShadowStep s = new Kaito_ShadowStep(grid,"Shadow Step",str,h,this);
+		Kaito_ShadowStep s = new Kaito_ShadowStep(grid,str,h,this);
 		grid.game.occupants.add(s);
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();

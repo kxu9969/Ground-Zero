@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 public class Kaj extends Hero{
 
-	Kaj(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Kaj(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Kaj";
+		title = "Gaia's Prophet";
 		maxHealth = 500;
 		currentHealth = maxHealth;
 		maxStamina = 60;
@@ -64,7 +66,7 @@ public class Kaj extends Hero{
 			else {
 				str="Team 2";
 			}
-			Kaj_TreeWall b = new Kaj_TreeWall(grid,"Wall of Trees",str,h,this);
+			Kaj_TreeWall b = new Kaj_TreeWall(grid,str,h,this);
 			addDebuff(new Debuff("Timed Life",b,3,this,true));
 			grid.game.occupants.add(b);
 		}
@@ -88,7 +90,7 @@ public class Kaj extends Hero{
 		else {
 			str="Team 2";
 		}
-		Kaj_FeralGuide b = new Kaj_FeralGuide(grid,"Feral Guide",str,h,this);
+		Kaj_FeralGuide b = new Kaj_FeralGuide(grid,str,h,this);
 		grid.game.addUnit(b);
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();
@@ -130,7 +132,7 @@ public class Kaj extends Hero{
 			showUlt();
 		}else if(queue4.size()==1) {
 			try {
-				String name = "Clone: "+((Hex)queue4.get(0)).occupied.name;
+				String name = "Effigy: "+((Hex)queue4.get(0)).occupied.name;
 				String str;
 				if(team==grid.game.team1) {
 					str="Team 1";
@@ -143,11 +145,12 @@ public class Kaj extends Hero{
 				Constructor constructor = null;
 				for(Constructor ctor:constructors) {
 					Class<?>[] pTypes = ctor.getParameterTypes();
-					if(pTypes.length==4) {
+					if(pTypes.length==3) {
 						constructor = ctor;
 					}
 				}
-				Unit c = (Unit) constructor.newInstance(grid,name,str,h);
+				Unit c = (Unit) constructor.newInstance(grid,str,h);
+				c.name = name;
 				c.maxHealth = ((Hex)queue4.get(0)).occupied.maxHealth;
 				c.currentHealth = ((Hex)queue4.get(0)).occupied.currentHealth;
 				c.maxHealth/=2;

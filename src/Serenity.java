@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Serenity extends Hero{
 
-	Serenity(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Serenity(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Serenity";
+		title = "Shield of Faith";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 60;

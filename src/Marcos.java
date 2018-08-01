@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Marcos extends Hero{
 
-	Marcos(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Marcos(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Marcos";
+		title = "Gleaming Sword";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 50;

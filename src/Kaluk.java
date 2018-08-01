@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Kaluk extends Hero{
 
-	Kaluk(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Kaluk(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Kaluk";
+		title = "Unbroken Spear"; 
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 50;

@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Saa extends Hero{
 
-	Saa(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Saa(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Saa";
+		title = "Demon-King of Sloth";
 		maxHealth = 800;
 		currentHealth = maxHealth;
 		maxStamina = 70;
@@ -69,7 +71,7 @@ public class Saa extends Hero{
 		else {
 			str="Team 2";
 		}
-		Saa_Herald s = new Saa_Herald(grid,"Herald of the End",str,h,this);
+		Saa_Herald s = new Saa_Herald(grid,str,h,this);
 		grid.game.occupants.add(s);
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();

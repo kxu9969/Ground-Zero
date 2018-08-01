@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Destiny extends Hero{
 
-	Destiny(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Destiny(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Destiny";
+		title = "Shield of Harmony";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 50;

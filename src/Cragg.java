@@ -2,11 +2,13 @@ import java.util.ArrayList;
 
 public class Cragg extends Hero{
 
-	Cragg(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Cragg(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Cragg";
+		title = "Living Wall";
 		maxHealth = 700;
 		currentHealth = maxHealth;
 		maxStamina = 80;

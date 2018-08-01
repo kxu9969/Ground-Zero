@@ -1,12 +1,14 @@
 
-public class Corpse extends Summon{
+public class Amon_Corpse extends Summon{
 
-	Corpse(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Amon_Corpse(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h,owner);
 		hasAb1=true;
 	}
 
 	public void assembleStats() {
+		name = "Corpse";
+		title = "Plague Bringer";
 		maxHealth = 250;
 		currentHealth = maxHealth;
 		maxStamina = 50;

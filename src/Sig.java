@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Sig extends Hero{
 
-	Sig(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Sig(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Sig";
+		title = "Chief Scrapper";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 65;
@@ -82,7 +84,7 @@ public class Sig extends Hero{
 		else {
 			str="Team 2";
 		}
-		Sig_MissileBomb b = new Sig_MissileBomb(grid,"Missile Bomb",str,h,this);
+		Sig_MissileBomb b = new Sig_MissileBomb(grid,str,h,this);
 		addDebuff(new Debuff("Timed Life",b,3,this,true));
 		grid.game.occupants.add(b);
 		abcdDelay[2]=true;

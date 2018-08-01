@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class HWSF extends Hero{
 
-	HWSF(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	HWSF(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "He Who Speaks Fire";
+		title = "Ancient Flame";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 55;

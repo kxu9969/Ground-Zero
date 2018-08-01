@@ -1,12 +1,13 @@
 
 public class Saa_Herald extends Occupant{
 
-	Saa_Herald(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Saa_Herald(Grid grid, String team, Hex h, Unit owner) {
+		super(grid, team, h, owner);
 		// TODO Auto-generated constructor stub
 	}
 
 	public void assembleStats() {
+		name = "Herald of the End";
 		maxHealth = 0;
 		currentHealth = maxHealth;		
 	}

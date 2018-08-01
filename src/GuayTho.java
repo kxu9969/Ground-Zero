@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class GuayTho extends Hero{
 
-	GuayTho(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	GuayTho(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Guay-Tho";
+		title = "Baboon Fisherman";
 		maxHealth = 700;
 		currentHealth = maxHealth;
 		maxStamina = 50;

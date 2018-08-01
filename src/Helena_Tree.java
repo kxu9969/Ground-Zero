@@ -1,12 +1,14 @@
 
 public class Helena_Tree extends Occupant{
 
-	Helena_Tree(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Helena_Tree(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h,owner);
 	}
 
 	@Override
 	public void assembleStats() {
+		name = "Tree";
+		title = "Ordinary Tree";
 		maxHealth = 50;
 		currentHealth = maxHealth;
 		currentArmor = 0;		

@@ -5,11 +5,13 @@ import java.awt.Color;
 
 public class Akar extends Hero{
 
-	Akar(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Akar(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Ak'ar";
+		title = "Lizardman Shaman";
 		maxHealth = 550;
 		currentHealth = maxHealth;
 		maxStamina = 60;
@@ -67,7 +69,7 @@ public class Akar extends Hero{
 		else {
 			str="Team 2";
 		}
-		Akar_BogBeast b = new Akar_BogBeast(grid,"Bog Beast",str,h,this);
+		Akar_BogBeast b = new Akar_BogBeast(grid,str,h,this);
 		grid.game.addUnit(b);
 		addDebuff(new Debuff("Timed Life",b,3,this,true));
 		abcdDelay[1]=true;

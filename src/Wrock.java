@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Wrock extends Hero{
 
-	Wrock(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Wrock(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Wrock";
+		title = "Rumble in the Mountain";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 65;
@@ -140,7 +142,7 @@ public class Wrock extends Hero{
 				else {
 					str="Team 2";
 				}
-				Wrock_Spear b = new Wrock_Spear(grid,"Spear",str,h1,this);
+				Wrock_Spear b = new Wrock_Spear(grid,str,h1,this);
 				grid.game.occupants.add(b);			}
 		}
 		abcdDelay[3]=true;

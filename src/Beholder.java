@@ -10,11 +10,13 @@ public class Beholder extends Hero{//ALSO NEEDS TO SUPER THE HASABILITY METHODS
 	Unit u2;
 	Unit u3;
 
-	Beholder(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Beholder(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Beholder";
+		title = "Avatar of Chaos";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 60;

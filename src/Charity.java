@@ -10,11 +10,13 @@ import javax.swing.SwingUtilities;
 
 public class Charity extends Hero{
 
-	Charity(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Charity(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Charity";
+		title = "Shield of Spirit";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 60;

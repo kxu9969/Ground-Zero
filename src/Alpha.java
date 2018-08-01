@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Alpha extends Hero{
 
-	Alpha(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Alpha(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "ALPHA.XD";
+		title = "Project Corvid";
 		maxHealth = 350;
 		currentHealth = maxHealth;
 		maxStamina = 50;

@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Kaito extends Hero{
 
-	Kaito(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Kaito(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Kaito";
+		title = "Ironclad Shadow";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 70;
@@ -74,7 +76,7 @@ public class Kaito extends Hero{
 		else {
 			str="Team 2";
 		}
-		Kaito_ShadowStep s = new Kaito_ShadowStep(grid,"Shadow Step",str,h,this);
+		Kaito_ShadowStep s = new Kaito_ShadowStep(grid,str,h,this);
 		grid.game.occupants.add(s);
 		abcdDelay[1]=true;
 		grid.game.endOfTurn();
@@ -120,7 +122,7 @@ public class Kaito extends Hero{
 			else {
 				str="Team 2";
 			}
-			Kaito_Clone c = new Kaito_Clone(grid,"Clone",str,h);
+			Kaito_Clone c = new Kaito_Clone(grid,str,h);
 			c.maxHealth=maxHealth/2;
 			if(c.currentHealth>c.maxHealth) {
 				c.currentHealth=c.maxHealth;

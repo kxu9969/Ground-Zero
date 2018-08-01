@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Amon extends Hero{
 
-	Amon(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Amon(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {//test passive proc on not his turn, start of his turn, end of his turn
+		name = "Amon";
+		title = "Prince of the Damned";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 50;
@@ -50,7 +52,7 @@ public class Amon extends Hero{
 			else {
 				str="Team 2";
 			}
-			Amon_Skeleton b = new Amon_Skeleton(grid,"Skeleton",str,h1,this);
+			Amon_Skeleton b = new Amon_Skeleton(grid,str,h1,this);
 			grid.game.addUnit(b);
 			addDebuff(new Debuff("Timed Life",b,3,this,true));
 		}
@@ -74,7 +76,7 @@ public class Amon extends Hero{
 		else {
 			str="Team 2";
 		}
-		Corpse b = new Corpse(grid,"Corpse",str,h,this);
+		Amon_Corpse b = new Amon_Corpse(grid,str,h,this);
 		grid.game.addUnit(b);
 		addDebuff(new Debuff("Timed Life",b,4,this,true));
 		abcdDelay[1]=true;
@@ -97,7 +99,7 @@ public class Amon extends Hero{
 		else {
 			str="Team 2";
 		}
-		Amon_Lich b = new Amon_Lich(grid,"Lich",str,h,this);
+		Amon_Lich b = new Amon_Lich(grid,str,h,this);
 		grid.game.addUnit(b);
 		abcdDelay[2]=true;
 		grid.game.endOfTurn();

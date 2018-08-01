@@ -1,11 +1,12 @@
 
 public class Wrock_Spear extends TrampleOccupant{
 
-	Wrock_Spear(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Wrock_Spear(Grid grid, String team, Hex h, Unit owner) {
+		super(grid, team, h, owner);
 	}
 
 	public void assembleStats() {
+		name = "Spear";
 		maxHealth = 150;
 		currentHealth = maxHealth;
 		currentArmor = 0;		

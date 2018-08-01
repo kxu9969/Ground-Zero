@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Myria extends Hero{
 	
-	Myria(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Myria(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {	
+		name = "Myria";
+		title = "Devil's Consort";
 		maxHealth = 550;
 		currentHealth = maxHealth;
 		maxStamina = 55;

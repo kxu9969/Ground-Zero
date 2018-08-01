@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class December extends Hero{
 
-	December(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	December(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 	
 	public void basicAttack(Hex h,int damage,boolean armor,boolean shield,boolean anotherTurn) {
@@ -25,6 +25,8 @@ public class December extends Hero{
 	}
 	
 	public void assembleStats() {
+		name = "December";
+		title = "Arcane Archer";
 		maxHealth = 450;
 		currentHealth = maxHealth;
 		maxStamina = 50;

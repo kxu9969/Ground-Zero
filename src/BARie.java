@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class BARie extends Hero{
 
-	BARie(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	BARie(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "BAR.ie";
+		title = "Heavy Ordnance Delivery System";
 		maxHealth = 500;
 		currentHealth = maxHealth;
 		maxStamina = 70;

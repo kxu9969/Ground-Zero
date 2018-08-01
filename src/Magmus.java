@@ -4,11 +4,13 @@ import java.util.ArrayList;
 public class Magmus extends Hero{
 	boolean preventLoop = false;
 	
-	Magmus(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Magmus(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Magmus";
+		title = "Molten Champion";
 		maxHealth = 650;
 		currentHealth = maxHealth;
 		maxStamina = 65;

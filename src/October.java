@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class October extends Hero{
 
-	October(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	October(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "October";
+		title = "Baleful Chant";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 65;

@@ -1,11 +1,13 @@
 
 public class Amon_Skeleton extends Summon{
 
-	Amon_Skeleton(Grid grid, String name, String team, Hex h, Unit owner) {
-		super(grid, name, team, h, owner);
+	Amon_Skeleton(Grid grid, String team, Hex h, Unit owner) {
+		super(grid, team, h, owner);
 	}
 
 	public void assembleStats() {
+		name = "Skeleton";
+		title = "Fallen Legionnaires";
 		maxHealth = 60;
 		currentHealth = maxHealth;
 		maxStamina = 70;

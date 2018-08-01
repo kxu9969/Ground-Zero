@@ -1,8 +1,8 @@
 
 public abstract class Hero extends PartialHero{
 	boolean tetherDie=false;
-	Hero(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Hero(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 	
 	public void die() {

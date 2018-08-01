@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Vera extends Hero{
 
-	Vera(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Vera(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Vera";
+		title = "Blade of Energy";
 		maxHealth = 500;
 		currentHealth = maxHealth;
 		maxStamina = 50;

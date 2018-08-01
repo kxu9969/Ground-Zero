@@ -1,11 +1,12 @@
 
 public class Sig_MissileBomb extends Occupant{
 
-	Sig_MissileBomb(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Sig_MissileBomb(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h,owner);
 	}
 
 	public void assembleStats() {
+		name = "Missile Bomb";
 		maxHealth = 100;
 		currentHealth = maxHealth;
 		currentArmor = 0;		

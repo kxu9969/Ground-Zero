@@ -1,8 +1,8 @@
 
 public abstract class Occupant extends Unit{//non-turn taking space holders
 	Unit owner;
-	Occupant(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h);
+	Occupant(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h);
 		hasAb1=false;
 		hasAb2=false;
 		hasAb3=false;

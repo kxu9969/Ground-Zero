@@ -4,11 +4,13 @@ import java.util.ArrayList;
 public class Malor extends Hero{
 	boolean preventLoop = false;
 	
-	Malor(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Malor(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Malor";
+		title = "Blood Reaver";
 		maxHealth = 350;
 		currentHealth = maxHealth;
 		maxStamina = 60;

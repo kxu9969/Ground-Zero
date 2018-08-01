@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Vorn extends Hero{
 
-	Vorn(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Vorn(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Vorn";
+		title = "Blade of Time";
 		maxHealth = 350;
 		currentHealth = maxHealth;
 		maxStamina = 45;

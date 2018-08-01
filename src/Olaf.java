@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Olaf extends Hero{
 
-	Olaf(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Olaf(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Olaf";
+		title = "Bringer of Feasts";
 		maxHealth = 550;
 		currentHealth = maxHealth;
 		maxStamina = 65;

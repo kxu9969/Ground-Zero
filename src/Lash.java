@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Lash extends Hero{
 
-	Lash(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Lash(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Lash";
+		title = "Queen of Thorns";
 		maxHealth = 350;
 		currentHealth = maxHealth;
 		maxStamina = 60;
@@ -109,7 +111,7 @@ public class Lash extends Hero{
 				else {
 					str="Team 2";
 				}
-				Lash_Flower b = new Lash_Flower(grid,"Flower",str,h1,this);
+				Lash_Flower b = new Lash_Flower(grid,str,h1,this);
 				grid.game.occupants.add(b);	
 			}
 		}

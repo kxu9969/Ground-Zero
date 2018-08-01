@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Veena extends Hero{
 
-	Veena(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Veena(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Veena";
+		title = "Serpent Charmer";
 		maxHealth = 450;
 		currentHealth = maxHealth;
 		maxStamina = 65;

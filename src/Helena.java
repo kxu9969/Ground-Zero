@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Helena extends Hero{
 
-	Helena(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Helena(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Helena";
+		title = "Feral Dryad";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 65;
@@ -108,7 +110,7 @@ public class Helena extends Hero{
 			else {
 				str="Team 2";
 			}
-			Helena_Tree b = new Helena_Tree(grid,"Tree",str,h,this);
+			Helena_Tree b = new Helena_Tree(grid,str,h,this);
 			grid.game.occupants.add(b);
 		}else {
 			h.clearHex();

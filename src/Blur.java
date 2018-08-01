@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Blur extends Hero{
 
-	Blur(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Blur(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Blur";
+		title = "Fang of Night";
 		maxHealth = 400;
 		currentHealth = maxHealth;
 		maxStamina = 50;

@@ -1,11 +1,13 @@
 
 public class Akar_BogBeast extends Summon{
 
-	Akar_BogBeast(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h, owner);
+	Akar_BogBeast(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h, owner);
 	}
 
 	public void assembleStats() {
+		name = "Bog Beast";
+		title = "Terror of the Swamp";
 		maxHealth = 300;
 		currentHealth = maxHealth;
 		maxStamina = 45;

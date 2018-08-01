@@ -12,7 +12,9 @@ public abstract class Unit {//broadest branch, all space takers
 	boolean hasAb1,hasAb2,hasAb3,hasUlt=true;
 	Hex position;
 	Grid grid;
-	String name,qM,qB,q1,q2,q3,q4,qP,qU;{
+	String name,title,qM,qB,q1,q2,q3,q4,qP,qU;{
+		name = "";
+		title = "";
 		qM = "Target an unoccupied tile within a range of 3 to move onto";
 		qB = "Target an enemy within range to execute a basic attack";
 		q1 = "Ability 1 text";
@@ -36,9 +38,8 @@ public abstract class Unit {//broadest branch, all space takers
 	ArrayList<Hex> queueB = new ArrayList<Hex>();
 	int setStamina = 0;
 
-	Unit(Grid grid,String name,String team,Hex h){
+	Unit(Grid grid,String team,Hex h){
 		this.grid = grid;
-		this.name = name;
 		if(team.equals("Team 1")) {
 			this.team = grid.game.team1;
 			enemyTeam = grid.game.team2;
@@ -50,9 +51,6 @@ public abstract class Unit {//broadest branch, all space takers
 			position = grid.getHex(h).setHero(this);
 		}
 		assembleStats();
-	}
-
-	Unit(){
 	}
 
 	public void setStamina(int i) {

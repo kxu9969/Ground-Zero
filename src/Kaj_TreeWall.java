@@ -1,12 +1,13 @@
 
 public class Kaj_TreeWall extends Occupant{
 
-	Kaj_TreeWall(Grid grid, String name, String team, Hex h,Unit owner) {
-		super(grid, name, team, h,owner);
+	Kaj_TreeWall(Grid grid, String team, Hex h,Unit owner) {
+		super(grid, team, h,owner);
 	}
 
 	@Override
 	public void assembleStats() {
+		name = "Tree Wall";
 		maxHealth = 50;
 		currentHealth = maxHealth;
 		currentArmor = 0;

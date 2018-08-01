@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class LARie extends Hero{
 
-	LARie(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	LARie(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "LAR.ie";
+		title = "Shadow Boxer";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 50;

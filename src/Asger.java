@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Asger extends Hero{
 
-	Asger(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Asger(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Asger";
+		title = "Blood Monk";
 		maxHealth = 600;
 		currentHealth = maxHealth;
 		maxStamina = 60;

@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 public class Isaac extends Hero{
 
-	Isaac(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Isaac(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Isaac";
+		title = "Cursed Scapegoat";
 		maxHealth = 150;
 		currentHealth = maxHealth;
 		maxStamina = 60;

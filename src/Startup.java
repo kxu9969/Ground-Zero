@@ -8,7 +8,17 @@ import javax.swing.*;
 public class Startup {
 	JFrame screen;
 	JPanel panel;
-	String[] names = {"None","Ak'ar","Asger","Charity","Destiny","JAR.ie","Kaito","Kaj","LAR.ie","Lindera","Magmus","Malor","Mortimer","Myria","Olaf","Serenity"};
+	String[] alphabetical = {"None","Ak'ar","ALPHA.XD","Amon","Asger","BAR.ie","Beholder",
+			"Blur","Charity","Cragg","December","Destiny","Guay-Tho","Helena",
+			"He Who Speaks Fire","Isaac","JAR.ie","Kaito","Kaj","Kaluk","LAR.ie",
+			"Lash","Lindera","Magmus","Malor","Marcos","Mortimer","Myria","October",
+			"Olaf","Saa","Senryu","Serenity","Sig","Vaal","Veena","Vera","Vorn","Wrock"};
+	String[] classes = {"None","LAR.ie","Cragg","Guay-Tho","Isaac","Saa","Wrock","Ak'ar",
+			"Lash","Kaj","Serenity","Charity","Destiny","Lindera","Olaf","Vorn","Vaal",
+			"Vera","Kaluk","Marcos","Blur","Sig","BAR.ie","Amon","He Who Speaks Fire",
+			"October","Malor","Mortimer","Asger","Magmus","Myria","Kaito","Senryu",
+			"JAR.ie","Helena","Veena","December","ALPHA.XD"};
+	String[] names = alphabetical;
 	JHeroBox<String> s1;
 	JHeroBox<String> s2;
 	JHeroBox<String> s3;
@@ -183,6 +193,7 @@ public class Startup {
 					hex2.add(c.h);
 				}
 			}
+			System.out.println(team1.size()+" "+team2.size());
 			screen.setVisible(false);
 			new Game(team1, team2,hex1,hex2);
 		}

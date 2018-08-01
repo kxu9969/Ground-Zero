@@ -2,11 +2,13 @@ import java.awt.Color;
 
 public class Mortimer extends Hero{
 
-	Mortimer(Grid grid, String name, String team, Hex h) {
-		super(grid, name, team, h);
+	Mortimer(Grid grid, String team, Hex h) {
+		super(grid, team, h);
 	}
 
 	public void assembleStats() {
+		name = "Mortimer";
+		title = "Hell Fiend";
 		maxHealth = 550;
 		currentHealth = maxHealth;
 		maxStamina = 60;
