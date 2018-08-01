@@ -36,7 +36,7 @@ public class Senryu extends Hero{
 		q1="Left Arm, Boar (3): Target an adjacent tile, charging in that direction for 3 tiles. Any characters struck take 60 damage and are shoved to the end of the path. Allies take no damage.";
 		q2="Right Arm, Tiger (1): Target an enemy within 3 range, dashing to them and basic attacking, dealing 5 more damage for every stack of Heavenly Wisdom.";
 		q3="Left Leg, Crane (2): Select up to two adjacent characters and whip them 2 tiles counterclockwise, dealing 30 damage and lowering their current stamina by 10. If the destination tiles are occupied, occupants are pushed out of the way and take 30 damage. Allies take no damage.";
-		q4="Right Leg, Phoenix (8): Target an unoccupied tile within 5 range and select an adjacent tile. Channel for 1 turn and gain 20 current stamina, jumping into the air and becoming untargetable, then land on the targeted tile. Enemies on the selected tile take 150 damage. Any characters, excluding you, adjacent to the selected tile are knocked back 1 tile, with enemies also taking 50 damage. This cannot be cast while rooted.";
+		q4="Right Leg, Phoenix (8): Target an unoccupied tile within 5 range and select an adjacent tile. Channel for 1 turn and gain 10 current stamina, jumping into the air and becoming untargetable, then land on the targeted tile. Enemies on the selected tile take 150 damage. Any characters, excluding you, adjacent to the selected tile are knocked back 1 tile, with enemies also taking 50 damage. This cannot be cast while rooted.";
 	}
 
 	public void basicAttack(Hex h,int damage,boolean armor, boolean shield, boolean anotherTurn) {
@@ -95,7 +95,7 @@ public class Senryu extends Hero{
 			q1="Left Arm, Boar (3): Target an adjacent tile, charging in that direction for 3 tiles. Any characters struck take 60 damage and are shoved to the end of the path. Allies take no damage.";
 			q2="Right Arm, Tiger (1): Target an enemy within 3 range, dashing to them and basic attacking, dealing 5 more damage for every stack of Heavenly Wisdom.";
 			q3="Left Leg, Crane (2): Select up to two adjacent characters and whip them 2 tiles counterclockwise, dealing 30 damage and lowering their current stamina by 10. If the destination tiles are occupied, occupants are pushed out of the way and take 30 damage. Allies take no damage.";
-			q4="Right Leg, Phoenix (8): Target an unoccupied tile within 5 range and select an adjacent tile. Channel for 1 turn and gain 20 current stamina, jumping into the air and becoming untargetable, then land on the targeted tile. Enemies on the selected tile take 150 damage. Any characters, excluding you, adjacent to the selected tile are knocked back 1 tile, with enemies also taking 50 damage. This cannot be cast while rooted.";
+			q4="Right Leg, Phoenix (8): Target an unoccupied tile within 5 range and select an adjacent tile. Channel for 1 turn and gain 10 current stamina, jumping into the air and becoming untargetable, then land on the targeted tile. Enemies on the selected tile take 150 damage. Any characters, excluding you, adjacent to the selected tile are knocked back 1 tile, with enemies also taking 50 damage. This cannot be cast while rooted.";
 		}
 		if(abcdDelay[0]) {
 			ab1cd=ab1cdMax+1;
@@ -528,7 +528,7 @@ public class Senryu extends Hero{
 				}
 				Senryu_Phoenix s = new Senryu_Phoenix(grid,"Phoenix",str,(Hex) queue4.get(0),this);
 				grid.game.occupants.add(s);
-				setStamina(20);
+				setStamina(10);
 				abcdDelay[3]=true;
 				grid.game.endOfTurn();
 
