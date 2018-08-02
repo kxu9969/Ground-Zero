@@ -377,12 +377,12 @@ public class Game implements MouseListener, MouseMotionListener{
 			qB.setEnabled(true);
 		}
 		if(currentUnit.hasAb1()) {
+			q1.setEnabled(true);
 			ab1.setText("Ability 1 ("+currentUnit.ab1cd+")");
 			if(currentUnit.ab1cd!=0||!currentUnit.ableAb1()||currentUnit.hasDebuff("Silenced")) {
 				ab1.setEnabled(false);
 			}else {
 				ab1.setEnabled(true);
-				q1.setEnabled(true);
 			}
 		}
 		else {
@@ -391,12 +391,12 @@ public class Game implements MouseListener, MouseMotionListener{
 			q1.setEnabled(false);
 		}
 		if(currentUnit.hasAb2()) {
+			q2.setEnabled(true);
 			ab2.setText("Ability 2 ("+currentUnit.ab2cd+")");
 			if(currentUnit.ab2cd!=0||!currentUnit.ableAb2()||currentUnit.hasDebuff("Silenced")) {
 				ab2.setEnabled(false);
 			}else {
 				ab2.setEnabled(true);
-				q2.setEnabled(true);
 			}
 		}
 		else {
@@ -405,12 +405,12 @@ public class Game implements MouseListener, MouseMotionListener{
 			q2.setEnabled(false);
 		}
 		if(currentUnit.hasAb3()) {
+			q3.setEnabled(true);
 			ab3.setText("Ability 3 ("+currentUnit.ab3cd+")");
 			if(currentUnit.ab3cd!=0||!currentUnit.ableAb3()||currentUnit.hasDebuff("Silenced")) {
 				ab3.setEnabled(false);
 			}else {
 				ab3.setEnabled(true);
-				q3.setEnabled(true);
 			}
 		}
 		else {
@@ -419,12 +419,12 @@ public class Game implements MouseListener, MouseMotionListener{
 			q3.setEnabled(false);
 		}
 		if(currentUnit.hasUlt()) {
+			q4.setEnabled(true);
 			ult.setText("Ultimate ("+currentUnit.ultcd+")");
 			if(currentUnit.ultcd!=0||!currentUnit.ableUlt()||currentUnit.hasDebuff("Silenced")) {
 				ult.setEnabled(false);
 			}else {
 				ult.setEnabled(true);
-				q4.setEnabled(true);
 			}
 		}
 		else {
@@ -744,7 +744,9 @@ public class Game implements MouseListener, MouseMotionListener{
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		mouseClicked(e);
+		try {
+			mouseClicked(e);
+		}catch(ArrayIndexOutOfBoundsException e1) {}
 	}
 
 	public void clear() {
